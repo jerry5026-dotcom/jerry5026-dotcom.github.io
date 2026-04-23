@@ -435,20 +435,17 @@
       line-height: 1.55;
     }
 
-    /* Mock preview (가짜 데이터 UI) */
+    /* Mock preview (원본 Google Sites 레이아웃 재현 · 가짜 데이터) */
     .mock-gallery {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 24px;
+      gap: 28px;
       margin: 24px 0 0;
-    }
-    @media (min-width: 860px) {
-      .mock-gallery { grid-template-columns: 1fr 1fr; }
     }
     .mock-caption {
       font-size: 11.5px;
       color: var(--sub);
-      margin-top: 8px;
+      margin-top: 10px;
       text-align: center;
       font-style: italic;
     }
@@ -458,161 +455,361 @@
       overflow: hidden;
       box-shadow: 0 4px 16px rgba(0,0,0,0.06);
       background: #fff;
+      font-size: 11px;
+      color: #333;
     }
-    .mock-chrome {
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .mock-banner {
+      text-align: center;
       padding: 8px 12px;
-      background: #ececec;
-      border-bottom: 1px solid #d8d4ca;
-    }
-    .mock-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #d1ccc0;
-    }
-    .mock-dot:nth-child(1) { background: #ed6a5e; }
-    .mock-dot:nth-child(2) { background: #f5bf4f; }
-    .mock-dot:nth-child(3) { background: #62c554; }
-    .mock-url {
-      flex: 1;
-      margin-left: 8px;
       background: #fff;
-      border-radius: 4px;
-      padding: 3px 10px;
-      font-size: 10px;
-      color: #999;
-      font-family: monospace;
+      font-size: 10.5px;
+      color: #888;
+      border-bottom: 1px solid #f0ede5;
     }
     .mock-body {
       display: flex;
-      min-height: 260px;
-      font-size: 10px;
-      background: #fafaf7;
-    }
-    .mock-sidebar {
-      width: 85px;
       background: #fff;
-      border-right: 1px solid var(--line);
-      padding: 10px 0;
+      min-height: 320px;
+    }
+    /* Sidebar — 원본 스타일 */
+    .mock-sidebar {
+      width: 110px;
+      background: #fff;
+      border-right: 1px solid #ececec;
+      padding: 14px 0;
       flex-shrink: 0;
     }
-    .mock-logo {
+    .mock-logo-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#d4a574,#a67c4f);
+      margin: 0 auto 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
       font-size: 9px;
       font-weight: 700;
-      padding: 6px 10px;
-      margin-bottom: 8px;
-      color: var(--accent);
+    }
+    .mock-site-title {
       text-align: center;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 10px;
+      font-size: 11px;
+      font-weight: 400;
+      color: #555;
+      padding-bottom: 14px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid #ececec;
     }
     .mock-menu {
-      padding: 5px 10px;
-      font-size: 9.5px;
+      padding: 6px 14px;
+      font-size: 10.5px;
       color: #555;
-      cursor: default;
     }
     .mock-menu.active {
-      color: var(--accent);
       font-weight: 700;
-      background: #fbeae8;
-      border-left: 2px solid var(--accent);
+      color: var(--ink);
+      border-bottom: 2px solid #f5d14f;
+      display: inline-block;
+      margin-left: 14px;
+      padding: 6px 0;
     }
     .mock-submenu {
-      padding: 4px 10px 4px 18px;
-      font-size: 8.5px;
+      padding: 4px 14px 4px 22px;
+      font-size: 10px;
       color: #888;
     }
     .mock-main {
       flex: 1;
-      padding: 10px;
+      padding: 14px 16px;
+      min-width: 0;
+      background: #fff;
+    }
+    /* Date + quick links bar */
+    .mock-infobar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .mock-date-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+    }
+    .mock-big-date {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .mock-time { font-size: 10px; color: #888; }
+    .mock-weather, .mock-dust, .mock-dday {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      min-width: 0;
+      gap: 1px;
+      font-size: 10px;
     }
-    .mock-topbar {
+    .mock-weather b { color: #e8a33a; font-size: 13px; }
+    .mock-dust b { color: #2d7a3e; }
+    .mock-dday b { color: var(--accent); font-size: 13px; }
+    .mock-quicklinks {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .mock-qlink {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 9.5px;
+      color: #555;
+      min-width: 30px;
+    }
+    .mock-qlink-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      background: #f5f1e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    .mock-divider {
+      border-top: 1px solid #ececec;
+      margin: 10px 0 14px;
+    }
+    /* Widgets grid — 3+2 layout like original */
+    .mock-widgets {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      gap: 12px;
+    }
+    @media (max-width: 720px) {
+      .mock-widgets { grid-template-columns: 1fr 1fr; }
+    }
+    .mock-box {
+      border: 1px solid #ececec;
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: #fff;
+    }
+    .mock-box.accent { border-color: #f0c5c0; box-shadow: 0 0 0 1px #f0c5c0 inset; }
+    .mock-box-title {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink);
+      padding-bottom: 6px;
+      border-bottom: 1px solid #ececec;
+      margin-bottom: 8px;
+    }
+    .mock-box-title .accent { color: var(--accent); }
+    /* 학적 현황 */
+    .mock-enroll {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 14px;
+      font-size: 10.5px;
+    }
+    .mock-enroll-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #ececec;
+      padding: 2px 0;
+    }
+    .mock-enroll-row b { color: var(--ink); font-size: 13px; font-weight: 700; }
+    .mock-enroll-row .sub { font-size: 8.5px; color: var(--accent); }
+    .mock-enroll-total {
+      grid-column: span 2;
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-top: 1px solid #ececec;
+      margin-top: 2px;
+      font-weight: 700;
+    }
+    .mock-enroll-total b { font-size: 14px; color: var(--ink); }
+    /* Tabs */
+    .mock-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .mock-tab {
+      padding: 2px 10px;
+      font-size: 10px;
+      border-radius: 12px;
+      background: #f5f1e8;
+      color: #888;
+    }
+    .mock-tab.on {
+      background: var(--ink);
+      color: #fff;
+    }
+    /* 주요 일정 */
+    .mock-events {
+      font-size: 10px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .mock-events li {
+      list-style: none;
+      padding-left: 10px;
+      position: relative;
+    }
+    .mock-events li::before {
+      content: '•';
+      position: absolute;
+      left: 2px;
+      color: var(--sub);
+    }
+    .mock-events .time { color: #888; font-size: 9.5px; margin-right: 3px; }
+    /* 부서별 공지 */
+    .mock-notice-form {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+      font-size: 10px;
+    }
+    .mock-select, .mock-input {
+      border: 1px solid #ececec;
+      border-radius: 3px;
+      padding: 3px 6px;
+      background: #fff;
+      color: #888;
+      font-size: 9.5px;
+    }
+    .mock-select { width: 55px; }
+    .mock-input { flex: 1; }
+    .mock-btn {
+      padding: 3px 10px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 3px;
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+    .mock-ncell {
+      display: grid;
+      grid-template-columns: 14px 40px 1fr 30px;
+      gap: 6px;
+      font-size: 10px;
+      padding: 4px 2px;
+      border-bottom: 1px dashed #ececec;
+      align-items: center;
+    }
+    .mock-ncell .cbox { width: 10px; height: 10px; border: 1px solid #bbb; border-radius: 2px; }
+    .mock-ncell .cbox.on { background: var(--ink); border-color: var(--ink); }
+    .mock-ncell .dept {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: #ececec;
+      color: #666;
+      font-size: 9px;
+      text-align: center;
+    }
+    .mock-ncell .dept.acad { background: #fbeae8; color: var(--accent); }
+    .mock-ncell a { color: #2d4f7a; text-decoration: underline; }
+    .mock-ncell .strike { color: #bbb; text-decoration: line-through; }
+    .mock-ncell .date-tag { color: var(--accent); font-size: 9px; font-weight: 700; }
+    /* 급식 메뉴 */
+    .mock-meal {
+      font-size: 10.5px;
+      color: #555;
+      line-height: 1.8;
+      text-align: center;
+    }
+    /* 한 줄 게시판 */
+    .mock-chat-form {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .mock-chat-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 4px 0;
+      border-bottom: 1px dashed #ececec;
+      font-size: 10px;
+    }
+    .mock-chat-time {
+      color: #888;
+      font-size: 9px;
+      white-space: nowrap;
+      padding-top: 1px;
+    }
+    .mock-chat-msg { flex: 1; color: #333; line-height: 1.5; }
+    .mock-heart { color: #e85959; font-size: 9.5px; font-weight: 700; white-space: nowrap; }
+    /* 두 번째 row */
+    .mock-widgets-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.4fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 720px) {
+      .mock-widgets-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* 업무 게시판 mock */
+    .mock-board {
+      padding: 14px 16px;
+      flex: 1;
+    }
+    .mock-board-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 8px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      font-size: 9px;
-    }
-    .mock-date { font-weight: 700; color: var(--ink); }
-    .mock-date .mock-sub { font-weight: 400; color: var(--sub); font-size: 8.5px; }
-    .mock-quick {
-      display: flex;
-      gap: 4px;
+      margin-bottom: 10px;
+      font-size: 10.5px;
+      color: #888;
       flex-wrap: wrap;
+      gap: 8px;
     }
-    .mock-quick span {
-      padding: 2px 5px;
-      background: #f5f1e8;
-      border-radius: 3px;
-      font-size: 8.5px;
-      color: #8a7a5a;
+    .mock-board-head b { color: #2d4f7a; }
+    .mock-board-controls { display: flex; gap: 4px; align-items: center; }
+    .mock-board-table {
+      border-top: 1.5px solid var(--ink);
     }
-    .mock-widgets {
+    .mock-board-row-tbl {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-    .mock-widget {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 6px 8px;
-      min-height: 50px;
-    }
-    .mock-widget-title {
-      font-size: 9px;
-      font-weight: 700;
-      color: var(--ink);
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 3px;
-      margin-bottom: 4px;
-      text-align: center;
-    }
-    .mock-widget-body {
-      font-size: 8.5px;
-      color: var(--sub);
-      line-height: 1.5;
-    }
-    .mock-row { display: flex; justify-content: space-between; margin-bottom: 1px; }
-    .mock-row b { color: var(--accent); }
-
-    /* Board mock */
-    .mock-board-row {
-      display: grid;
-      grid-template-columns: 24px 1fr 40px 50px;
-      gap: 6px;
-      padding: 4px 8px;
-      font-size: 9px;
-      border-bottom: 1px solid var(--line);
+      grid-template-columns: 40px 1fr 60px 80px;
+      gap: 8px;
+      padding: 7px 8px;
+      font-size: 11px;
+      border-bottom: 1px solid #ececec;
       align-items: center;
     }
-    .mock-board-row.head {
+    .mock-board-row-tbl.head {
       font-weight: 700;
-      background: #fafaf7;
+      background: #fafafa;
       color: var(--ink);
-      font-size: 8.5px;
+      font-size: 10.5px;
     }
-    .mock-notice { color: var(--accent); font-weight: 700; }
-    .mock-tag {
+    .mock-board-row-tbl .num { text-align: center; color: #888; }
+    .mock-board-row-tbl .num.notice { color: var(--accent); font-weight: 700; }
+    .mock-board-row-tbl .author {
       display: inline-block;
-      padding: 1px 5px;
-      background: #eef5ee;
-      color: #2d7a3e;
-      border-radius: 2px;
-      font-size: 8px;
+      padding: 2px 10px;
+      background: #b0d4f0;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 9.5px;
+      text-align: center;
+      font-weight: 700;
     }
-    .mock-tag.edu { background: #e8edf5; color: #2d4f7a; }
+    .mock-board-row-tbl .author.acad { background: #c5a88a; }
+    .mock-board-row-tbl .date { color: #888; text-align: right; font-size: 10.5px; }
+    .mock-attach { color: #888; font-size: 10px; margin-left: 4px; }
 
     /* Mobile */
     @media (max-width: 600px) {
@@ -805,148 +1002,250 @@
         </div>
       </div>
 
-      <!-- 모의 화면 (가짜 데이터) -->
+      <!-- 모의 화면 (원본 레이아웃 재현 · 가짜 데이터) -->
       <div class="mock-gallery">
 
         <!-- Mock 1: 홈 대시보드 -->
         <div>
           <div class="mock-preview">
-            <div class="mock-chrome">
-              <span class="mock-dot"></span>
-              <span class="mock-dot"></span>
-              <span class="mock-dot"></span>
-              <div class="mock-url">internal-dashboard · 교내 전용</div>
-            </div>
+            <div class="mock-banner">○○-ON(가칭)입니다. 좋은 이름 있으면 추천해주세요. 그리고 적극적 피드백 환영합니다.</div>
             <div class="mock-body">
               <aside class="mock-sidebar">
-                <div class="mock-logo">교내 포털</div>
-                <div class="mock-menu active">홈</div>
+                <div class="mock-logo-circle">LOGO</div>
+                <div class="mock-site-title">○○-ON</div>
+                <div class="mock-menu"><span class="active">홈</span></div>
                 <div class="mock-menu">학사일정</div>
                 <div class="mock-menu">업무 게시판</div>
-                <div class="mock-menu">학교생활 정보</div>
-                <div class="mock-submenu">· 결재선 안내</div>
-                <div class="mock-submenu">· 학생 명렬표</div>
-                <div class="mock-submenu">· 주요 사이트</div>
+                <div class="mock-menu">∨ 학교생활 정보</div>
+                <div class="mock-submenu">NEIS 결재선</div>
+                <div class="mock-submenu">학생 명렬표</div>
+                <div class="mock-submenu">주요 사이트</div>
               </aside>
               <div class="mock-main">
-                <div class="mock-topbar">
-                  <div class="mock-date">
-                    2026. ○. ○. (○)
-                    <span class="mock-sub">맑음 15° · 미세먼지 보통 · 방학 D-○○</span>
+                <!-- 상단 정보 바 -->
+                <div class="mock-infobar">
+                  <div class="mock-date-block">
+                    <div>
+                      <div class="mock-big-date">○○○○. ○. ○. (○)</div>
+                      <div class="mock-time">○○:○○</div>
+                    </div>
+                    <div class="mock-weather">☀️<b>○°</b><span style="color:#888;font-size:9px">맑음</span></div>
+                    <div class="mock-dust">미세먼지 <b>○○</b><span style="color:#888;font-size:9px">초미세 ○○</span></div>
+                    <div class="mock-dday">여름방학 <b>D-○○</b></div>
                   </div>
-                  <div class="mock-quick">
-                    <span>업무포털</span><span>드라이브</span><span>캘린더</span><span>시간표</span>
+                  <div class="mock-quicklinks">
+                    <div class="mock-qlink"><div class="mock-qlink-icon">🏢</div>업무포털</div>
+                    <div class="mock-qlink"><div class="mock-qlink-icon">📁</div>드라이브</div>
+                    <div class="mock-qlink"><div class="mock-qlink-icon">📅</div>캘린더</div>
+                    <div class="mock-qlink"><div class="mock-qlink-icon">📋</div>주간업무</div>
+                    <div class="mock-qlink"><div class="mock-qlink-icon">📞</div>연락망</div>
+                    <div class="mock-qlink"><div class="mock-qlink-icon">🕐</div>시간표</div>
+                    <div class="mock-qlink"><div class="mock-qlink-icon">🎨</div>창체계획</div>
+                    <div class="mock-qlink"><div class="mock-qlink-icon">🌙</div>야자감독</div>
                   </div>
                 </div>
+
+                <div class="mock-divider"></div>
+
+                <!-- 첫 번째 줄: 학적 / 주요 일정 / 부서별 공지 -->
                 <div class="mock-widgets">
-                  <div class="mock-widget">
-                    <div class="mock-widget-title">학적 현황</div>
-                    <div class="mock-widget-body">
-                      <div class="mock-row"><span>1학년</span><b>○○</b></div>
-                      <div class="mock-row"><span>2학년</span><b>○○</b></div>
-                      <div class="mock-row"><span>3학년</span><b>○○</b></div>
+
+                  <div class="mock-box">
+                    <div class="mock-box-title">학적 현황(○○○○.○○.○○.)</div>
+                    <div class="mock-enroll">
+                      <div class="mock-enroll-row"><span>1-1</span><b>○○</b></div>
+                      <div class="mock-enroll-row"><span>3-1</span><b>○○</b></div>
+                      <div class="mock-enroll-row"><span>1-2</span><b>○○</b></div>
+                      <div class="mock-enroll-row"><span>3-2</span><b>○○</b></div>
+                      <div class="mock-enroll-row"><span>2-1</span><b>○○</b></div>
+                      <div class="mock-enroll-row"><span>2-2</span><b>○○</b><span class="sub">특수 ○</span></div>
+                      <div class="mock-enroll-total">
+                        <span>전교생</span><b>○○</b>
+                      </div>
                     </div>
                   </div>
-                  <div class="mock-widget">
-                    <div class="mock-widget-title">주요 일정 (오늘)</div>
-                    <div class="mock-widget-body">
-                      · 1교시 ○반 수행평가<br>
-                      · 방과후 부서 회의<br>
-                      · 동아리 활동
+
+                  <div class="mock-box">
+                    <div class="mock-box-title">주요 일정</div>
+                    <div class="mock-tabs">
+                      <span class="mock-tab">어제</span>
+                      <span class="mock-tab on">오늘</span>
+                      <span class="mock-tab">내일</span>
+                    </div>
+                    <ul class="mock-events">
+                      <li>학생) ○○○ 실태조사 실시 (~○.○○.)</li>
+                      <li>학생) 도서관 행사 ○○~○○ (도서관에서 점심시간 자율학습)</li>
+                      <li><span class="time">○○:○○</span> ○교시 ○-○ ○○ ○○ ○대 대여</li>
+                      <li><span class="time">○○:○○</span> ○,○교시 동아리 활동</li>
+                    </ul>
+                  </div>
+
+                  <div class="mock-box accent">
+                    <div class="mock-box-title"><span class="accent">부서별 전달, 공지사항</span></div>
+                    <div class="mock-notice-form">
+                      <span class="mock-select">부서명 ▾</span>
+                      <span class="mock-input">전달·공지사항을 남겨주세요.</span>
+                      <span class="mock-btn">등록</span>
+                    </div>
+                    <div class="mock-ncell">
+                      <span class="cbox"></span>
+                      <span class="dept">기타</span>
+                      <a>○○-○○(ON) 명칭 공모합니다.(링크 클릭)</a>
+                      <span></span>
+                    </div>
+                    <div class="mock-ncell">
+                      <span class="cbox on"></span>
+                      <span class="dept acad">교무</span>
+                      <span class="strike">1회고사 출제·원안지 제출 마감</span>
+                      <span class="date-tag">[○.○○(○)]</span>
+                    </div>
+                    <div class="mock-ncell">
+                      <span class="cbox"></span>
+                      <span class="dept acad">교무</span>
+                      <span>수행평가 채점 기한 안내</span>
+                      <span class="date-tag">[○.○○(○)]</span>
                     </div>
                   </div>
-                  <div class="mock-widget">
-                    <div class="mock-widget-title">급식 메뉴</div>
-                    <div class="mock-widget-body">
-                      찰보리밥 · 된장국<br>
-                      편육 · 깍두기<br>
-                      제철 과일
-                    </div>
-                  </div>
-                  <div class="mock-widget">
-                    <div class="mock-widget-title">한 줄 게시판</div>
-                    <div class="mock-widget-body">
-                      "오늘도 화이팅! 💪"<br>
-                      "수고하셨습니다 🙌"<br>
-                      "감사합니다 ☕"
-                    </div>
-                  </div>
+
                 </div>
+
+                <!-- 두 번째 줄: 급식 / 한 줄 게시판 -->
+                <div class="mock-widgets-2">
+
+                  <div class="mock-box">
+                    <div class="mock-box-title">급식 메뉴</div>
+                    <div class="mock-tabs">
+                      <span class="mock-tab on">오늘</span>
+                      <span class="mock-tab">이번 주</span>
+                    </div>
+                    <div class="mock-meal">
+                      ○○○밥<br>
+                      ○○○국수<br>
+                      ○○○장국<br>
+                      편육<br>
+                      깍두기<br>
+                      ○○○/쌈장
+                    </div>
+                  </div>
+
+                  <div class="mock-box" style="grid-column: span 2;">
+                    <div class="mock-box-title">한 줄 게시판</div>
+                    <div class="mock-chat-form">
+                      <span class="mock-input">즐거운 하루 되세요 ✨</span>
+                      <span class="mock-btn">등록</span>
+                    </div>
+                    <div class="mock-chat-row">
+                      <span class="mock-chat-time">[○○.○○ ○○:○○]</span>
+                      <span class="mock-chat-msg">○회고사 시험 문제 출제하시느라 고생 많으셨습니다! 💖</span>
+                      <span class="mock-heart">❤ ○○</span>
+                    </div>
+                    <div class="mock-chat-row">
+                      <span class="mock-chat-time">[○○.○○ ○○:○○]</span>
+                      <span class="mock-chat-msg">온라인 교무실 너무 유용하게 잘 사용하고 있습니다. 감사해요.^^</span>
+                      <span class="mock-heart">❤ ○</span>
+                    </div>
+                    <div class="mock-chat-row">
+                      <span class="mock-chat-time">[○○.○○ ○○:○○]</span>
+                      <span class="mock-chat-msg">○○ ○○(on)빛, ○○ ○○(on)마루, ○○ ○○(on)쌤 추천합니다.</span>
+                      <span class="mock-heart">❤ ○</span>
+                    </div>
+                    <div class="mock-chat-row">
+                      <span class="mock-chat-time">[○○.○○ ○○:○○]</span>
+                      <span class="mock-chat-msg">○○선생님, ○○부장님, ○○선생님, ○○○ 선생님, 학생들 인솔하시느라 정말 고생많으셨습니다!!</span>
+                      <span class="mock-heart">❤ ○</span>
+                    </div>
+                  </div>
+
+                </div>
+
               </div>
             </div>
           </div>
-          <div class="mock-caption">▲ 홈 화면 (모의 구성 · 실제 데이터 아님)</div>
+          <div class="mock-caption">▲ 홈 화면 · 모든 데이터는 샘플이며 실제 정보가 아닙니다</div>
         </div>
 
         <!-- Mock 2: 업무 게시판 -->
         <div>
           <div class="mock-preview">
-            <div class="mock-chrome">
-              <span class="mock-dot"></span>
-              <span class="mock-dot"></span>
-              <span class="mock-dot"></span>
-              <div class="mock-url">internal-dashboard · 업무 게시판</div>
-            </div>
+            <div class="mock-banner">○○-ON(가칭)입니다. 좋은 이름 있으면 추천해주세요. 그리고 적극적 피드백 환영합니다.</div>
             <div class="mock-body">
               <aside class="mock-sidebar">
-                <div class="mock-logo">교내 포털</div>
+                <div class="mock-logo-circle">LOGO</div>
+                <div class="mock-site-title">○○-ON</div>
                 <div class="mock-menu">홈</div>
                 <div class="mock-menu">학사일정</div>
-                <div class="mock-menu active">업무 게시판</div>
-                <div class="mock-menu">학교생활 정보</div>
+                <div class="mock-menu"><span class="active">업무 게시판</span></div>
+                <div class="mock-menu">∨ 학교생활 정보</div>
+                <div class="mock-submenu">NEIS 결재선</div>
+                <div class="mock-submenu">학생 명렬표</div>
+                <div class="mock-submenu">주요 사이트</div>
               </aside>
-              <div class="mock-main">
-                <div class="mock-topbar">
-                  <div class="mock-date">업무 게시판
-                    <span class="mock-sub">첨부파일은 드라이브 자동 업로드</span>
+
+              <div class="mock-board">
+                <div class="mock-board-head">
+                  <div>첨부파일은 구글 드라이브의 <b>'업무 게시판 자료 탑재'</b>에 자동 업로드됩니다.</div>
+                  <div class="mock-board-controls">
+                    <span class="mock-select">전체 ▾</span>
+                    <span class="mock-input" style="width:120px">검색어 입력</span>
+                    <span class="mock-btn" style="background:#fff;color:var(--ink);border:1px solid var(--ink)">검색</span>
+                    <span class="mock-btn">글쓰기</span>
                   </div>
-                  <div class="mock-quick"><span>글쓰기</span></div>
                 </div>
-                <div style="background:#fff; border:1px solid var(--line); border-radius:4px;">
-                  <div class="mock-board-row head">
-                    <span>번호</span><span>제목</span><span>작성자</span><span>날짜</span>
+
+                <div class="mock-board-table">
+                  <div class="mock-board-row-tbl head">
+                    <span class="num">번호</span>
+                    <span style="text-align:center">제 목</span>
+                    <span style="text-align:center">작성자</span>
+                    <span style="text-align:center">작성일</span>
                   </div>
-                  <div class="mock-board-row">
-                    <span class="mock-notice">공지</span>
+                  <div class="mock-board-row-tbl">
+                    <span class="num notice">공지</span>
                     <span>업무 게시판 이용 안내</span>
-                    <span class="mock-tag">행정</span>
-                    <span>○○.○○.○○</span>
+                    <span><span class="author">행정</span></span>
+                    <span class="date">○○○○.○○.○○.</span>
                   </div>
-                  <div class="mock-board-row">
-                    <span class="mock-notice">공지</span>
+                  <div class="mock-board-row-tbl">
+                    <span class="num notice">공지</span>
                     <span>연수 등록부 프로그램</span>
-                    <span class="mock-tag">행정</span>
-                    <span>○○.○○.○○</span>
+                    <span><span class="author">행정</span></span>
+                    <span class="date">○○○○.○○.○○.</span>
                   </div>
-                  <div class="mock-board-row">
-                    <span>5</span>
-                    <span>AI 기반 생기부·수행평가 도구 공유</span>
-                    <span class="mock-tag">행정</span>
-                    <span>○○.○○.○○</span>
+                  <div class="mock-board-row-tbl">
+                    <span class="num">○</span>
+                    <span>AI 기반 생기부 작성, 수행평가 채점 도구 공유합니다.</span>
+                    <span><span class="author">행정</span></span>
+                    <span class="date">○○○○.○○.○○.</span>
                   </div>
-                  <div class="mock-board-row">
-                    <span>4</span>
-                    <span>○○학년도 교육계획서 📎</span>
-                    <span class="mock-tag edu">교무</span>
-                    <span>○○.○○.○○</span>
+                  <div class="mock-board-row-tbl">
+                    <span class="num">○</span>
+                    <span>○○○○학년도 교육계획서 <span class="mock-attach">📎 ○</span></span>
+                    <span><span class="author acad">교무</span></span>
+                    <span class="date">○○○○.○○.○○.</span>
                   </div>
-                  <div class="mock-board-row">
-                    <span>3</span>
-                    <span>여비 정산 신청서 양식 📎</span>
-                    <span class="mock-tag">행정</span>
-                    <span>○○.○○.○○</span>
+                  <div class="mock-board-row-tbl">
+                    <span class="num">○</span>
+                    <span>여비 정산 신청서 양식 <span class="mock-attach">📎 ○</span></span>
+                    <span><span class="author">행정</span></span>
+                    <span class="date">○○○○.○○.○○.</span>
                   </div>
-                  <div class="mock-board-row">
-                    <span>2</span>
-                    <span>학교생활기록부 기재요령 길라잡이 📎</span>
-                    <span class="mock-tag edu">교무</span>
-                    <span>○○.○○.○○</span>
+                  <div class="mock-board-row-tbl">
+                    <span class="num">○</span>
+                    <span>○○○○학년도 학교생활기록부 기재요령 길라잡이 <span class="mock-attach">📎 ○</span></span>
+                    <span><span class="author acad">교무</span></span>
+                    <span class="date">○○○○.○○.○○.</span>
+                  </div>
+                  <div class="mock-board-row-tbl">
+                    <span class="num">○</span>
+                    <span>공유 캘린더 및 주간업무 계획 자동 연동 방법</span>
+                    <span><span class="author">행정</span></span>
+                    <span class="date">○○○○.○○.○○.</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="mock-caption">▲ 업무 게시판 (모의 구성 · 실제 데이터 아님)</div>
+          <div class="mock-caption">▲ 업무 게시판 · 모든 데이터는 샘플이며 실제 정보가 아닙니다</div>
         </div>
 
       </div>
