@@ -677,52 +677,55 @@
     /* 부서별 공지 */
     .mock-notice-form {
       display: flex;
-      gap: 4px;
-      margin-bottom: 8px;
-      font-size: 10px;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: 11px;
+      align-items: center;
     }
     .mock-select, .mock-input {
-      border: 1px solid #ececec;
-      border-radius: 3px;
-      padding: 3px 6px;
+      border: 1px solid #d8d8d8;
+      border-radius: 4px;
+      padding: 5px 10px;
       background: #fff;
-      color: #888;
-      font-size: 9.5px;
+      color: #aaa;
+      font-size: 11px;
     }
-    .mock-select { width: 55px; }
+    .mock-select { width: auto; min-width: 66px; }
     .mock-input { flex: 1; }
     .mock-btn {
-      padding: 3px 10px;
+      padding: 5px 14px;
       background: var(--ink);
       color: #fff;
-      border-radius: 3px;
-      font-size: 9.5px;
+      border-radius: 4px;
+      font-size: 11px;
       font-weight: 700;
+      white-space: nowrap;
     }
     .mock-ncell {
       display: grid;
-      grid-template-columns: 14px 40px 1fr 30px;
-      gap: 6px;
-      font-size: 10px;
-      padding: 4px 2px;
+      grid-template-columns: 16px 48px 1fr auto;
+      gap: 10px;
+      font-size: 11.5px;
+      padding: 7px 2px;
       border-bottom: 1px dashed #ececec;
       align-items: center;
     }
-    .mock-ncell .cbox { width: 10px; height: 10px; border: 1px solid #bbb; border-radius: 2px; }
+    .mock-ncell .cbox { width: 12px; height: 12px; border: 1px solid #bbb; border-radius: 2px; }
     .mock-ncell .cbox.on { background: var(--ink); border-color: var(--ink); }
     .mock-ncell .dept {
       display: inline-block;
-      padding: 1px 6px;
-      border-radius: 10px;
+      padding: 3px 10px;
+      border-radius: 12px;
       background: #ececec;
       color: #666;
-      font-size: 9px;
+      font-size: 10px;
       text-align: center;
+      font-weight: 400;
     }
-    .mock-ncell .dept.acad { background: #fbeae8; color: var(--accent); }
-    .mock-ncell a { color: #2d4f7a; text-decoration: underline; }
-    .mock-ncell .strike { color: #bbb; text-decoration: line-through; }
-    .mock-ncell .date-tag { color: var(--accent); font-size: 9px; font-weight: 700; }
+    .mock-ncell .dept.acad { background: #e0c9a7; color: #5a4528; }
+    .mock-ncell a { color: #2d4f7a; text-decoration: underline; font-size: 11.5px; }
+    .mock-ncell .strike { color: #bbb; text-decoration: line-through; font-size: 11.5px; }
+    .mock-ncell .date-tag { color: var(--accent); font-size: 10.5px; font-weight: 700; white-space: nowrap; }
     /* 급식 메뉴 */
     .mock-meal {
       font-size: 10.5px;
@@ -733,25 +736,36 @@
     /* 한 줄 게시판 */
     .mock-chat-form {
       display: flex;
-      gap: 4px;
-      margin-bottom: 8px;
+      gap: 6px;
+      margin-bottom: 10px;
+      align-items: center;
     }
     .mock-chat-row {
       display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      padding: 4px 0;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
       border-bottom: 1px dashed #ececec;
-      font-size: 10px;
+      font-size: 11.5px;
     }
     .mock-chat-time {
       color: #888;
-      font-size: 9px;
+      font-size: 10.5px;
       white-space: nowrap;
-      padding-top: 1px;
     }
     .mock-chat-msg { flex: 1; color: #333; line-height: 1.5; }
-    .mock-heart { color: #e85959; font-size: 9.5px; font-weight: 700; white-space: nowrap; }
+    .mock-heart {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 10px;
+      background: #ffe6e6;
+      border-radius: 12px;
+      font-size: 10.5px;
+      color: #e85959;
+      font-weight: 700;
+      white-space: nowrap;
+    }
     /* 두 번째 row */
     .mock-widgets-2 {
       display: grid;
@@ -765,30 +779,31 @@
 
     /* 업무 게시판 mock */
     .mock-board {
-      padding: 14px 16px;
+      padding: 20px 24px;
       flex: 1;
+      background: #fff;
     }
     .mock-board-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      font-size: 10.5px;
-      color: #888;
+      margin-bottom: 14px;
+      font-size: 12px;
+      color: #666;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
     }
     .mock-board-head b { color: #2d4f7a; }
-    .mock-board-controls { display: flex; gap: 4px; align-items: center; }
+    .mock-board-controls { display: flex; gap: 6px; align-items: center; }
     .mock-board-table {
-      border-top: 1.5px solid var(--ink);
+      border-top: 2px solid #333;
     }
     .mock-board-row-tbl {
       display: grid;
-      grid-template-columns: 40px 1fr 60px 80px;
-      gap: 8px;
-      padding: 7px 8px;
-      font-size: 11px;
+      grid-template-columns: 56px 1fr 84px 100px;
+      gap: 12px;
+      padding: 12px 10px;
+      font-size: 12.5px;
       border-bottom: 1px solid #ececec;
       align-items: center;
     }
@@ -796,23 +811,153 @@
       font-weight: 700;
       background: #fafafa;
       color: var(--ink);
-      font-size: 10.5px;
+      font-size: 11.5px;
+      padding: 10px 10px;
     }
     .mock-board-row-tbl .num { text-align: center; color: #888; }
     .mock-board-row-tbl .num.notice { color: var(--accent); font-weight: 700; }
+    .mock-board-row-tbl .author-wrap { text-align: center; }
     .mock-board-row-tbl .author {
       display: inline-block;
-      padding: 2px 10px;
-      background: #b0d4f0;
+      padding: 4px 16px;
+      background: #7eb5e8;
       color: #fff;
-      border-radius: 10px;
-      font-size: 9.5px;
+      border-radius: 14px;
+      font-size: 11px;
       text-align: center;
       font-weight: 700;
     }
     .mock-board-row-tbl .author.acad { background: #c5a88a; }
-    .mock-board-row-tbl .date { color: #888; text-align: right; font-size: 10.5px; }
-    .mock-attach { color: #888; font-size: 10px; margin-left: 4px; }
+    .mock-board-row-tbl .date { color: #888; text-align: center; font-size: 12px; }
+    .mock-attach { color: #888; font-size: 11px; margin-left: 4px; }
+
+    /* 연락망 mock */
+    .mock-contact-left {
+      width: 240px;
+      background: #f5f1e8;
+      padding: 22px 20px;
+      flex-shrink: 0;
+    }
+    .mock-contact-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .mock-contact-search {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .mock-contact-placeholder {
+      text-align: center;
+      padding: 40px 10px;
+      color: #aaa;
+      font-size: 11px;
+    }
+    .mock-contact-main {
+      flex: 1;
+      padding: 18px 22px;
+      background: #fff;
+    }
+    .mock-contact-card {
+      border: 1px solid #d8d4ca;
+      border-radius: 6px;
+      background: #fff;
+      padding: 20px 22px;
+    }
+    .mock-contact-cap {
+      text-align: center;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #ececec;
+      margin-bottom: 14px;
+    }
+    .mock-contact-cap h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+      margin: 0 0 4px;
+      letter-spacing: -0.02em;
+    }
+    .mock-contact-cap .sub {
+      font-size: 10.5px;
+      color: #888;
+    }
+    .mock-contact-top {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      border: 1px solid #ececec;
+      margin-bottom: 16px;
+    }
+    .mock-contact-top-cell {
+      padding: 8px 6px;
+      text-align: center;
+      font-size: 10.5px;
+      border-right: 1px solid #ececec;
+    }
+    .mock-contact-top-cell:last-child { border-right: 0; }
+    .mock-contact-top-cell .label { color: #666; margin-bottom: 2px; }
+    .mock-contact-top-cell .num { color: #222; font-weight: 700; font-size: 12px; }
+    .mock-contact-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 820px) {
+      .mock-contact-dual { grid-template-columns: 1fr; }
+    }
+    .mock-contact-section-title {
+      text-align: center;
+      padding: 6px 0;
+      font-weight: 700;
+      font-size: 11.5px;
+      background: #f5f5f5;
+      border: 1px solid #ececec;
+      border-bottom: 0;
+    }
+    .mock-contact-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+    }
+    .mock-contact-tbl th,
+    .mock-contact-tbl td {
+      padding: 5px 6px;
+      border-bottom: 1px solid #f0f0f0;
+      text-align: center;
+    }
+    .mock-contact-tbl th {
+      background: #fafafa;
+      color: #555;
+      font-weight: 700;
+      border-top: 1px solid #ececec;
+      font-size: 10px;
+    }
+    .mock-contact-tbl td.role { color: #444; font-weight: 400; }
+    .mock-contact-tbl td.name,
+    .mock-contact-tbl td.ext,
+    .mock-contact-tbl td.tel { color: #666; }
+    .mock-contact-subhead {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 7px 0;
+      font-weight: 700;
+      font-size: 11.5px;
+      background: #faf6ec;
+      border: 1px solid #ececec;
+      border-bottom: 0;
+      margin-top: 12px;
+    }
+    .mock-contact-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #ececec;
+      text-align: center;
+      font-size: 9.5px;
+      color: #aaa;
+      letter-spacing: 0.15em;
+    }
 
     /* 학사일정 - Calendar */
     .mock-cal-toolbar {
@@ -1683,7 +1828,7 @@
           <div class="mock-caption">▲ 학사일정 · Google Calendar 연동 · 샘플 일정</div>
         </div>
 
-        <!-- Mock 4: NEIS 결재선 -->
+        <!-- Mock 4: 연락망 -->
         <div>
           <div class="mock-preview">
             <div class="mock-banner">○○-ON(가칭)입니다. 좋은 이름 있으면 추천해주세요. 그리고 적극적 피드백 환영합니다.</div>
@@ -1691,166 +1836,87 @@
               <aside class="mock-sidebar">
                 <div class="mock-logo-circle"></div>
                 <div class="mock-site-title">○○-ON</div>
-                <div class="mock-menu">홈</div>
+                <div class="mock-menu"><span class="active">홈</span></div>
                 <div class="mock-menu">학사일정</div>
                 <div class="mock-menu">업무 게시판</div>
-                <div class="mock-menu">∧ 학교생활 정보</div>
-                <div class="mock-submenu"><span class="active">NEIS 결재선</span></div>
-                <div class="mock-submenu">학생 명렬표</div>
-                <div class="mock-submenu">주요 사이트</div>
+                <div class="mock-menu">∨ 학교생활 정보</div>
               </aside>
 
-              <div class="mock-approval">
-                <div class="mock-approval-head">
-                  <div class="mock-approval-title">NEIS 결재선</div>
-                  <div class="mock-approval-legend">
-                    <span><span class="dot" style="background:#8a5fb5"></span>정보</span>
-                    <span><span class="dot" style="background:#4a85d4"></span>교무</span>
-                    <span><span class="dot" style="background:#5fa570"></span>행정실장</span>
-                    <span><span class="dot" style="background:#d89a3a"></span>교감</span>
-                    <span><span class="dot" style="background:#cf4538"></span>교장</span>
-                  </div>
+              <div class="mock-contact-left">
+                <div class="mock-contact-title">📞 연락망 검색</div>
+                <div class="mock-contact-search">
+                  <span class="mock-input">이름, 부서, 내선 입력</span>
+                  <span class="mock-btn">검색</span>
                 </div>
-                <div class="mock-approval-actions">
-                  <span>검토/협조</span>
-                  <span class="on">결재</span>
-                </div>
-                <div class="mock-approval-table">
-                  <div class="mock-approval-row">
-                    <div class="mock-approval-cat" style="grid-row: span 4;">출장</div>
-                    <div class="mock-approval-type">관외 출장 (여비 지급)</div>
-                    <div class="mock-approval-flow">
-                      <span class="mock-pill gyomu">교무</span>
-                      <span class="mock-arrow">→</span>
-                      <span class="mock-pill admin">행정실장: 협조</span>
-                      <span class="mock-arrow">→</span>
-                      <span class="mock-pill gyogam">교감</span>
-                      <span class="mock-arrow">→</span>
-                      <span class="mock-pill gyojang">교장</span>
+                <div class="mock-contact-placeholder">내용을 입력하세요.</div>
+              </div>
+
+              <div class="mock-contact-main">
+                <div class="mock-contact-card">
+                  <div class="mock-contact-cap">
+                    <h3>○○○○학년도 내선번호 및 전화번호 안내</h3>
+                    <div class="sub">○○○○. ○○. ○○. 기준</div>
+                  </div>
+
+                  <div class="mock-contact-top">
+                    <div class="mock-contact-top-cell"><div class="label">교장실</div><div class="num">○○○-○○○○</div></div>
+                    <div class="mock-contact-top-cell"><div class="label">교무실 A</div><div class="num">○○○-○○○○</div></div>
+                    <div class="mock-contact-top-cell"><div class="label">교무실 B</div><div class="num">○○○-○○○○</div></div>
+                    <div class="mock-contact-top-cell"><div class="label">행정실</div><div class="num">○○○-○○○○</div></div>
+                    <div class="mock-contact-top-cell"><div class="label">FAX</div><div class="num">○○○-○○○○</div></div>
+                  </div>
+
+                  <div class="mock-contact-dual">
+                    <div>
+                      <div class="mock-contact-section-title">○○ 및 공통</div>
+                      <table class="mock-contact-tbl">
+                        <thead>
+                          <tr><th>구분</th><th>성명</th><th>내선</th><th>전화번호</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr><td class="role">교장</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">교감</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">교무</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">연구</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">정보</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">1-1</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">2-1</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">2-2</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">3-1</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">3-2</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div>
+                      <div class="mock-contact-section-title">○○</div>
+                      <table class="mock-contact-tbl">
+                        <thead>
+                          <tr><th>구분</th><th>성명</th><th>내선</th><th>전화번호</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr><td class="role">교장</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">교무</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">연구</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">안전</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">정보</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">1-1</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">1-2</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">2-1</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">2-2</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                          <tr><td class="role">3-1</td><td class="name">○○○</td><td class="ext">○○○</td><td class="tel">○○○-○○○○-○○○○</td></tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                  <div class="mock-approval-row" style="grid-template-columns:1fr;padding-left:74px;">
-                    <div style="display:grid;grid-template-columns:170px 1fr;gap:8px;align-items:center;">
-                      <div class="mock-approval-type">관외 출장 (여비 부지급)</div>
-                      <div class="mock-approval-flow">
-                        <span class="mock-pill gyomu">교무</span>
-                        <span class="mock-arrow">→</span>
-                        <span class="mock-pill gyogam">교감</span>
-                        <span class="mock-arrow">→</span>
-                        <span class="mock-pill gyojang">교장</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mock-approval-row" style="grid-template-columns:1fr;padding-left:74px;">
-                    <div style="display:grid;grid-template-columns:170px 1fr;gap:8px;align-items:center;">
-                      <div class="mock-approval-type">관내 출장 (보직 교사)</div>
-                      <div class="mock-approval-flow">
-                        <span class="mock-pill gyomu">교무</span>
-                        <span class="mock-arrow">→</span>
-                        <span class="mock-pill gyogam">교감</span>
-                        <span class="mock-arrow">→</span>
-                        <span class="mock-pill gyojang">교장</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mock-approval-row" style="grid-template-columns:1fr;padding-left:74px;">
-                    <div style="display:grid;grid-template-columns:170px 1fr;gap:8px;align-items:center;">
-                      <div class="mock-approval-type">관내 출장 (비보직 교사)</div>
-                      <div class="mock-approval-flow">
-                        <span class="mock-pill gyomu">교무</span>
-                        <span class="mock-arrow">→</span>
-                        <span class="mock-pill gyogam filled">교감</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mock-approval-row">
-                    <div class="mock-approval-cat" style="grid-row: span 2;">복무</div>
-                    <div class="mock-approval-type">연가·공가·병가·특별휴가</div>
-                    <div class="mock-approval-flow">
-                      <span class="mock-pill gyomu">교무</span>
-                      <span class="mock-arrow">→</span>
-                      <span class="mock-pill gyogam">교감</span>
-                      <span class="mock-arrow">→</span>
-                      <span class="mock-pill gyojang">교장</span>
-                    </div>
-                  </div>
-                  <div class="mock-approval-row" style="grid-template-columns:1fr;padding-left:74px;">
-                    <div style="display:grid;grid-template-columns:170px 1fr;gap:8px;align-items:center;">
-                      <div class="mock-approval-type">조퇴·외출·지각</div>
-                      <div class="mock-approval-flow">
-                        <span class="mock-pill gyomu">교무</span>
-                        <span class="mock-arrow">→</span>
-                        <span class="mock-pill gyogam filled">교감</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mock-approval-row">
-                    <div class="mock-approval-cat" style="grid-row: span 2;">기타</div>
-                    <div class="mock-approval-type">시간외(초과) 근무</div>
-                    <div class="mock-approval-flow">
-                      <span class="mock-pill gyogam">교감</span>
-                      <span class="mock-arrow">→</span>
-                      <span class="mock-pill gyojang">교장</span>
-                    </div>
-                  </div>
-                  <div class="mock-approval-row" style="grid-template-columns:1fr;padding-left:74px;">
-                    <div style="display:grid;grid-template-columns:170px 1fr;gap:8px;align-items:center;">
-                      <div class="mock-approval-type">EVPN 신청</div>
-                      <div class="mock-approval-flow">
-                        <span class="mock-pill info">정보</span>
-                        <span class="mock-arrow">→</span>
-                        <span class="mock-pill gyogam">교감</span>
-                        <span class="mock-arrow">→</span>
-                        <span class="mock-pill gyojang">교장</span>
-                      </div>
-                    </div>
+
+                  <div class="mock-contact-footer">
+                    INTERNAL TELEPHONE DIRECTORY · ○○○○
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="mock-caption">▲ NEIS 결재선 안내 · 업무 유형별 결재 경로 한눈에</div>
-        </div>
-
-        <!-- Mock 5: 주요 사이트 -->
-        <div>
-          <div class="mock-preview">
-            <div class="mock-banner">○○-ON(가칭)입니다. 좋은 이름 있으면 추천해주세요. 그리고 적극적 피드백 환영합니다.</div>
-            <div class="mock-body">
-              <aside class="mock-sidebar">
-                <div class="mock-logo-circle"></div>
-                <div class="mock-site-title">○○-ON</div>
-                <div class="mock-menu">홈</div>
-                <div class="mock-menu">학사일정</div>
-                <div class="mock-menu">업무 게시판</div>
-                <div class="mock-menu">∧ 학교생활 정보</div>
-                <div class="mock-submenu">NEIS 결재선</div>
-                <div class="mock-submenu">학생 명렬표</div>
-                <div class="mock-submenu"><span class="active">주요 사이트</span></div>
-              </aside>
-
-              <div class="mock-sites">
-                <div class="mock-sites-banner">지속적 추가 예정입니다.</div>
-                <div class="mock-sites-grid">
-                  <div class="mock-site-btn">EVPN 원격업무시스템</div>
-                  <div class="mock-site-btn">학교 홈페이지</div>
-                  <div class="mock-site-btn hi">행정용 SW 다운</div>
-                  <div class="mock-site-btn">지역 AI-ro</div>
-                  <div class="mock-site-btn">국가교육과정정보센터</div>
-                  <div class="mock-site-btn">학교생활기록부 종합지원포털</div>
-                  <div class="mock-site-btn">고교학점제 지원센터</div>
-                  <div class="mock-site-btn">학생평가지원포털</div>
-                  <div class="mock-site-btn">에듀넷 지식샘터</div>
-                  <div class="mock-site-btn">학교안전사고보상지원시스템</div>
-                </div>
-                <div class="mock-sites-drops">
-                  <div class="mock-site-dropdown">**업무(생기부, 그외 기타 등등) 관련 유용한 사이트**<span>⌄</span></div>
-                  <div class="mock-site-dropdown white">**에듀테크 관련 소개**<span>⌄</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mock-caption">▲ 주요 사이트 · 교직원이 자주 쓰는 외부 링크 한곳에</div>
+          <div class="mock-caption">▲ 연락망 · 모든 이름·번호는 마스킹 처리 · 검색으로 부서/이름/내선 찾기</div>
         </div>
 
       </div>
