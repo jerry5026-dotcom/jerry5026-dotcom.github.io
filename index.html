@@ -27,12 +27,130 @@
       font-family: 'Noto Sans KR', sans-serif;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
     }
+
+    /* Sticky top navigation */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: saturate(180%) blur(10px);
+      -webkit-backdrop-filter: saturate(180%) blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topnav-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .topnav-brand {
+      font-family: 'Gowun Batang', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .topnav-brand .dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .topnav-links {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .topnav-links a {
+      font-size: 12.5px;
+      color: #555;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .topnav-links a:hover {
+      background: #f5f1e8;
+      color: var(--accent);
+    }
+    @media (max-width: 520px) {
+      .topnav-brand { font-size: 13px; }
+      .topnav-links a { padding: 5px 8px; font-size: 11.5px; }
+    }
+
+    /* Alternating section backgrounds */
+    .section-band {
+      width: 100%;
+    }
+    .section-band.cream {
+      background: #f7f4ec;
+      border-top: 1px solid #eee7d7;
+      border-bottom: 1px solid #eee7d7;
+    }
+    .section-band .container {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+    .section-band:first-of-type .container { padding-top: 40px; }
 
     .container {
       max-width: 980px;
       margin: 0 auto;
       padding: 60px 24px 80px;
+    }
+    html { scroll-padding-top: 64px; }
+
+    /* Dashboard tabs */
+    .dash-tabs { margin-top: 24px; }
+    .dash-tabs input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .dash-tab-labels {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .dash-tab-labels label {
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #888;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .dash-tab-labels label:hover { color: var(--ink); }
+    .dash-panel { display: none; }
+    .dash-tabs #dt-home:checked    ~ .dash-tab-panels > .dash-panel:nth-child(1),
+    .dash-tabs #dt-board:checked   ~ .dash-tab-panels > .dash-panel:nth-child(2),
+    .dash-tabs #dt-cal:checked     ~ .dash-tab-panels > .dash-panel:nth-child(3),
+    .dash-tabs #dt-contact:checked ~ .dash-tab-panels > .dash-panel:nth-child(4) {
+      display: block;
+    }
+    .dash-tabs #dt-home:checked    ~ .dash-tab-labels label[for="dt-home"],
+    .dash-tabs #dt-cal:checked     ~ .dash-tab-labels label[for="dt-cal"],
+    .dash-tabs #dt-board:checked   ~ .dash-tab-labels label[for="dt-board"],
+    .dash-tabs #dt-contact:checked ~ .dash-tab-labels label[for="dt-contact"] {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
     /* Header */
@@ -1257,7 +1375,21 @@
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a href="#home" class="topnav-brand"><span class="dot"></span>퇴근 시간을 응원합니다</a>
+      <div class="topnav-links">
+        <a href="#home">홈</a>
+        <a href="#tools">공개 도구</a>
+        <a href="#dashboard">교내 대시보드</a>
+        <a href="#about">소개</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section-band" id="home">
+    <div class="container">
 
     <!-- Header -->
     <header class="header">
@@ -1280,6 +1412,12 @@
         실제 학교 현장에서 쓰면서 다듬은 도구들입니다.
       </p>
     </div>
+
+    </div>
+  </section>
+
+  <section class="section-band cream" id="tools">
+    <div class="container">
 
     <!-- Tools -->
     <span class="section-label public">PUBLIC · 누구나 사용 가능</span>
@@ -1329,6 +1467,12 @@
       </a>
 
     </div>
+
+    </div>
+  </section>
+
+  <section class="section-band" id="dashboard">
+    <div class="container">
 
     <!-- Internal Dashboard -->
     <span class="section-label internal">INTERNAL · 근무 학교 전용</span>
@@ -1420,10 +1564,21 @@
       </div>
 
       <!-- 모의 화면 (원본 레이아웃 재현 · 가짜 데이터) -->
-      <div class="mock-gallery" id="mocks">
+      <div class="dash-tabs" id="mocks">
+        <input type="radio" name="dash-tab" id="dt-home" checked>
+        <input type="radio" name="dash-tab" id="dt-cal">
+        <input type="radio" name="dash-tab" id="dt-board">
+        <input type="radio" name="dash-tab" id="dt-contact">
+        <div class="dash-tab-labels">
+          <label for="dt-home">홈</label>
+          <label for="dt-cal">학사일정</label>
+          <label for="dt-board">업무 게시판</label>
+          <label for="dt-contact">연락망</label>
+        </div>
+        <div class="dash-tab-panels">
 
         <!-- Mock 1: 홈 대시보드 -->
-        <div>
+        <div class="dash-panel">
           <div class="mock-preview">
             <div class="mock-banner">○○-ON(가칭)입니다. 좋은 이름 있으면 추천해주세요. 그리고 적극적 피드백 환영합니다.</div>
             <div class="mock-body">
@@ -1582,7 +1737,7 @@
         </div>
 
         <!-- Mock 2: 업무 게시판 -->
-        <div>
+        <div class="dash-panel">
           <div class="mock-preview">
             <div class="mock-banner">○○-ON(가칭)입니다. 좋은 이름 있으면 추천해주세요. 그리고 적극적 피드백 환영합니다.</div>
             <div class="mock-body">
@@ -1666,7 +1821,7 @@
         </div>
 
         <!-- Mock 3: 학사일정 -->
-        <div>
+        <div class="dash-panel">
           <div class="mock-preview">
             <div class="mock-banner">○○-ON(가칭)입니다. 좋은 이름 있으면 추천해주세요. 그리고 적극적 피드백 환영합니다.</div>
             <div class="mock-body">
@@ -1829,7 +1984,7 @@
         </div>
 
         <!-- Mock 4: 연락망 -->
-        <div>
+        <div class="dash-panel">
           <div class="mock-preview">
             <div class="mock-banner">○○-ON(가칭)입니다. 좋은 이름 있으면 추천해주세요. 그리고 적극적 피드백 환영합니다.</div>
             <div class="mock-body">
@@ -1919,14 +2074,21 @@
           <div class="mock-caption">▲ 연락망 · 모든 이름·번호는 마스킹 처리 · 검색으로 부서/이름/내선 찾기</div>
         </div>
 
-      </div>
+        </div><!-- /dash-tab-panels -->
+      </div><!-- /dash-tabs -->
 
       <div class="dashboard-note">
         ※ 위 화면은 개인정보·학교정보 보호를 위해 가짜 데이터로 재구성한 <strong>모의 이미지</strong>입니다.
         실제 대시보드는 근무 학교 교직원만 접근 가능하며, 외부 URL·스크린샷·데이터는 공개하지 않습니다.
-        화면 구조·구성 아이디어를 다른 학교에 적용하고 싶으신 경우 이메일로 문의해 주세요.
+        화면 구조·구성 코드를 받고 싶으신 경우에는 이메일로 문의해 주세요. (해당 학교에 맞게 직접 수정하셔야 합니다.)
       </div>
     </div>
+
+    </div>
+  </section>
+
+  <section class="section-band cream" id="about">
+    <div class="container">
 
     <!-- Notice -->
     <div class="notice">
@@ -1956,6 +2118,8 @@
       © 2026 조기원. 자유롭게 사용·공유하실 수 있으며, 출처 표시 부탁드립니다.
     </footer>
 
-  </div>
+    </div>
+  </section>
+
 </body>
 </html>
