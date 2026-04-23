@@ -400,6 +400,220 @@
       line-height: 1.6;
     }
 
+    /* Menu detail */
+    .menu-detail {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--line);
+    }
+    .menu-detail-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .menu-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .menu-item {
+      padding: 12px 14px;
+      border-left: 3px solid var(--accent);
+      background: #fafaf7;
+      border-radius: 0 6px 6px 0;
+    }
+    .menu-item-name {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .menu-item-desc {
+      font-size: 11.5px;
+      color: var(--sub);
+      line-height: 1.55;
+    }
+
+    /* Mock preview (가짜 데이터 UI) */
+    .mock-gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin: 24px 0 0;
+    }
+    @media (min-width: 860px) {
+      .mock-gallery { grid-template-columns: 1fr 1fr; }
+    }
+    .mock-caption {
+      font-size: 11.5px;
+      color: var(--sub);
+      margin-top: 8px;
+      text-align: center;
+      font-style: italic;
+    }
+    .mock-preview {
+      border: 1px solid #d8d4ca;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      background: #fff;
+    }
+    .mock-chrome {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #ececec;
+      border-bottom: 1px solid #d8d4ca;
+    }
+    .mock-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #d1ccc0;
+    }
+    .mock-dot:nth-child(1) { background: #ed6a5e; }
+    .mock-dot:nth-child(2) { background: #f5bf4f; }
+    .mock-dot:nth-child(3) { background: #62c554; }
+    .mock-url {
+      flex: 1;
+      margin-left: 8px;
+      background: #fff;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 10px;
+      color: #999;
+      font-family: monospace;
+    }
+    .mock-body {
+      display: flex;
+      min-height: 260px;
+      font-size: 10px;
+      background: #fafaf7;
+    }
+    .mock-sidebar {
+      width: 85px;
+      background: #fff;
+      border-right: 1px solid var(--line);
+      padding: 10px 0;
+      flex-shrink: 0;
+    }
+    .mock-logo {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 6px 10px;
+      margin-bottom: 8px;
+      color: var(--accent);
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+    }
+    .mock-menu {
+      padding: 5px 10px;
+      font-size: 9.5px;
+      color: #555;
+      cursor: default;
+    }
+    .mock-menu.active {
+      color: var(--accent);
+      font-weight: 700;
+      background: #fbeae8;
+      border-left: 2px solid var(--accent);
+    }
+    .mock-submenu {
+      padding: 4px 10px 4px 18px;
+      font-size: 8.5px;
+      color: #888;
+    }
+    .mock-main {
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+    .mock-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 8px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      font-size: 9px;
+    }
+    .mock-date { font-weight: 700; color: var(--ink); }
+    .mock-date .mock-sub { font-weight: 400; color: var(--sub); font-size: 8.5px; }
+    .mock-quick {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .mock-quick span {
+      padding: 2px 5px;
+      background: #f5f1e8;
+      border-radius: 3px;
+      font-size: 8.5px;
+      color: #8a7a5a;
+    }
+    .mock-widgets {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .mock-widget {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 6px 8px;
+      min-height: 50px;
+    }
+    .mock-widget-title {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--ink);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 3px;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+    .mock-widget-body {
+      font-size: 8.5px;
+      color: var(--sub);
+      line-height: 1.5;
+    }
+    .mock-row { display: flex; justify-content: space-between; margin-bottom: 1px; }
+    .mock-row b { color: var(--accent); }
+
+    /* Board mock */
+    .mock-board-row {
+      display: grid;
+      grid-template-columns: 24px 1fr 40px 50px;
+      gap: 6px;
+      padding: 4px 8px;
+      font-size: 9px;
+      border-bottom: 1px solid var(--line);
+      align-items: center;
+    }
+    .mock-board-row.head {
+      font-weight: 700;
+      background: #fafaf7;
+      color: var(--ink);
+      font-size: 8.5px;
+    }
+    .mock-notice { color: var(--accent); font-weight: 700; }
+    .mock-tag {
+      display: inline-block;
+      padding: 1px 5px;
+      background: #eef5ee;
+      color: #2d7a3e;
+      border-radius: 2px;
+      font-size: 8px;
+    }
+    .mock-tag.edu { background: #e8edf5; color: #2d4f7a; }
+
     /* Mobile */
     @media (max-width: 600px) {
       .container { padding: 40px 16px 60px; }
@@ -572,9 +786,175 @@
 
       </div>
 
+      <!-- 좌측 메뉴 상세 -->
+      <div class="menu-detail">
+        <div class="menu-detail-title">좌측 메뉴 구성</div>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="menu-item-name">학사일정</div>
+            <div class="menu-item-desc">학기별 주요 행사, 시험 기간, 방학, 공휴일을 캘린더 형태로 제공</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">업무 게시판</div>
+            <div class="menu-item-desc">부서별 공지·자료를 한 곳에 축적 · 구글 드라이브 자동 연동으로 첨부파일 보관</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-name">학교생활 정보</div>
+            <div class="menu-item-desc">NEIS 결재선 안내 · 학생 명렬표 · 교직원이 자주 쓰는 외부 사이트 바로가기</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 모의 화면 (가짜 데이터) -->
+      <div class="mock-gallery">
+
+        <!-- Mock 1: 홈 대시보드 -->
+        <div>
+          <div class="mock-preview">
+            <div class="mock-chrome">
+              <span class="mock-dot"></span>
+              <span class="mock-dot"></span>
+              <span class="mock-dot"></span>
+              <div class="mock-url">internal-dashboard · 교내 전용</div>
+            </div>
+            <div class="mock-body">
+              <aside class="mock-sidebar">
+                <div class="mock-logo">교내 포털</div>
+                <div class="mock-menu active">홈</div>
+                <div class="mock-menu">학사일정</div>
+                <div class="mock-menu">업무 게시판</div>
+                <div class="mock-menu">학교생활 정보</div>
+                <div class="mock-submenu">· 결재선 안내</div>
+                <div class="mock-submenu">· 학생 명렬표</div>
+                <div class="mock-submenu">· 주요 사이트</div>
+              </aside>
+              <div class="mock-main">
+                <div class="mock-topbar">
+                  <div class="mock-date">
+                    2026. ○. ○. (○)
+                    <span class="mock-sub">맑음 15° · 미세먼지 보통 · 방학 D-○○</span>
+                  </div>
+                  <div class="mock-quick">
+                    <span>업무포털</span><span>드라이브</span><span>캘린더</span><span>시간표</span>
+                  </div>
+                </div>
+                <div class="mock-widgets">
+                  <div class="mock-widget">
+                    <div class="mock-widget-title">학적 현황</div>
+                    <div class="mock-widget-body">
+                      <div class="mock-row"><span>1학년</span><b>○○</b></div>
+                      <div class="mock-row"><span>2학년</span><b>○○</b></div>
+                      <div class="mock-row"><span>3학년</span><b>○○</b></div>
+                    </div>
+                  </div>
+                  <div class="mock-widget">
+                    <div class="mock-widget-title">주요 일정 (오늘)</div>
+                    <div class="mock-widget-body">
+                      · 1교시 ○반 수행평가<br>
+                      · 방과후 부서 회의<br>
+                      · 동아리 활동
+                    </div>
+                  </div>
+                  <div class="mock-widget">
+                    <div class="mock-widget-title">급식 메뉴</div>
+                    <div class="mock-widget-body">
+                      찰보리밥 · 된장국<br>
+                      편육 · 깍두기<br>
+                      제철 과일
+                    </div>
+                  </div>
+                  <div class="mock-widget">
+                    <div class="mock-widget-title">한 줄 게시판</div>
+                    <div class="mock-widget-body">
+                      "오늘도 화이팅! 💪"<br>
+                      "수고하셨습니다 🙌"<br>
+                      "감사합니다 ☕"
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-caption">▲ 홈 화면 (모의 구성 · 실제 데이터 아님)</div>
+        </div>
+
+        <!-- Mock 2: 업무 게시판 -->
+        <div>
+          <div class="mock-preview">
+            <div class="mock-chrome">
+              <span class="mock-dot"></span>
+              <span class="mock-dot"></span>
+              <span class="mock-dot"></span>
+              <div class="mock-url">internal-dashboard · 업무 게시판</div>
+            </div>
+            <div class="mock-body">
+              <aside class="mock-sidebar">
+                <div class="mock-logo">교내 포털</div>
+                <div class="mock-menu">홈</div>
+                <div class="mock-menu">학사일정</div>
+                <div class="mock-menu active">업무 게시판</div>
+                <div class="mock-menu">학교생활 정보</div>
+              </aside>
+              <div class="mock-main">
+                <div class="mock-topbar">
+                  <div class="mock-date">업무 게시판
+                    <span class="mock-sub">첨부파일은 드라이브 자동 업로드</span>
+                  </div>
+                  <div class="mock-quick"><span>글쓰기</span></div>
+                </div>
+                <div style="background:#fff; border:1px solid var(--line); border-radius:4px;">
+                  <div class="mock-board-row head">
+                    <span>번호</span><span>제목</span><span>작성자</span><span>날짜</span>
+                  </div>
+                  <div class="mock-board-row">
+                    <span class="mock-notice">공지</span>
+                    <span>업무 게시판 이용 안내</span>
+                    <span class="mock-tag">행정</span>
+                    <span>○○.○○.○○</span>
+                  </div>
+                  <div class="mock-board-row">
+                    <span class="mock-notice">공지</span>
+                    <span>연수 등록부 프로그램</span>
+                    <span class="mock-tag">행정</span>
+                    <span>○○.○○.○○</span>
+                  </div>
+                  <div class="mock-board-row">
+                    <span>5</span>
+                    <span>AI 기반 생기부·수행평가 도구 공유</span>
+                    <span class="mock-tag">행정</span>
+                    <span>○○.○○.○○</span>
+                  </div>
+                  <div class="mock-board-row">
+                    <span>4</span>
+                    <span>○○학년도 교육계획서 📎</span>
+                    <span class="mock-tag edu">교무</span>
+                    <span>○○.○○.○○</span>
+                  </div>
+                  <div class="mock-board-row">
+                    <span>3</span>
+                    <span>여비 정산 신청서 양식 📎</span>
+                    <span class="mock-tag">행정</span>
+                    <span>○○.○○.○○</span>
+                  </div>
+                  <div class="mock-board-row">
+                    <span>2</span>
+                    <span>학교생활기록부 기재요령 길라잡이 📎</span>
+                    <span class="mock-tag edu">교무</span>
+                    <span>○○.○○.○○</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-caption">▲ 업무 게시판 (모의 구성 · 실제 데이터 아님)</div>
+        </div>
+
+      </div>
+
       <div class="dashboard-note">
-        ※ 본 대시보드는 근무 중인 학교의 교직원만 접근 가능한 내부 시스템으로, 외부 URL·스크린샷·실제 데이터는 공개하지 않습니다.
-        해당 화면 구조와 구성 아이디어를 다른 학교에 적용하고 싶으신 경우 이메일로 문의해 주세요.
+        ※ 위 화면은 개인정보·학교정보 보호를 위해 가짜 데이터로 재구성한 <strong>모의 이미지</strong>입니다.
+        실제 대시보드는 근무 학교 교직원만 접근 가능하며, 외부 URL·스크린샷·데이터는 공개하지 않습니다.
+        화면 구조·구성 아이디어를 다른 학교에 적용하고 싶으신 경우 이메일로 문의해 주세요.
       </div>
     </div>
 
