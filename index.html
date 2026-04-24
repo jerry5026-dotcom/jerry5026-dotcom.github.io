@@ -440,10 +440,68 @@
       background: var(--card-bg);
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 20px 22px;
+      padding: 0;
       margin-bottom: 0;
       position: relative;
+      overflow: hidden;
     }
+    .dashboard > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      user-select: none;
+    }
+    .dashboard > summary::-webkit-details-marker { display: none; }
+    .dashboard-summary-text { flex: 1; }
+    .dashboard-summary-text .lead {
+      font-family: 'Gowun Batang', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .dashboard-summary-text .hint {
+      font-size: 12px;
+      color: var(--sub);
+    }
+    .dashboard-toggle {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 14px;
+      transition: transform 0.25s ease, background 0.15s;
+    }
+    .dashboard[open] .dashboard-toggle {
+      transform: rotate(180deg);
+      background: #fbeae8;
+    }
+    .dashboard-body {
+      padding: 4px 22px 22px;
+      border-top: 1px solid var(--line);
+    }
+    .dashboard[open] .dashboard-body { padding-top: 20px; }
+    .dashboard-tech-note {
+      font-size: 12px;
+      color: var(--sub);
+      background: #f7f4ec;
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .dashboard-tech-note strong { color: var(--ink); }
 
     .dashboard-header {
       display: flex;
@@ -1536,17 +1594,30 @@
     <h2 class="section-title">교내 통합 업무 대시보드</h2>
     <p class="section-sub">매일 흩어져 있던 학교 업무를 한 페이지에 모아 구축한 교직원용 포털입니다.</p>
 
-    <div class="dashboard">
+    <details class="dashboard">
+      <summary>
+        <div class="dashboard-summary-text">
+          <div class="lead">시작 화면 하나로 끝내는 하루</div>
+          <div class="hint">클릭하면 전체 기능 소개와 모의 화면 4종을 펼쳐볼 수 있습니다 · Google Sites 기반</div>
+        </div>
+        <span class="dashboard-badge">외부 공개 불가</span>
+        <span class="dashboard-toggle">▾</span>
+      </summary>
+
+      <div class="dashboard-body">
+
       <div class="dashboard-header">
         <div class="dashboard-title-group">
-          <div class="dashboard-title">시작 화면 하나로 끝내는 하루</div>
           <div class="dashboard-desc">
             출근해서 가장 먼저 여는 화면이 되도록 설계했습니다.
             학사·업무·소통·빠른 링크를 한 곳에 배치해, 여러 탭을 오가지 않아도
             그날 필요한 정보가 한눈에 들어오도록 구성했습니다.
           </div>
         </div>
-        <span class="dashboard-badge">외부 공개 불가</span>
+      </div>
+
+      <div class="dashboard-tech-note">
+        💡 본 대시보드는 <strong>Google Sites</strong>로 구축했습니다. 별도의 서버·코딩 지식 없이도 학교 구글 계정만 있으면 누구나 비슷한 구조로 만들 수 있습니다. 위젯은 Google 캘린더·드라이브·Apps Script·사내 공유 링크를 조합해 연동했습니다.
       </div>
 
       <div class="features-grid">
@@ -2133,7 +2204,9 @@
         실제 대시보드는 근무 학교 교직원만 접근 가능하며, 외부 URL·스크린샷·데이터는 공개하지 않습니다.
         화면 구조·구성 코드를 받고 싶으신 경우에는 이메일로 문의해 주세요. (해당 학교에 맞게 직접 수정하셔야 합니다.)
       </div>
-    </div>
+
+      </div><!-- /dashboard-body -->
+    </details>
 
     </div>
   </section>
