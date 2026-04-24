@@ -1572,6 +1572,170 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* ============================================
+       반응형 — 태블릿 & 모바일
+       PC 화면(1025px 이상)은 기존 스타일 그대로
+       ============================================ */
+
+    /* 태블릿 (1024px 이하) */
+    @media (max-width: 1024px) {
+      .container { max-width: 100%; }
+      .topnav-inner { max-width: 100%; padding: 12px 20px; }
+      .section-band .container { padding-top: 40px; padding-bottom: 40px; }
+
+      /* 대시보드 모의 화면은 좌우 스크롤로 원본 레이아웃 유지 */
+      .mock-preview { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .mock-body { min-width: 720px; }
+      .mock-board { min-width: 620px; }
+    }
+
+    /* 모바일 (768px 이하) */
+    @media (max-width: 768px) {
+      /* 상단 네비 */
+      .topnav-inner {
+        padding: 10px 16px;
+        gap: 10px;
+      }
+      .topnav-brand { font-size: 13px; }
+      .topnav-links { gap: 1px; }
+      .topnav-links a {
+        padding: 5px 8px;
+        font-size: 11.5px;
+      }
+
+      /* 헤더·인트로 */
+      .header {
+        padding: 12px 0 22px;
+        margin-bottom: 22px;
+      }
+      .brand-mark {
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        padding: 5px 10px;
+        margin-bottom: 16px;
+      }
+      .main-title {
+        font-size: clamp(22px, 7vw, 30px);
+        line-height: 1.35;
+      }
+      .subtitle {
+        font-size: 13px;
+        line-height: 1.65;
+      }
+      .intro { padding: 18px 18px; }
+      .intro-text { font-size: 13.5px; line-height: 1.7; }
+
+      /* 섹션 타이틀 */
+      .section-title { font-size: 19px; }
+      .section-sub { font-size: 12px; }
+
+      /* 공개 도구 카드 — 한 줄 한 개씩 */
+      .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .tool-card { padding: 16px 16px; }
+      .tool-card.placeholder { min-height: 100px; }
+
+      /* 대시보드 카드 요약 영역 */
+      .dashboard > summary {
+        padding: 16px 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .dashboard-summary-text .lead { font-size: 15px; }
+      .dashboard-summary-text .hint { font-size: 11.5px; line-height: 1.6; }
+      .dashboard-badge { font-size: 9.5px; padding: 4px 8px; }
+      .dashboard-body { padding: 4px 16px 16px; }
+      .dashboard[open] .dashboard-body { padding-top: 16px; }
+      .dashboard-desc { font-size: 12.5px; }
+      .dashboard-tech-note {
+        font-size: 11.5px;
+        padding: 10px 12px;
+      }
+
+      /* 기능 칩 그리드 */
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .feature { padding: 10px 11px; }
+      .feature-name { font-size: 12px; }
+      .feature-desc { font-size: 11px; }
+
+      /* 좌측 메뉴 상세 */
+      .menu-list { grid-template-columns: 1fr; gap: 8px; }
+      .menu-item { padding: 10px 12px; }
+
+      /* 탭 라벨 */
+      .dash-tab-labels label {
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+
+      /* 모의 화면은 좌우 스크롤로 고정 */
+      .mock-preview {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 6px;
+      }
+      .mock-body { min-width: 680px; }
+      .mock-board { min-width: 580px; }
+      .mock-caption { font-size: 11px; }
+
+      /* 사용 전 안내 */
+      .notice { padding: 18px 18px; }
+      .notice-list { font-size: 12.5px; }
+
+      /* 소개 */
+      .about { padding: 28px 14px; }
+      .about-text { font-size: 14.5px; line-height: 1.8; }
+      .about-author { font-size: 12px; }
+
+      .footer { font-size: 11px; padding: 22px 14px 0; }
+    }
+
+    /* 작은 모바일 (480px 이하) */
+    @media (max-width: 480px) {
+      .topnav-inner { padding: 8px 12px; gap: 6px; }
+      .topnav-brand { font-size: 12px; }
+      .topnav-brand .dot { width: 6px; height: 6px; margin-right: 5px; }
+      .topnav-links a {
+        padding: 4px 5px;
+        font-size: 10.5px;
+      }
+
+      .container { padding: 20px 14px 28px; }
+      .section-band .container { padding-top: 28px; padding-bottom: 28px; }
+
+      .brand-mark { font-size: 10px; letter-spacing: 0.15em; }
+      .main-title { font-size: clamp(19px, 6vw, 24px); }
+
+      /* 기능 칩 한 줄에 하나 */
+      .features-grid { grid-template-columns: 1fr; }
+
+      /* 탭 라벨 더 작게 */
+      .dash-tab-labels { gap: 0; }
+      .dash-tab-labels label {
+        padding: 7px 9px;
+        font-size: 11.5px;
+      }
+
+      /* 모의 화면 — 좀 더 컴팩트한 min-width */
+      .mock-body { min-width: 640px; }
+      .mock-board { min-width: 540px; }
+    }
+
+    /* 터치 영역 최소 크기 보장 & 스크롤 힌트 */
+    @media (hover: none) and (pointer: coarse) {
+      .tool-card, .dash-tab-labels label, .topnav-links a {
+        -webkit-tap-highlight-color: rgba(200, 54, 43, 0.1);
+      }
+      .mock-preview {
+        box-shadow: 0 4px 14px rgba(0,0,0,0.08), inset -20px 0 15px -15px rgba(0,0,0,0.06);
+      }
+    }
   </style>
 </head>
 <body>
