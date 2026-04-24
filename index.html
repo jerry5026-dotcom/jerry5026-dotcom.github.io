@@ -465,97 +465,117 @@
       font-weight: 700;
     }
 
-    /* Contact section (메일 피드백 CTA) */
-    .contact-section {
+    /* Contact + About 통합 "닫는 섹션" */
+    .closing-section {
       text-align: center;
       background: #fff;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 32px 24px;
+      border-radius: 14px;
+      padding: 48px 28px 40px;
       margin: 24px 0 0;
     }
-    .contact-title {
+    .closing-quote {
       font-family: 'Gowun Batang', serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-      margin-bottom: 10px;
+      font-size: 17px;
+      color: #555;
+      line-height: 1.95;
+      max-width: 520px;
+      margin: 0 auto 4px;
+      letter-spacing: -0.005em;
     }
-    .contact-text {
-      font-size: 13.5px;
-      color: var(--sub);
-      line-height: 1.8;
-      margin-bottom: 18px;
-    }
-    .contact-buttons {
+    .closing-divider {
       display: flex;
+      align-items: center;
       justify-content: center;
       gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin: 28px auto;
+      color: #c7c1b3;
+      font-size: 11px;
     }
-    .contact-btn {
+    .closing-divider::before,
+    .closing-divider::after {
+      content: '';
+      display: block;
+      width: 48px;
+      height: 1px;
+      background: #e5e3dd;
+    }
+    .closing-body {
+      font-size: 13.5px;
+      color: var(--sub);
+      line-height: 1.85;
+      max-width: 520px;
+      margin: 0 auto 22px;
+    }
+    .closing-body strong { color: var(--ink); font-weight: 700; }
+    .closing-cta {
+      margin: 22px auto 12px;
+    }
+    .closing-btn {
       display: inline-block;
-      padding: 7px 14px;
+      padding: 12px 26px;
       background: var(--ink);
       color: #fff;
       text-decoration: none;
-      border-radius: 5px;
-      font-size: 12px;
+      border-radius: 6px;
+      font-size: 13.5px;
       font-weight: 700;
       letter-spacing: -0.01em;
       border: 1px solid var(--ink);
       cursor: pointer;
-      transition: background 0.15s, transform 0.15s, color 0.15s;
+      transition: background 0.15s, transform 0.15s, border-color 0.15s, box-shadow 0.15s;
     }
-    .contact-btn:hover {
+    .closing-btn:hover {
       background: var(--accent);
       border-color: var(--accent);
       transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(200, 54, 43, 0.18);
     }
-    .contact-btn.outline {
-      background: #fff;
-      color: var(--ink);
+    .closing-secondary {
+      font-size: 11.5px;
+      color: #999;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    .contact-btn.outline:hover {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-    .contact-email {
-      font-size: 12px;
-      color: var(--sub);
-      margin-top: 4px;
-    }
-    .contact-email-copy {
+    .closing-secondary a,
+    .closing-secondary button {
       background: none;
-      border: 1px dashed #ccc;
-      color: var(--ink);
-      padding: 3px 10px;
-      border-radius: 14px;
+      border: none;
+      color: #888;
+      text-decoration: underline;
+      text-underline-offset: 3px;
       font-family: inherit;
-      font-size: 12px;
+      font-size: 11.5px;
       cursor: pointer;
-      margin-left: 4px;
-      transition: background 0.15s, border-color 0.15s;
+      padding: 2px 4px;
+      transition: color 0.15s;
     }
-    .contact-email-copy:hover {
-      background: #f5f1e8;
-      border-color: var(--accent);
+    .closing-secondary a:hover,
+    .closing-secondary button:hover { color: var(--accent); }
+    .closing-secondary .sep { color: #ccc; }
+    .closing-secondary .copied { color: #2d7a3e; }
+    .closing-signature {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #f0ede5;
+      font-size: 12.5px;
+      color: #999;
+      letter-spacing: 0.01em;
     }
-    .contact-email-copy.copied {
-      background: #2d7a3e;
-      color: #fff;
-      border-color: #2d7a3e;
+    .closing-signature strong {
+      color: #666;
+      font-weight: 700;
     }
 
-    /* About */
-    .about {
-      text-align: center;
-      padding: 40px 20px;
-      border-top: 1px solid var(--line);
-      margin-top: 20px;
+    @media (max-width: 600px) {
+      .closing-section { padding: 36px 22px 28px; }
+      .closing-quote { font-size: 15.5px; line-height: 1.9; }
+      .closing-body { font-size: 13px; }
+      .closing-btn { padding: 11px 22px; font-size: 13px; }
     }
 
     .about-text {
@@ -2599,45 +2619,54 @@
       </ul>
     </div>
 
-    <!-- Contact (메일 피드백) -->
-    <section class="contact-section">
-      <h2 class="contact-title">뭐든 환영합니다</h2>
-      <p class="contact-text">
-        도구를 쓰시다가 불편했던 점, "이랬으면 좋겠다" 싶은 기능,<br>
-        <strong style="color:var(--ink)">"이런 도구 한 번 만들어보면 어떨까요?"</strong> 하는 새로운 아이디어,<br>
-        발견한 버그, 그냥 인사 한 마디까지 — 뭐든 환영해요.<br>
-        작업실 문은 언제나 열려 있습니다. ☕
+    <!-- Closing (Contact + About 통합) -->
+    <section class="closing-section">
+      <p class="closing-quote">
+        "코딩은 서툴지만 재미있어서 계속 만들어요.<br>
+        이 작은 놀이터가 누군가의 퇴근을 조금 앞당길 수 있다면,<br>
+        그걸로 충분합니다."
       </p>
-      <div class="contact-buttons">
-        <a href="mailto:jerry5026@gmail.com?subject=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" class="contact-btn">
+
+      <div class="closing-divider">☕</div>
+
+      <p class="closing-body">
+        도구를 쓰시다가 불편했던 점, "이랬으면 좋겠다" 싶은 기능,<br>
+        <strong>"이런 도구 한 번 만들어보면 어떨까요?"</strong> 하는 새로운 아이디어,<br>
+        발견한 버그, 그냥 인사 한 마디까지 — 뭐든 환영해요.<br>
+        작업실 문은 언제나 열려 있습니다.
+      </p>
+
+      <div class="closing-cta">
+        <a href="mailto:jerry5026@gmail.com?subject=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" class="closing-btn">
           📧 메일로 의견 보내기
         </a>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jerry5026@gmail.com&su=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" target="_blank" rel="noopener" class="contact-btn outline">
-          🌐 Gmail로 쓰기
-        </a>
       </div>
-      <p class="contact-email">
-        또는 주소 직접 복사
-        <button type="button" class="contact-email-copy" id="email-copy-btn" onclick="copyEmail()">jerry5026@gmail.com</button>
-      </p>
+
+      <div class="closing-secondary">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jerry5026@gmail.com&su=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" target="_blank" rel="noopener">Gmail로 쓰기</a>
+        <span class="sep">·</span>
+        <button type="button" id="email-copy-btn" onclick="copyEmail()">주소 복사 (jerry5026@gmail.com)</button>
+      </div>
+
+      <div class="closing-signature">
+        <strong>조기원</strong> · 강원 모 고등학교
+      </div>
 
       <script>
         function copyEmail(){
           var email = 'jerry5026@gmail.com';
           var btn = document.getElementById('email-copy-btn');
+          var originalText = '주소 복사 (jerry5026@gmail.com)';
           var done = function(){
-            var original = btn.textContent;
             btn.textContent = '✓ 복사됨';
             btn.classList.add('copied');
             setTimeout(function(){
-              btn.textContent = original.replace('✓ 복사됨', 'jerry5026@gmail.com');
+              btn.textContent = originalText;
               btn.classList.remove('copied');
             }, 1500);
           };
           if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(email).then(done).catch(function(){
-              fallback();
-            });
+            navigator.clipboard.writeText(email).then(done).catch(fallback);
           } else {
             fallback();
           }
@@ -2654,18 +2683,6 @@
         }
       </script>
     </section>
-
-    <!-- About -->
-    <div class="about">
-      <p class="about-text">
-        "코딩은 서툴지만 재미있어서 계속 만들어요.<br>
-        이 작은 놀이터가 누군가의 퇴근을 조금 앞당길 수 있다면, 그걸로 충분합니다."
-      </p>
-      <p class="about-author">
-        <strong>조기원</strong> · 강원 모 고등학교 ·
-        <a href="mailto:jerry5026@gmail.com">jerry5026@gmail.com</a>
-      </p>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
