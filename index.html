@@ -465,6 +465,46 @@
       font-weight: 700;
     }
 
+    /* Contact section (메일 피드백 CTA) */
+    .contact-section {
+      text-align: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 32px 24px;
+      margin: 24px 0 0;
+    }
+    .contact-title {
+      font-family: 'Gowun Batang', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+    .contact-text {
+      font-size: 13.5px;
+      color: var(--sub);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .contact-btn {
+      display: inline-block;
+      padding: 12px 26px;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .contact-btn:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
     /* About */
     .about {
       text-align: center;
@@ -2513,6 +2553,19 @@
         <li>취미로 만드는 것들이라 엉성하고, 가끔 고장도 납니다. 너그러운 마음으로 봐주시고, <strong>피드백은 언제나 환영</strong>이에요.</li>
       </ul>
     </div>
+
+    <!-- Contact (메일 피드백) -->
+    <section class="contact-section">
+      <h2 class="contact-title">뭐든 환영합니다</h2>
+      <p class="contact-text">
+        도구를 쓰시다가 불편했던 점, "이랬으면 좋겠다" 싶은 기능,<br>
+        발견한 버그, 그냥 인사 한 마디까지 — 뭐든 환영해요.<br>
+        작업실 문은 언제나 열려 있습니다. ☕
+      </p>
+      <a href="mailto:jerry5026@gmail.com?subject=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" class="contact-btn">
+        📧 메일로 의견 보내기
+      </a>
+    </section>
 
     <!-- About -->
     <div class="about">
