@@ -929,29 +929,31 @@
     .mock-board-head b { color: #2d4f7a; }
     .mock-board-controls { display: flex; gap: 6px; align-items: center; }
     .mock-board-table {
+      display: table;
+      width: 100%;
+      border-collapse: collapse;
       border-top: 2px solid #333;
+      table-layout: fixed;
     }
     .mock-board-row-tbl {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 0 10px;
+      display: table-row;
       font-size: 12.5px;
-      border-bottom: 1px solid #ececec;
-      height: 44px;
-      box-sizing: border-box;
     }
-    .mock-board-row-tbl > span:nth-child(1) { flex: 0 0 56px; text-align: center; }
-    .mock-board-row-tbl > span:nth-child(2) {
-      flex: 1 1 auto;
-      min-width: 0;
+    .mock-board-row-tbl > span {
+      display: table-cell;
+      vertical-align: middle;
+      height: 44px;
+      padding: 0 6px;
+      border-bottom: 1px solid #ececec;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .mock-board-row-tbl > span:nth-child(3) { flex: 0 0 84px; text-align: center; }
-    .mock-board-row-tbl > span:nth-child(4) { flex: 0 0 100px; text-align: center; }
-    .mock-board-row-tbl.head {
+    .mock-board-row-tbl > span:nth-child(1) { width: 56px; text-align: center; }
+    .mock-board-row-tbl > span:nth-child(2) { text-align: left; }
+    .mock-board-row-tbl > span:nth-child(3) { width: 84px; text-align: center; }
+    .mock-board-row-tbl > span:nth-child(4) { width: 100px; text-align: center; }
+    .mock-board-row-tbl.head > span {
       font-weight: 700;
       background: #fafafa;
       color: var(--ink);
