@@ -688,12 +688,34 @@
       line-height: 1.6;
     }
 
-    /* Menu detail */
+    /* Menu detail (nested accordion) */
     .menu-detail {
-      margin-top: 24px;
-      padding-top: 20px;
+      margin-top: 20px;
+      padding-top: 16px;
       border-top: 1px dashed var(--line);
     }
+    .menu-detail > summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--sub);
+      padding: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+      transition: color 0.15s;
+    }
+    .menu-detail > summary:hover { color: var(--accent); }
+    .menu-detail > summary::-webkit-details-marker { display: none; }
+    .menu-detail > summary::before {
+      content: '▸';
+      transition: transform 0.2s;
+      font-size: 10px;
+    }
+    .menu-detail[open] > summary::before { transform: rotate(90deg); }
+    .menu-detail[open] > summary { color: var(--ink); margin-bottom: 8px; }
     .menu-detail-title {
       font-size: 13px;
       font-weight: 700;
@@ -1936,9 +1958,9 @@
 
       </div>
 
-      <!-- 좌측 메뉴 상세 -->
-      <div class="menu-detail">
-        <div class="menu-detail-title">좌측 메뉴 구성</div>
+      <!-- 좌측 메뉴 상세 (접힌 상태로 시작) -->
+      <details class="menu-detail">
+        <summary>좌측 메뉴 구성도 살펴보기</summary>
         <div class="menu-list">
           <div class="menu-item">
             <div class="menu-item-name">학사일정</div>
@@ -1953,7 +1975,7 @@
             <div class="menu-item-desc">NEIS 결재선 안내 · 학생 명렬표 · 교직원이 자주 쓰는 외부 사이트 바로가기</div>
           </div>
         </div>
-      </div>
+      </details>
 
       <!-- 모의 화면 (원본 레이아웃 재현 · 가짜 데이터) -->
       <div class="dash-tabs" id="mocks">
