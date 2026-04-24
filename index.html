@@ -488,21 +488,66 @@
       line-height: 1.8;
       margin-bottom: 18px;
     }
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
     .contact-btn {
       display: inline-block;
-      padding: 12px 26px;
+      padding: 11px 22px;
       background: var(--ink);
       color: #fff;
       text-decoration: none;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       letter-spacing: -0.01em;
-      transition: background 0.15s, transform 0.15s;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s, color 0.15s;
     }
     .contact-btn:hover {
       background: var(--accent);
+      border-color: var(--accent);
       transform: translateY(-1px);
+    }
+    .contact-btn.outline {
+      background: #fff;
+      color: var(--ink);
+    }
+    .contact-btn.outline:hover {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .contact-email {
+      font-size: 12px;
+      color: var(--sub);
+      margin-top: 4px;
+    }
+    .contact-email-copy {
+      background: none;
+      border: 1px dashed #ccc;
+      color: var(--ink);
+      padding: 3px 10px;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      margin-left: 4px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .contact-email-copy:hover {
+      background: #f5f1e8;
+      border-color: var(--accent);
+    }
+    .contact-email-copy.copied {
+      background: #2d7a3e;
+      color: #fff;
+      border-color: #2d7a3e;
     }
 
     /* About */
@@ -2563,9 +2608,51 @@
         발견한 버그, 그냥 인사 한 마디까지 — 뭐든 환영해요.<br>
         작업실 문은 언제나 열려 있습니다. ☕
       </p>
-      <a href="mailto:jerry5026@gmail.com?subject=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" class="contact-btn">
-        📧 메일로 의견 보내기
-      </a>
+      <div class="contact-buttons">
+        <a href="mailto:jerry5026@gmail.com?subject=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" class="contact-btn">
+          📧 메일로 의견 보내기
+        </a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jerry5026@gmail.com&su=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" target="_blank" rel="noopener" class="contact-btn outline">
+          🌐 Gmail로 쓰기
+        </a>
+      </div>
+      <p class="contact-email">
+        또는 주소 직접 복사
+        <button type="button" class="contact-email-copy" id="email-copy-btn" onclick="copyEmail()">jerry5026@gmail.com</button>
+      </p>
+
+      <script>
+        function copyEmail(){
+          var email = 'jerry5026@gmail.com';
+          var btn = document.getElementById('email-copy-btn');
+          var done = function(){
+            var original = btn.textContent;
+            btn.textContent = '✓ 복사됨';
+            btn.classList.add('copied');
+            setTimeout(function(){
+              btn.textContent = original.replace('✓ 복사됨', 'jerry5026@gmail.com');
+              btn.classList.remove('copied');
+            }, 1500);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(done).catch(function(){
+              fallback();
+            });
+          } else {
+            fallback();
+          }
+          function fallback(){
+            var ta = document.createElement('textarea');
+            ta.value = email;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); done(); } catch(e) { alert(email); }
+            document.body.removeChild(ta);
+          }
+        }
+      </script>
     </section>
 
     <!-- About -->
