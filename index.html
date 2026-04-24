@@ -100,15 +100,15 @@
       border-bottom: 1px solid #eee7d7;
     }
     .section-band .container {
-      padding-top: 64px;
-      padding-bottom: 64px;
+      padding-top: 44px;
+      padding-bottom: 44px;
     }
-    .section-band:first-of-type .container { padding-top: 40px; }
+    .section-band:first-of-type .container { padding-top: 28px; }
 
     .container {
       max-width: 980px;
       margin: 0 auto;
-      padding: 60px 24px 80px;
+      padding: 32px 24px 40px;
     }
     html { scroll-padding-top: 64px; }
 
@@ -156,9 +156,9 @@
     /* Header */
     .header {
       text-align: center;
-      padding: 40px 0 60px;
+      padding: 18px 0 28px;
       border-bottom: 1px solid var(--line);
-      margin-bottom: 60px;
+      margin-bottom: 28px;
     }
 
     .brand-mark {
@@ -199,8 +199,8 @@
     .intro {
       background: var(--warm);
       border-radius: 12px;
-      padding: 32px 28px;
-      margin-bottom: 50px;
+      padding: 22px 24px;
+      margin-bottom: 0;
       text-align: center;
     }
 
@@ -235,10 +235,25 @@
     /* Tools grid */
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
-      margin-bottom: 60px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
     }
+    .tool-card.placeholder {
+      border-style: dashed;
+      background: transparent;
+      color: #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 140px;
+      cursor: default;
+    }
+    .tool-card.placeholder:hover { transform: none; box-shadow: none; }
+    .tool-card.placeholder::before { display: none; }
+    .tool-card.placeholder .ph-icon { font-size: 22px; margin-bottom: 6px; }
+    .tool-card.placeholder .ph-text { font-size: 12px; line-height: 1.6; }
 
     .tool-card {
       background: var(--card-bg);
@@ -425,8 +440,8 @@
       background: var(--card-bg);
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 32px 28px;
-      margin-bottom: 60px;
+      padding: 20px 22px;
+      margin-bottom: 0;
       position: relative;
     }
 
@@ -1485,7 +1500,19 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
+      <div class="tool-card placeholder">
+        <div>
+          <div class="ph-icon">✨</div>
+          <div class="ph-text">새 도구 준비 중<br>현장의 피드백을 바탕으로 계속 추가됩니다</div>
+        </div>
+      </div>
+
     </div>
+
+    <p style="font-size:12.5px;color:var(--sub);text-align:center;line-height:1.7;margin:4px 0 0;">
+      위 도구들은 실제 학교 현장에서 사용되며 받은 피드백을 바탕으로 <strong style="color:var(--ink)">지속적으로 업데이트</strong>될 예정입니다.<br>
+      개선 제안·버그 제보는 언제든 이메일로 보내주세요.
+    </p>
 
     </div>
   </section>
@@ -2110,7 +2137,7 @@
         <li>모든 도구는 사용자의 브라우저에서만 작동하며, 외부 서버에 데이터를 저장하지 않습니다.</li>
         <li>AI 생성 문장은 초안입니다. 반드시 교사가 직접 확인·수정 후 기재해 주세요.</li>
         <li>학교별 양식이 다를 수 있으니, 출력물은 본인 학교 기준에 맞게 조정해서 사용해 주세요.</li>
-        <li>버그 제보·기능 제안은 아래 이메일로 보내주시면 감사하겠습니다.</li>
+        <li>모든 도구는 실사용 중이며, 받은 피드백을 반영해 <strong>지속적으로 업데이트</strong>됩니다. 버그 제보·기능 제안은 아래 이메일로 언제든 보내주세요.</li>
       </ul>
     </div>
 
