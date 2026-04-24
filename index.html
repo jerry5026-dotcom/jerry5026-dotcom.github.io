@@ -2529,8 +2529,19 @@
     <!-- Footer -->
     <footer class="footer">
       © 2026 조기원 · 교무실 옆 작업실 · 자유롭게 써주시고, 출처만 살짝 남겨주세요.<br>
-      <span style="opacity:0.7;font-size:11px;">마지막 업데이트 2026.04.24 · v1.0 · 계속 다듬어 나가는 중입니다</span>
+      <span style="opacity:0.7;font-size:11px;">마지막 업데이트 <span id="last-updated">2026.04.24.</span> · v1.0 · 계속 다듬어 나가는 중입니다</span>
     </footer>
+
+    <script>
+      (function(){
+        var d = new Date();
+        var y = d.getFullYear();
+        var m = String(d.getMonth() + 1).padStart(2, '0');
+        var day = String(d.getDate()).padStart(2, '0');
+        var el = document.getElementById('last-updated');
+        if (el) el.textContent = y + '.' + m + '.' + day + '.';
+      })();
+    </script>
 
     </div>
   </section>
