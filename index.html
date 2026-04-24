@@ -935,19 +935,25 @@
       display: grid;
       grid-template-columns: 56px 1fr 84px 100px;
       gap: 12px;
-      padding: 10px 10px;
+      padding: 0 10px;
       font-size: 12.5px;
       border-bottom: 1px solid #ececec;
       align-items: center;
-      min-height: 44px;
+      height: 44px;
+      box-sizing: border-box;
+    }
+    .mock-board-row-tbl > span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
     }
     .mock-board-row-tbl.head {
       font-weight: 700;
       background: #fafafa;
       color: var(--ink);
       font-size: 11.5px;
-      padding: 8px 10px;
-      min-height: 0;
+      height: 36px;
     }
     .mock-board-row-tbl .num {
       text-align: center;
