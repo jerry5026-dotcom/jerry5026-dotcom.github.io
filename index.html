@@ -932,32 +932,25 @@
       border-top: 2px solid #333;
     }
     .mock-board-row-tbl {
-      display: grid;
-      grid-template-columns: 56px 1fr 84px 100px;
+      display: flex;
+      align-items: center;
       gap: 12px;
       padding: 0 10px;
       font-size: 12.5px;
       border-bottom: 1px solid #ececec;
-      align-items: center;
       height: 44px;
       box-sizing: border-box;
     }
-    .mock-board-row-tbl > span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .mock-board-row-tbl > span:nth-child(1) { flex: 0 0 56px; text-align: center; }
+    .mock-board-row-tbl > span:nth-child(2) {
+      flex: 1 1 auto;
       min-width: 0;
-      display: flex;
-      align-items: center;
-    }
-    .mock-board-row-tbl > span.num,
-    .mock-board-row-tbl > span.date {
-      justify-content: center;
-    }
-    .mock-board-row-tbl > span > span {
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
+    .mock-board-row-tbl > span:nth-child(3) { flex: 0 0 84px; text-align: center; }
+    .mock-board-row-tbl > span:nth-child(4) { flex: 0 0 100px; text-align: center; }
     .mock-board-row-tbl.head {
       font-weight: 700;
       background: #fafafa;
