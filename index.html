@@ -355,6 +355,23 @@
     .tool-card.placeholder .ph-icon { font-size: 22px; margin-bottom: 6px; }
     .tool-card.placeholder .ph-text { font-size: 12px; line-height: 1.6; }
 
+    /* 점검 중 상태 */
+    .tool-card.maintenance {
+      opacity: 0.55;
+      cursor: not-allowed;
+      background: #f7f4ec;
+    }
+    .tool-card.maintenance:hover {
+      transform: none;
+      box-shadow: none;
+      border-color: var(--line);
+    }
+    .tool-card.maintenance:hover::before { transform: scaleY(0); }
+    .tool-card.maintenance .tool-tag {
+      color: #888;
+    }
+    .tool-card.maintenance .tool-tag::after { content: ''; }
+
     .tool-card {
       background: var(--card-bg);
       border: 1px solid var(--line);
@@ -1921,14 +1938,14 @@
 
     <div class="tools-grid">
 
-      <a href="https://jerry5026-dotcom.github.io/exam-timetable/" target="_blank" rel="noopener" class="tool-card">
+      <a href="https://jerry5026-dotcom.github.io/exam-timetable/" target="_blank" rel="noopener" class="tool-card maintenance" onclick="event.preventDefault(); alert('점검 중입니다. 업데이트가 끝나면 다시 열겠습니다.'); return false;">
         <div class="tool-icon">📅</div>
         <div class="tool-name">시험 시간표 자동 생성기</div>
         <div class="tool-desc">
           나이스 학생편성현황 업로드 → 자동 시간표 배정.
           다학년 자습실 중복 방지, 개인 시간표·응시현황표까지 한 번에.
         </div>
-        <span class="tool-tag">바로 사용</span>
+        <span class="tool-tag">🔧 점검 중</span>
       </a>
 
       <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index1.html" target="_blank" rel="noopener" class="tool-card">
