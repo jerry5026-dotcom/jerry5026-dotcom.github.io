@@ -39,12 +39,11 @@
       font-size: 15px;
     }
 
-
     /* ── Container ── */
     .container {
-      max-width: 720px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 2.5rem 2rem 4rem;
+      padding: 2.5rem 1.5rem 3rem;
     }
 
     /* ── Page Header ── */
@@ -73,18 +72,30 @@
     .page-header p {
       color: var(--sub);
       font-size: 14px;
-      max-width: 500px;
+      max-width: 560px;
       margin: 0 auto;
       line-height: 1.7;
     }
+
+    /* ── 2x2 Grid ── */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1rem;
+      align-items: start;
+    }
+    .cell-a1 { grid-column: 1; grid-row: 1; }
+    .cell-a2 { grid-column: 1; grid-row: 2; }
+    .cell-b1 { grid-column: 2; grid-row: 1; }
+    .cell-b2 { grid-column: 2; grid-row: 2; }
 
     /* ── Card ── */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 1.75rem;
-      margin-bottom: 1rem;
+      padding: 1.6rem;
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
     .card-title {
@@ -109,6 +120,7 @@
       flex-shrink: 0;
     }
     .step-num.done { background: var(--pass); }
+    .step-num.muted { background: #d1d5db; }
 
     /* ── Provider Tabs ── */
     .provider-tabs {
@@ -143,6 +155,7 @@
 
     /* ── Form ── */
     .form-group { margin-bottom: 1rem; }
+    .form-group:last-child { margin-bottom: 0; }
     label {
       display: block;
       font-size: 13px;
@@ -176,10 +189,21 @@
       transition: border-color 0.15s;
     }
     select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,108,247,0.12); }
-    .key-wrap { position: relative; }
+
+    /* ── API Key Row ── */
+    .key-row {
+      display: flex;
+      gap: 6px;
+      align-items: stretch;
+    }
+    .key-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+    }
     .key-wrap input {
       width: 100%;
-      padding: 0.6rem 2.5rem 0.6rem 0.85rem;
+      padding: 0.6rem 2.4rem 0.6rem 0.85rem;
       border: 1.5px solid var(--line);
       border-radius: 8px;
       background: #fff;
@@ -191,6 +215,7 @@
       letter-spacing: 0.04em;
     }
     .key-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,108,247,0.12); }
+    .key-wrap input:read-only { background: #f9fafb; color: var(--sub); }
     .eye-btn {
       position: absolute;
       right: 9px;
@@ -204,6 +229,40 @@
       padding: 2px 4px;
       line-height: 1;
     }
+    .key-action-btn {
+      padding: 0 0.85rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--line);
+      background: #fff;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .key-action-btn.save {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .key-action-btn.save:hover:not(:disabled) {
+      background: var(--accent);
+      color: #fff;
+    }
+    .key-action-btn.del {
+      border-color: #fecaca;
+      color: var(--fail);
+    }
+    .key-action-btn.del:hover {
+      background: var(--fail-bg);
+      border-color: var(--fail);
+    }
+    .key-action-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
     .hint {
       font-size: 12px;
       color: var(--sub);
@@ -216,7 +275,7 @@
     /* ── Textarea ── */
     textarea {
       width: 100%;
-      min-height: 200px;
+      min-height: 180px;
       padding: 1rem;
       border: 1.5px solid var(--line);
       border-radius: 8px;
@@ -276,21 +335,41 @@
     .loading .btn-spinner { display: block; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* ── Empty State ── */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1rem;
+      text-align: center;
+      color: var(--sub);
+    }
+    .empty-icon {
+      font-size: 2rem;
+      margin-bottom: 0.65rem;
+      opacity: 0.4;
+    }
+    .empty-state p {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
     /* ── Score Overview ── */
     .score-box {
       display: flex;
       align-items: center;
-      gap: 1.75rem;
+      gap: 1.4rem;
       background: var(--accent-light);
       border-radius: 10px;
-      padding: 1.2rem 1.4rem;
-      margin-bottom: 1.4rem;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 1.2rem;
       border: 1px solid rgba(79,108,247,0.15);
     }
     .score-ring {
       flex-shrink: 0;
-      width: 76px;
-      height: 76px;
+      width: 70px;
+      height: 70px;
       position: relative;
     }
     .score-ring svg { transform: rotate(-90deg); display: block; }
@@ -300,33 +379,33 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
     .score-text h3 {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
     }
     .score-text p {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--sub);
-      line-height: 1.6;
+      line-height: 1.55;
     }
 
     /* ── Diagnosis Items ── */
     .diag-list {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      margin-bottom: 1.5rem;
+      gap: 0.55rem;
+      margin-bottom: 1.2rem;
     }
     .diag-item {
       border: 1px solid var(--line);
       border-left-width: 3px;
       border-radius: 8px;
-      padding: 1rem 1.2rem;
+      padding: 0.85rem 1rem;
       background: #fff;
     }
     .diag-item.pass { border-left-color: var(--pass); }
@@ -339,7 +418,7 @@
       margin-bottom: 0.35rem;
       gap: 0.5rem;
     }
-    .diag-name { font-size: 14px; font-weight: 600; }
+    .diag-name { font-size: 13.5px; font-weight: 600; }
     .status-pill {
       font-size: 11px;
       font-weight: 600;
@@ -351,21 +430,21 @@
     .status-pill.warn { background: #fffbeb; color: #92400e; }
     .status-pill.fail { background: var(--fail-bg); color: var(--fail); }
     .diag-feedback {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--sub);
-      line-height: 1.65;
+      line-height: 1.6;
     }
     .tag-row {
       display: flex;
       flex-wrap: wrap;
       gap: 5px;
-      margin-top: 0.6rem;
+      margin-top: 0.5rem;
     }
     .tag {
-      font-size: 12px;
+      font-size: 11.5px;
       background: var(--bg);
       border: 1px solid var(--line);
-      padding: 2px 9px;
+      padding: 2px 8px;
       border-radius: 20px;
       color: var(--ink);
     }
@@ -374,11 +453,11 @@
     .convert-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-bottom: 1.2rem;
+      gap: 0.5rem;
+      margin-bottom: 1.1rem;
     }
     .ctype-btn {
-      padding: 0.85rem 1rem;
+      padding: 0.75rem 0.85rem;
       border: 1.5px solid var(--line);
       border-radius: 8px;
       background: #fff;
@@ -394,21 +473,21 @@
     .ctype-btn.active .ctype-desc { color: rgba(255,255,255,0.75); }
 
     .lang-wrap {
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.1rem;
     }
     .lang-wrap label { margin-bottom: 8px; }
     .lang-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
     }
     .lang-btn {
-      padding: 0.3rem 0.85rem;
+      padding: 0.28rem 0.8rem;
       border: 1.5px solid var(--line);
       border-radius: 20px;
       background: #fff;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12.5px;
       font-family: 'Noto Sans KR', sans-serif;
       transition: all 0.15s;
       color: var(--ink);
@@ -422,7 +501,7 @@
       margin-top: 1rem;
     }
     .result-wrap textarea {
-      min-height: 150px;
+      min-height: 130px;
       background: var(--accent-light);
       border-color: rgba(79,108,247,0.2);
       padding-top: 0.9rem;
@@ -450,15 +529,16 @@
     .key-status {
       font-size: 12px;
       font-weight: 500;
-      margin-top: 5px;
+      margin-top: 6px;
       min-height: 18px;
       display: flex;
       align-items: center;
       gap: 4px;
     }
-    .key-status.valid   { color: var(--pass); }
-    .key-status.invalid { color: var(--fail); }
+    .key-status.valid    { color: var(--pass); }
+    .key-status.invalid  { color: var(--fail); }
     .key-status.checking { color: var(--sub); }
+    .key-status.saved    { color: var(--accent); }
 
     /* ── Pricing Badge ── */
     .pricing-note { margin-top: 5px; min-height: 20px; }
@@ -469,8 +549,8 @@
       padding: 2px 8px;
       border-radius: 20px;
     }
-    .pricing-badge.paid  { background: #fff1f2; color: #be123c; }
-    .pricing-badge.free  { background: #f0fdf4; color: #15803d; }
+    .pricing-badge.paid { background: #fff1f2; color: #be123c; }
+    .pricing-badge.free { background: #f0fdf4; color: #15803d; }
 
     /* ── Table Hint ── */
     .table-hint-box {
@@ -486,7 +566,7 @@
     /* ── Action Row ── */
     .action-row {
       display: flex;
-      gap: 0.7rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
     }
 
@@ -500,7 +580,7 @@
       justify-content: center;
       gap: 0;
       margin: 1.2rem auto 0;
-      max-width: 480px;
+      max-width: 540px;
       flex-wrap: wrap;
     }
     .step-item {
@@ -562,6 +642,16 @@
     .footer-meta a:hover { color: var(--ink); }
 
     /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .grid-2x2 {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .cell-a1, .cell-a2, .cell-b1, .cell-b2 {
+        grid-column: 1;
+        grid-row: auto;
+      }
+    }
     @media (max-width: 600px) {
       .container { padding: 2rem 1rem 3rem; }
       .provider-tabs { gap: 6px; }
@@ -572,6 +662,8 @@
       .action-row .btn { width: 100%; }
       .steps-guide { gap: 4px; }
       .step-arrow { padding: 0 4px; }
+      .key-row { flex-wrap: wrap; }
+      .key-action-btn { padding: 0.5rem 0.8rem; }
     }
     @media (max-width: 380px) {
       .page-header h1 { font-size: 1.3rem; }
@@ -588,7 +680,7 @@
     <h1>학부모 안내문 진단·변환기</h1>
     <p>선생님이 쓴 가정통신문, 학부모 눈높이에 맞게 AI가 점검해 드립니다.<br>정보 누락·어려운 용어·모호한 표현을 짚어내고, 4가지 버전으로 변환까지 가능합니다.</p>
     <div class="steps-guide">
-      <span class="step-item"><span class="sn">1</span>AI 모델 선택 &amp; API 키 입력</span>
+      <span class="step-item"><span class="sn">1</span>AI 모델 설정 &amp; API 키 저장</span>
       <span class="step-arrow">→</span>
       <span class="step-item"><span class="sn">2</span>안내문 붙여넣기</span>
       <span class="step-arrow">→</span>
@@ -596,151 +688,176 @@
     </div>
   </header>
 
-  <!-- ── STEP 1: API Setup ── -->
-  <div class="card" id="setup-card">
-    <div class="card-title">
-      <span class="step-num" id="s1-badge">1</span>
-      AI 모델 설정
-    </div>
+  <div class="grid-2x2">
 
-    <div class="provider-tabs" role="tablist" aria-label="AI 제공사 선택">
-      <button class="provider-tab active" data-p="claude"  onclick="selectProvider('claude')"  role="tab" aria-selected="true">Claude</button>
-      <button class="provider-tab"        data-p="gemini"  onclick="selectProvider('gemini')"  role="tab" aria-selected="false">Gemini</button>
-      <button class="provider-tab"        data-p="openai"  onclick="selectProvider('openai')"  role="tab" aria-selected="false">ChatGPT</button>
-    </div>
-
-    <div class="form-group">
-      <label for="model-select">모델 선택</label>
-      <div class="select-wrap">
-        <select id="model-select" onchange="updatePricingNote()">
-          <option value="claude-opus-4-7">Claude Opus 4.7 — 가장 강력 (유료)</option>
-          <option value="claude-sonnet-4-6" selected>Claude Sonnet 4.6 — 균형 · 권장 (유료)</option>
-          <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 — 빠르고 경제적 (유료)</option>
-        </select>
+    <!-- ── [1행 1열] AI 모델 설정 ── -->
+    <div class="card cell-a1" id="setup-card">
+      <div class="card-title">
+        <span class="step-num">1</span>
+        AI 모델 설정
       </div>
-      <div class="pricing-note" id="pricing-note"><span class="pricing-badge paid">유료</span></div>
-    </div>
 
-    <div class="form-group">
-      <label id="key-label" for="api-key">API 키 (Anthropic)</label>
-      <div class="key-wrap">
-        <input type="password" id="api-key" placeholder="sk-ant-…" autocomplete="off" spellcheck="false"
-          oninput="clearKeyStatus()" onblur="validateKey()">
-        <button class="eye-btn" onclick="toggleKey()" title="키 표시/숨기기" aria-label="API 키 보기 토글">👁</button>
+      <div class="provider-tabs" role="tablist" aria-label="AI 제공사 선택">
+        <button class="provider-tab active" data-p="claude" onclick="selectProvider('claude')" role="tab" aria-selected="true">Claude</button>
+        <button class="provider-tab"        data-p="gemini" onclick="selectProvider('gemini')" role="tab" aria-selected="false">Gemini</button>
+        <button class="provider-tab"        data-p="openai" onclick="selectProvider('openai')" role="tab" aria-selected="false">ChatGPT</button>
       </div>
-      <p class="hint" id="key-hint">
-        <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a>에서 발급. 입력한 키는 이 브라우저 탭 안에서만 사용되며 어디에도 저장되지 않습니다.
-      </p>
-      <div class="key-status" id="key-status" aria-live="polite"></div>
-    </div>
-  </div>
 
-  <!-- ── STEP 2: Input ── -->
-  <div class="card">
-    <div class="card-title">
-      <span class="step-num">2</span>
-      안내문 입력
-    </div>
-    <textarea
-      id="letter"
-      placeholder="진단할 안내문을 여기에 붙여넣으세요.&#10;&#10;예) 교외 체험학습 안내, 수학여행 안내, 학부모 상담 주간 안내 등 어떤 안내문이든 괜찮습니다.&#10;표가 포함된 경우 그대로 붙여넣으시면 됩니다."
-      aria-label="안내문 입력"
-      oninput="updateCount()"
-    ></textarea>
-    <div id="table-hint" class="table-hint-box hidden">📋 표가 감지됐습니다. 탭·줄바꿈 구조를 자동으로 정리해 AI에 전달합니다.</div>
-    <div class="char-count"><span id="char-n">0</span>자</div>
-
-    <div style="margin-top: 1rem;">
-      <button class="btn btn-primary btn-full" id="diag-btn" onclick="diagnose()">
-        <span class="btn-spinner" aria-hidden="true"></span>
-        <span id="diag-btn-text">진단하기</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- ── STEP 3: Result (hidden) ── -->
-  <div class="card hidden" id="result-card">
-    <div class="card-title">
-      <span class="step-num done">✓</span>
-      진단 결과
-    </div>
-
-    <div class="score-box">
-      <div class="score-ring" role="img" aria-label="진단 점수">
-        <svg width="76" height="76" viewBox="0 0 76 76">
-          <circle cx="38" cy="38" r="31" fill="none" stroke="#e5e3dd" stroke-width="7"/>
-          <circle id="score-arc" cx="38" cy="38" r="31" fill="none" stroke="#c8362b" stroke-width="7"
-            stroke-dasharray="194.8" stroke-dashoffset="194.8" stroke-linecap="round"
-            style="transition: stroke-dashoffset 0.7s ease, stroke 0.5s ease;"/>
-        </svg>
-        <div class="num" id="score-num">0</div>
+      <div class="form-group">
+        <label for="model-select">모델 선택</label>
+        <div class="select-wrap">
+          <select id="model-select" onchange="onModelChange()">
+            <option value="claude-opus-4-7">Claude Opus 4.7 — 가장 강력 (유료)</option>
+            <option value="claude-sonnet-4-6" selected>Claude Sonnet 4.6 — 균형 · 권장 (유료)</option>
+            <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 — 빠르고 경제적 (유료)</option>
+          </select>
+        </div>
+        <div class="pricing-note" id="pricing-note"><span class="pricing-badge paid">유료</span></div>
       </div>
-      <div class="score-text">
-        <h3 id="score-label">—</h3>
-        <p id="score-summary"></p>
+
+      <div class="form-group">
+        <label id="key-label" for="api-key">API 키 (Anthropic)</label>
+        <div class="key-row">
+          <div class="key-wrap">
+            <input type="password" id="api-key" placeholder="sk-ant-…" autocomplete="off" spellcheck="false"
+              oninput="onKeyInput()" onblur="validateKey()">
+            <button class="eye-btn" onclick="toggleKey()" title="키 표시/숨기기" aria-label="API 키 보기 토글">👁</button>
+          </div>
+          <button class="key-action-btn save" id="save-key-btn" onclick="saveKey()" disabled>저장</button>
+          <button class="key-action-btn del hidden" id="del-key-btn" onclick="deleteKey()">삭제</button>
+        </div>
+        <p class="hint" id="key-hint">
+          <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a>에서 발급. 키 검증 후 <strong>저장</strong> 버튼이 활성화됩니다.
+        </p>
+        <div class="key-status" id="key-status" aria-live="polite"></div>
       </div>
     </div>
 
-    <div class="diag-list" id="diag-list"></div>
+    <!-- ── [2행 1열] 안내문 입력 ── -->
+    <div class="card cell-a2">
+      <div class="card-title">
+        <span class="step-num">2</span>
+        안내문 입력
+      </div>
+      <textarea
+        id="letter"
+        placeholder="진단할 안내문을 여기에 붙여넣으세요.&#10;&#10;예) 교외 체험학습 안내, 수학여행 안내, 학부모 상담 주간 안내 등 어떤 안내문이든 괜찮습니다.&#10;표가 포함된 경우 그대로 붙여넣으시면 됩니다."
+        aria-label="안내문 입력"
+        oninput="updateCount()"
+      ></textarea>
+      <div id="table-hint" class="table-hint-box hidden">📋 표가 감지됐습니다. 탭·줄바꿈 구조를 자동으로 정리해 AI에 전달합니다.</div>
+      <div class="char-count"><span id="char-n">0</span>자</div>
 
-    <div class="action-row">
-      <button class="btn btn-primary" onclick="showConvert()">변환하기 →</button>
-      <button class="btn btn-outline"  onclick="resetAll()">다시 진단하기</button>
-    </div>
-  </div>
-
-  <!-- ── STEP 4: Convert (hidden) ── -->
-  <div class="card hidden" id="convert-card">
-    <div class="card-title">
-      <span class="step-num">↕</span>
-      변환하기
-    </div>
-
-    <p style="font-size:13px; color:var(--sub); margin-bottom:1.2rem;">
-      원하는 변환 유형을 선택한 뒤 <strong>변환 실행</strong>을 누르세요.
-    </p>
-
-    <div class="convert-grid">
-      <button class="ctype-btn active" data-t="friendly" onclick="selectType('friendly')">
-        <span class="ctype-name">학부모 친화 버전</span>
-        <span class="ctype-desc">쉬운 말, 완결된 정보, 친근한 문어체</span>
-      </button>
-      <button class="ctype-btn" data-t="short" onclick="selectType('short')">
-        <span class="ctype-name">단축 버전</span>
-        <span class="ctype-desc">알림톡·문자용, 150자 이내</span>
-      </button>
-      <button class="ctype-btn" data-t="multilang" onclick="selectType('multilang')">
-        <span class="ctype-name">다국어 번역</span>
-        <span class="ctype-desc">다문화 가정 학부모용</span>
-      </button>
-      <button class="ctype-btn" data-t="oneline" onclick="selectType('oneline')">
-        <span class="ctype-name">한 줄 요약</span>
-        <span class="ctype-desc">단톡방용, 40자 이내</span>
-      </button>
-    </div>
-
-    <!-- Language picker (multilang only) -->
-    <div class="lang-wrap hidden" id="lang-wrap">
-      <label>번역 언어</label>
-      <div class="lang-row">
-        <button class="lang-btn active" data-l="zh" onclick="selectLang(this)">중국어 (간체)</button>
-        <button class="lang-btn" data-l="vi" onclick="selectLang(this)">베트남어</button>
-        <button class="lang-btn" data-l="ja" onclick="selectLang(this)">일본어</button>
-        <button class="lang-btn" data-l="tl" onclick="selectLang(this)">필리핀어</button>
-        <button class="lang-btn" data-l="km" onclick="selectLang(this)">크메르어</button>
+      <div style="margin-top: 1rem;">
+        <button class="btn btn-primary btn-full" id="diag-btn" onclick="diagnose()">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span id="diag-btn-text">진단하기</span>
+        </button>
       </div>
     </div>
 
-    <button class="btn btn-primary btn-full" id="conv-btn" onclick="convert()">
-      <span class="btn-spinner" aria-hidden="true"></span>
-      <span id="conv-btn-text">변환 실행</span>
-    </button>
+    <!-- ── [1행 2열] 진단 결과 ── -->
+    <div class="card cell-b1" id="result-card">
+      <div class="card-title">
+        <span class="step-num done" id="result-badge">3</span>
+        진단 결과
+      </div>
 
-    <div class="result-wrap hidden" id="conv-result-wrap">
-      <textarea id="conv-out" readonly aria-label="변환 결과"></textarea>
-      <button class="copy-btn" onclick="copyResult()">복사</button>
+      <!-- 빈 상태 -->
+      <div id="result-empty" class="empty-state">
+        <div class="empty-icon">📋</div>
+        <p>안내문을 입력하고 <strong>진단하기</strong>를 눌러주세요.<br>5W1H · 행정용어 · 모호한 표현 · 가독성을 점검합니다.</p>
+      </div>
+
+      <!-- 결과 콘텐츠 -->
+      <div id="result-content" class="hidden">
+        <div class="score-box">
+          <div class="score-ring" role="img" aria-label="진단 점수">
+            <svg width="70" height="70" viewBox="0 0 76 76">
+              <circle cx="38" cy="38" r="31" fill="none" stroke="#e5e3dd" stroke-width="7"/>
+              <circle id="score-arc" cx="38" cy="38" r="31" fill="none" stroke="#c8362b" stroke-width="7"
+                stroke-dasharray="194.8" stroke-dashoffset="194.8" stroke-linecap="round"
+                style="transition: stroke-dashoffset 0.7s ease, stroke 0.5s ease;"/>
+            </svg>
+            <div class="num" id="score-num">0</div>
+          </div>
+          <div class="score-text">
+            <h3 id="score-label">—</h3>
+            <p id="score-summary"></p>
+          </div>
+        </div>
+
+        <div class="diag-list" id="diag-list"></div>
+
+        <div class="action-row">
+          <button class="btn btn-primary" onclick="showConvert()">변환하기 →</button>
+          <button class="btn btn-outline"  onclick="resetAll()">다시 진단하기</button>
+        </div>
+      </div>
     </div>
-  </div>
+
+    <!-- ── [2행 2열] 변환 ── -->
+    <div class="card cell-b2" id="convert-card">
+      <div class="card-title">
+        <span class="step-num muted" id="convert-badge">4</span>
+        변환하기
+      </div>
+
+      <!-- 빈 상태 -->
+      <div id="convert-empty" class="empty-state">
+        <div class="empty-icon">✨</div>
+        <p>진단 완료 후 <strong>변환하기</strong> 버튼을 누르면<br>친화 버전·단축·다국어·한 줄 요약으로 바꿀 수 있습니다.</p>
+      </div>
+
+      <!-- 변환 콘텐츠 -->
+      <div id="convert-content" class="hidden">
+        <p style="font-size:13px; color:var(--sub); margin-bottom:1rem;">
+          원하는 변환 유형을 선택한 뒤 <strong>변환 실행</strong>을 누르세요.
+        </p>
+
+        <div class="convert-grid">
+          <button class="ctype-btn active" data-t="friendly" onclick="selectType('friendly')">
+            <span class="ctype-name">학부모 친화 버전</span>
+            <span class="ctype-desc">쉬운 말, 완결된 정보, 친근한 문어체</span>
+          </button>
+          <button class="ctype-btn" data-t="short" onclick="selectType('short')">
+            <span class="ctype-name">단축 버전</span>
+            <span class="ctype-desc">알림톡·문자용, 150자 이내</span>
+          </button>
+          <button class="ctype-btn" data-t="multilang" onclick="selectType('multilang')">
+            <span class="ctype-name">다국어 번역</span>
+            <span class="ctype-desc">다문화 가정 학부모용</span>
+          </button>
+          <button class="ctype-btn" data-t="oneline" onclick="selectType('oneline')">
+            <span class="ctype-name">한 줄 요약</span>
+            <span class="ctype-desc">단톡방용, 40자 이내</span>
+          </button>
+        </div>
+
+        <div class="lang-wrap hidden" id="lang-wrap">
+          <label>번역 언어</label>
+          <div class="lang-row">
+            <button class="lang-btn active" data-l="zh" onclick="selectLang(this)">중국어 (간체)</button>
+            <button class="lang-btn" data-l="vi" onclick="selectLang(this)">베트남어</button>
+            <button class="lang-btn" data-l="ja" onclick="selectLang(this)">일본어</button>
+            <button class="lang-btn" data-l="tl" onclick="selectLang(this)">필리핀어</button>
+            <button class="lang-btn" data-l="km" onclick="selectLang(this)">크메르어</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" id="conv-btn" onclick="convert()">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <span id="conv-btn-text">변환 실행</span>
+        </button>
+
+        <div class="result-wrap hidden" id="conv-result-wrap">
+          <textarea id="conv-out" readonly aria-label="변환 결과"></textarea>
+          <button class="copy-btn" onclick="copyResult()">복사</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid-2x2 -->
 
 </div><!-- /container -->
 
@@ -750,7 +867,7 @@
       <path d="M8 1L2 3.5V8c0 3.3 2.5 6.1 6 7 3.5-.9 6-3.7 6-7V3.5L8 1z" stroke="#4f6cf7" stroke-width="1.4" fill="none"/>
       <path d="M5.5 8l2 2 3-3" stroke="#4f6cf7" stroke-width="1.4" stroke-linecap="round"/>
     </svg>
-    입력한 API 키는 이 브라우저 탭에서만 사용되며, 서버에 전송되거나 저장되지 않습니다.
+    입력한 API 키는 이 브라우저 탭에서만 사용되며, 서버에 전송되거나 외부에 저장되지 않습니다.
   </div>
   <div class="footer-meta">
     <a href="https://jerry5026-dotcom.github.io/" target="_blank" rel="noopener">교무실 옆 작업실</a>에서 만든 무료 도구입니다. &nbsp;·&nbsp; jerry5026@gmail.com<br>
@@ -759,20 +876,28 @@
 </footer>
 
 <script>
-/* ─── State ─── */
+/* ─── Module State ─── */
 let provider = 'claude';
+let currentKeyStatus = '';   // '', 'checking', 'valid', 'invalid', 'saved'
 let selectedLang = 'zh';
 let selectedType = 'friendly';
 let originalLetter = '';
+
+/* 프로바이더별 상태 보존 (탭 전환 시 키·모델 유지) */
+const providerState = {
+  claude:  { key: '', model: 'claude-sonnet-4-6',         status: '' },
+  gemini:  { key: '', model: 'gemini-3-flash-preview',     status: '' },
+  openai:  { key: '', model: 'gpt-5.4',                    status: '' },
+};
 
 /* ─── Provider Config ─── */
 const PROVIDERS = {
   claude: {
     keyLabel: 'API 키 (Anthropic)',
     placeholder: 'sk-ant-…',
-    hint: '<a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a>에서 발급. 입력한 키는 이 브라우저 탭 안에서만 사용되며 어디에도 저장되지 않습니다.',
+    hint: '<a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a>에서 발급. 키 검증 후 <strong>저장</strong> 버튼이 활성화됩니다.',
     models: [
-      { id: 'claude-opus-4-7',          label: 'Claude Opus 4.7 — 가장 강력 (유료)',      tier: 'paid' },
+      { id: 'claude-opus-4-7',           label: 'Claude Opus 4.7 — 가장 강력 (유료)',     tier: 'paid' },
       { id: 'claude-sonnet-4-6',         label: 'Claude Sonnet 4.6 — 균형 · 권장 (유료)', tier: 'paid', def: true },
       { id: 'claude-haiku-4-5-20251001', label: 'Claude Haiku 4.5 — 빠르고 경제적 (유료)', tier: 'paid' },
     ],
@@ -780,20 +905,20 @@ const PROVIDERS = {
   gemini: {
     keyLabel: 'API 키 (Google AI Studio)',
     placeholder: 'AIza…',
-    hint: '<a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 발급. 입력한 키는 이 브라우저 탭 안에서만 사용되며 어디에도 저장되지 않습니다.',
+    hint: '<a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 발급. 키 검증 후 <strong>저장</strong> 버튼이 활성화됩니다.',
     models: [
-      { id: 'gemini-3.1-pro-preview',       label: 'Gemini 3.1 Pro Preview — 가장 강력 (유료)',           tier: 'paid' },
-      { id: 'gemini-3-flash-preview',        label: 'Gemini 3 Flash Preview — 균형 · 권장 (무료 한도)', tier: 'free', def: true },
-      { id: 'gemini-3.1-flash-lite-preview', label: 'Gemini 3.1 Flash-Lite — 경제적 (무료 한도)',        tier: 'free' },
+      { id: 'gemini-3.1-pro-preview',        label: 'Gemini 3.1 Pro Preview — 가장 강력 (유료)',           tier: 'paid' },
+      { id: 'gemini-3-flash-preview',        label: 'Gemini 3 Flash Preview — 균형 · 권장 (무료 한도)',     tier: 'free', def: true },
+      { id: 'gemini-3.1-flash-lite-preview', label: 'Gemini 3.1 Flash-Lite — 경제적 (무료 한도)',         tier: 'free' },
     ],
   },
   openai: {
     keyLabel: 'API 키 (OpenAI)',
     placeholder: 'sk-…',
-    hint: '<a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">OpenAI Platform</a>에서 발급. 입력한 키는 이 브라우저 탭 안에서만 사용되며 어디에도 저장되지 않습니다.',
+    hint: '<a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">OpenAI Platform</a>에서 발급. 키 검증 후 <strong>저장</strong> 버튼이 활성화됩니다.',
     models: [
-      { id: 'gpt-5.5',      label: 'GPT-5.5 — 가장 강력 (유료)',      tier: 'paid' },
-      { id: 'gpt-5.4',      label: 'GPT-5.4 — 균형 · 권장 (유료)',    tier: 'paid', def: true },
+      { id: 'gpt-5.5',      label: 'GPT-5.5 — 가장 강력 (유료)',         tier: 'paid' },
+      { id: 'gpt-5.4',      label: 'GPT-5.4 — 균형 · 권장 (유료)',       tier: 'paid', def: true },
       { id: 'gpt-5.4-mini', label: 'GPT-5.4 mini — 빠르고 경제적 (유료)', tier: 'paid' },
     ],
   },
@@ -807,9 +932,16 @@ const LANG_NAMES = {
   km: '크메르어(캄보디아어)',
 };
 
-/* ─── Provider Selection ─── */
+/* ─── Provider Selection (with state preservation) ─── */
 function selectProvider(p) {
+  /* 1) 현재 프로바이더 상태 저장 */
+  providerState[provider].key    = document.getElementById('api-key').value;
+  providerState[provider].model  = document.getElementById('model-select').value;
+  providerState[provider].status = currentKeyStatus;
+
+  /* 2) 새 프로바이더로 전환 */
   provider = p;
+
   document.querySelectorAll('.provider-tab').forEach(b => {
     const active = b.dataset.p === p;
     b.classList.toggle('active', active);
@@ -818,27 +950,45 @@ function selectProvider(p) {
 
   const cfg = PROVIDERS[p];
   const sel = document.getElementById('model-select');
-  sel.innerHTML = cfg.models
-    .map(m => `<option value="${m.id}"${m.def ? ' selected' : ''}>${m.label}</option>`)
-    .join('');
+  sel.innerHTML = cfg.models.map(m => `<option value="${m.id}">${m.label}</option>`).join('');
 
-  document.getElementById('key-label').textContent = cfg.keyLabel;
+  /* 3) 새 프로바이더 상태 복원 */
+  const state = providerState[p];
+
+  /* 모델 복원: 저장된 모델이 옵션에 있으면 그대로, 없으면 기본값 */
+  if (state.model && sel.querySelector(`option[value="${state.model}"]`)) {
+    sel.value = state.model;
+  } else {
+    const def = cfg.models.find(m => m.def);
+    if (def) sel.value = def.id;
+    state.model = sel.value;
+  }
+
+  /* 키 입력란 복원 */
   const inp = document.getElementById('api-key');
   inp.placeholder = cfg.placeholder;
-  inp.value = '';
+  inp.value = state.key || '';
   inp.type = 'password';
+
+  document.getElementById('key-label').textContent = cfg.keyLabel;
   document.getElementById('key-hint').innerHTML = cfg.hint;
 
-  showKeyStatus('');
+  /* 상태 복원 */
+  showKeyStatus(state.status || '');
+  updatePricingNote();
+}
+
+/* ─── Model Change ─── */
+function onModelChange() {
+  providerState[provider].model = document.getElementById('model-select').value;
   updatePricingNote();
 }
 
 /* ─── Pricing Note ─── */
 function updatePricingNote() {
   const sel  = document.getElementById('model-select');
-  const val  = sel.value;
   const cfg  = PROVIDERS[provider];
-  const m    = cfg.models.find(x => x.id === val);
+  const m    = cfg.models.find(x => x.id === sel.value);
   const note = document.getElementById('pricing-note');
   if (!m) { note.innerHTML = ''; return; }
   if (m.tier === 'free') {
@@ -848,12 +998,17 @@ function updatePricingNote() {
   }
 }
 
-/* ─── API Key Validation ─── */
-function clearKeyStatus() { showKeyStatus(''); }
+/* ─── API Key Input/Validation ─── */
+function onKeyInput() {
+  /* 사용자가 키를 수정하면 저장 상태 해제 */
+  showKeyStatus('');
+  providerState[provider].key = document.getElementById('api-key').value;
+}
 
 async function validateKey() {
   const key = document.getElementById('api-key').value.trim();
   if (!key) { showKeyStatus(''); return; }
+  if (currentKeyStatus === 'saved') return; /* 이미 저장된 키면 재검증 생략 */
 
   showKeyStatus('checking');
   try {
@@ -885,16 +1040,71 @@ async function validateKey() {
 }
 
 function showKeyStatus(status) {
-  const el = document.getElementById('key-status');
+  currentKeyStatus = status;
+  const el      = document.getElementById('key-status');
+  const saveBtn = document.getElementById('save-key-btn');
+  const delBtn  = document.getElementById('del-key-btn');
+  const inp     = document.getElementById('api-key');
+
   const MAP = {
-    '':         { cls: '',         text: '' },
-    checking:   { cls: 'checking', text: '⟳ 키 확인 중…' },
-    valid:      { cls: 'valid',    text: '✓ 유효한 키입니다' },
-    invalid:    { cls: 'invalid',  text: '✗ 유효하지 않은 키입니다' },
+    '':        { cls: '',         text: '' },
+    checking:  { cls: 'checking', text: '⟳ 키 확인 중…' },
+    valid:     { cls: 'valid',    text: '✓ 유효한 키입니다 — 저장 버튼을 눌러주세요' },
+    invalid:   { cls: 'invalid',  text: '✗ 유효하지 않은 키입니다' },
+    saved:     { cls: 'saved',    text: '🔒 저장됨 — 이 탭에서만 사용됩니다' },
   };
   const s = MAP[status] || MAP[''];
   el.className = `key-status ${s.cls}`.trim();
   el.textContent = s.text;
+
+  /* 저장/삭제 버튼 제어 */
+  if (status === 'saved') {
+    saveBtn.classList.add('hidden');
+    delBtn.classList.remove('hidden');
+    inp.readOnly = true;
+  } else {
+    saveBtn.classList.remove('hidden');
+    delBtn.classList.add('hidden');
+    saveBtn.disabled = (status !== 'valid');
+    inp.readOnly = false;
+  }
+
+  /* 상태도 동기화 저장 */
+  providerState[provider].status = status;
+}
+
+/* ─── Save / Delete Key ─── */
+function saveKey() {
+  if (currentKeyStatus !== 'valid') return;
+  const key = document.getElementById('api-key').value.trim();
+  if (!key) return;
+
+  providerState[provider].key    = key;
+  providerState[provider].status = 'saved';
+
+  /* 세션스토리지에 저장 (탭이 닫히면 사라짐) */
+  try {
+    sessionStorage.setItem(`apiKey_${provider}`, key);
+    sessionStorage.setItem(`model_${provider}`, document.getElementById('model-select').value);
+  } catch (_) {}
+
+  showKeyStatus('saved');
+}
+
+function deleteKey() {
+  if (!confirm('저장된 API 키를 삭제하시겠어요?')) return;
+
+  providerState[provider].key    = '';
+  providerState[provider].status = '';
+
+  document.getElementById('api-key').value = '';
+
+  try {
+    sessionStorage.removeItem(`apiKey_${provider}`);
+    sessionStorage.removeItem(`model_${provider}`);
+  } catch (_) {}
+
+  showKeyStatus('');
 }
 
 /* ─── Toggle Key Visibility ─── */
@@ -1064,21 +1274,18 @@ function renderResult(data) {
   const circ   = 194.8;
   const offset = circ * (1 - score / 100);
 
-  /* color & label */
   let label, color;
   if      (score >= 80) { label = `${score}점 · 매우 양호`;     color = 'var(--pass)'; }
   else if (score >= 60) { label = `${score}점 · 양호`;          color = '#c8900a'; }
   else if (score >= 40) { label = `${score}점 · 보완 필요`;     color = '#b86000'; }
   else                  { label = `${score}점 · 전면 수정 권장`; color = 'var(--fail)'; }
 
-  /* text content */
   document.getElementById('score-num').textContent     = score;
   document.getElementById('score-label').textContent   = label;
   document.getElementById('score-label').style.color   = color;
   document.getElementById('score-num').style.color     = color;
   document.getElementById('score-summary').textContent = data.summary || '';
 
-  /* diagnosis items */
   const STATUS = { pass: '통과', warn: '주의', fail: '개선 필요' };
   document.getElementById('diag-list').innerHTML = (data.items || []).map(item => {
     const st   = ['pass','warn','fail'].includes(item.status) ? item.status : 'warn';
@@ -1094,25 +1301,31 @@ function renderResult(data) {
       </div>`;
   }).join('');
 
-  /* show card, then animate ring (double rAF ensures initial paint happens first) */
-  document.getElementById('result-card').classList.remove('hidden');
+  /* 빈 상태 → 콘텐츠 전환 */
+  document.getElementById('result-empty').classList.add('hidden');
+  document.getElementById('result-content').classList.remove('hidden');
+
+  /* 링 애니메이션 (double rAF) */
   requestAnimationFrame(() => requestAnimationFrame(() => {
     const arc = document.getElementById('score-arc');
     arc.style.strokeDashoffset = offset;
     arc.style.stroke           = color;
   }));
-
-  setTimeout(() => {
-    document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 60);
 }
 
 /* ─── Show Convert ─── */
 function showConvert() {
-  document.getElementById('convert-card').classList.remove('hidden');
-  setTimeout(() => {
-    document.getElementById('convert-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 50);
+  document.getElementById('convert-empty').classList.add('hidden');
+  document.getElementById('convert-content').classList.remove('hidden');
+  document.getElementById('convert-badge').classList.remove('muted');
+  document.getElementById('convert-badge').classList.add('done');
+
+  /* 모바일·세로 화면이면 스크롤 */
+  if (window.innerWidth < 900) {
+    setTimeout(() => {
+      document.getElementById('convert-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
 }
 
 /* ─── Type / Lang Selection ─── */
@@ -1131,6 +1344,10 @@ function selectLang(el) {
 
 /* ─── Conversion ─── */
 async function convert() {
+  if (!originalLetter) {
+    alert('먼저 진단을 완료해주세요.');
+    return;
+  }
   setBtnLoading('conv-btn', 'conv-btn-text', true, '변환 실행');
 
   const prompts = {
@@ -1167,9 +1384,6 @@ ${originalLetter}`,
     const result = await callAI(prompts[selectedType]);
     document.getElementById('conv-out').value = result.trim();
     document.getElementById('conv-result-wrap').classList.remove('hidden');
-    setTimeout(() => {
-      document.getElementById('conv-result-wrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 50);
   } catch (e) {
     alert('변환 오류: ' + (e.message || '알 수 없는 오류'));
   } finally {
@@ -1208,14 +1422,51 @@ function fallbackCopy(text, btn) {
 
 /* ─── Reset ─── */
 function resetAll() {
-  document.getElementById('result-card').classList.add('hidden');
-  document.getElementById('convert-card').classList.add('hidden');
+  document.getElementById('result-empty').classList.remove('hidden');
+  document.getElementById('result-content').classList.add('hidden');
+  document.getElementById('convert-empty').classList.remove('hidden');
+  document.getElementById('convert-content').classList.add('hidden');
+  document.getElementById('convert-badge').classList.add('muted');
+  document.getElementById('convert-badge').classList.remove('done');
   document.getElementById('conv-result-wrap').classList.add('hidden');
   document.getElementById('letter').value = '';
   document.getElementById('char-n').textContent = '0';
+  document.getElementById('table-hint').classList.add('hidden');
   originalLetter = '';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+/* ─── Initialization ─── */
+(function init() {
+  /* sessionStorage에서 저장된 키 복원 */
+  ['claude', 'gemini', 'openai'].forEach(p => {
+    try {
+      const savedKey   = sessionStorage.getItem(`apiKey_${p}`);
+      const savedModel = sessionStorage.getItem(`model_${p}`);
+      if (savedKey) {
+        providerState[p].key    = savedKey;
+        providerState[p].status = 'saved';
+      }
+      if (savedModel) {
+        providerState[p].model = savedModel;
+      }
+    } catch (_) {}
+  });
+
+  /* 현재 프로바이더(기본 claude) 상태 UI 적용 */
+  const state = providerState[provider];
+  if (state.key) {
+    document.getElementById('api-key').value = state.key;
+  }
+
+  /* 모델 복원 (claude는 HTML에 이미 옵션이 있음) */
+  const sel = document.getElementById('model-select');
+  if (state.model && sel.querySelector(`option[value="${state.model}"]`)) {
+    sel.value = state.model;
+  }
+
+  showKeyStatus(state.status || '');
+  updatePricingNote();
+})();
 </script>
 </body>
 </html>
