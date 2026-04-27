@@ -477,6 +477,43 @@
     }
     .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+    /* ── Key Status ── */
+    .key-status {
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 5px;
+      min-height: 18px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .key-status.valid   { color: var(--pass); }
+    .key-status.invalid { color: var(--fail); }
+    .key-status.checking { color: var(--sub); }
+
+    /* ── Pricing Badge ── */
+    .pricing-note { margin-top: 5px; min-height: 20px; }
+    .pricing-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .pricing-badge.paid  { background: #fff1f2; color: #be123c; }
+    .pricing-badge.free  { background: #f0fdf4; color: #15803d; }
+
+    /* ── Table Hint ── */
+    .table-hint-box {
+      font-size: 12px;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(79,108,247,0.2);
+      padding: 7px 12px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
     /* ── Action Row ── */
     .action-row {
       display: flex;
@@ -548,23 +585,26 @@
     <div class="form-group">
       <label for="model-select">모델 선택</label>
       <div class="select-wrap">
-        <select id="model-select">
-          <option value="claude-opus-4-7">Claude Opus 4.7 — 가장 강력, 복잡한 분석</option>
-          <option value="claude-sonnet-4-6" selected>Claude Sonnet 4.6 — 속도·성능 균형 (권장)</option>
-          <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 — 빠르고 경제적</option>
+        <select id="model-select" onchange="updatePricingNote()">
+          <option value="claude-opus-4-7">Claude Opus 4.7 — 가장 강력 (유료)</option>
+          <option value="claude-sonnet-4-6" selected>Claude Sonnet 4.6 — 균형 · 권장 (유료)</option>
+          <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5 — 빠르고 경제적 (유료)</option>
         </select>
       </div>
+      <div class="pricing-note" id="pricing-note"><span class="pricing-badge paid">유료</span></div>
     </div>
 
     <div class="form-group">
       <label id="key-label" for="api-key">API 키 (Anthropic)</label>
       <div class="key-wrap">
-        <input type="password" id="api-key" placeholder="sk-ant-…" autocomplete="off" spellcheck="false">
+        <input type="password" id="api-key" placeholder="sk-ant-…" autocomplete="off" spellcheck="false"
+          oninput="clearKeyStatus()" onblur="validateKey()">
         <button class="eye-btn" onclick="toggleKey()" title="키 표시/숨기기" aria-label="API 키 보기 토글">👁</button>
       </div>
       <p class="hint" id="key-hint">
         <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a>에서 발급. 입력한 키는 이 브라우저 탭 안에서만 사용되며 어디에도 저장되지 않습니다.
       </p>
+      <div class="key-status" id="key-status" aria-live="polite"></div>
     </div>
   </div>
 
@@ -576,10 +616,11 @@
     </div>
     <textarea
       id="letter"
-      placeholder="진단할 안내문을 여기에 붙여넣으세요.&#10;&#10;예) 교외 체험학습 안내, 수학여행 안내, 학부모 상담 주간 안내 등 어떤 안내문이든 괜찮습니다."
+      placeholder="진단할 안내문을 여기에 붙여넣으세요.&#10;&#10;예) 교외 체험학습 안내, 수학여행 안내, 학부모 상담 주간 안내 등 어떤 안내문이든 괜찮습니다.&#10;표가 포함된 경우 그대로 붙여넣으시면 됩니다."
       aria-label="안내문 입력"
       oninput="updateCount()"
     ></textarea>
+    <div id="table-hint" class="table-hint-box hidden">📋 표가 감지됐습니다. 탭·줄바꿈 구조를 자동으로 정리해 AI에 전달합니다.</div>
     <div class="char-count"><span id="char-n">0</span>자</div>
 
     <div style="margin-top: 1rem;">
@@ -695,9 +736,9 @@ const PROVIDERS = {
     placeholder: 'sk-ant-…',
     hint: '<a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Anthropic Console</a>에서 발급. 입력한 키는 이 브라우저 탭 안에서만 사용되며 어디에도 저장되지 않습니다.',
     models: [
-      { id: 'claude-opus-4-7',          label: 'Claude Opus 4.7 — 가장 강력, 복잡한 분석' },
-      { id: 'claude-sonnet-4-6',         label: 'Claude Sonnet 4.6 — 속도·성능 균형 (권장)', def: true },
-      { id: 'claude-haiku-4-5-20251001', label: 'Claude Haiku 4.5 — 빠르고 경제적' },
+      { id: 'claude-opus-4-7',          label: 'Claude Opus 4.7 — 가장 강력 (유료)',      tier: 'paid' },
+      { id: 'claude-sonnet-4-6',         label: 'Claude Sonnet 4.6 — 균형 · 권장 (유료)', tier: 'paid', def: true },
+      { id: 'claude-haiku-4-5-20251001', label: 'Claude Haiku 4.5 — 빠르고 경제적 (유료)', tier: 'paid' },
     ],
   },
   gemini: {
@@ -705,9 +746,9 @@ const PROVIDERS = {
     placeholder: 'AIza…',
     hint: '<a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a>에서 발급. 입력한 키는 이 브라우저 탭 안에서만 사용되며 어디에도 저장되지 않습니다.',
     models: [
-      { id: 'gemini-3.1-pro-preview',        label: 'Gemini 3.1 Pro Preview — 가장 강력' },
-      { id: 'gemini-3-flash-preview',         label: 'Gemini 3 Flash Preview — 속도·성능 균형 (권장)', def: true },
-      { id: 'gemini-3.1-flash-lite-preview',  label: 'Gemini 3.1 Flash-Lite Preview — 빠르고 경제적' },
+      { id: 'gemini-3.1-pro-preview',       label: 'Gemini 3.1 Pro Preview — 가장 강력 (유료)',           tier: 'paid' },
+      { id: 'gemini-3-flash-preview',        label: 'Gemini 3 Flash Preview — 균형 · 권장 (무료 한도)', tier: 'free', def: true },
+      { id: 'gemini-3.1-flash-lite-preview', label: 'Gemini 3.1 Flash-Lite — 경제적 (무료 한도)',        tier: 'free' },
     ],
   },
   openai: {
@@ -715,9 +756,9 @@ const PROVIDERS = {
     placeholder: 'sk-…',
     hint: '<a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">OpenAI Platform</a>에서 발급. 입력한 키는 이 브라우저 탭 안에서만 사용되며 어디에도 저장되지 않습니다.',
     models: [
-      { id: 'gpt-5.5',      label: 'GPT-5.5 — 가장 강력' },
-      { id: 'gpt-5.4',      label: 'GPT-5.4 — 속도·성능 균형 (권장)', def: true },
-      { id: 'gpt-5.4-mini', label: 'GPT-5.4 mini — 빠르고 경제적' },
+      { id: 'gpt-5.5',      label: 'GPT-5.5 — 가장 강력 (유료)',      tier: 'paid' },
+      { id: 'gpt-5.4',      label: 'GPT-5.4 — 균형 · 권장 (유료)',    tier: 'paid', def: true },
+      { id: 'gpt-5.4-mini', label: 'GPT-5.4 mini — 빠르고 경제적 (유료)', tier: 'paid' },
     ],
   },
 };
@@ -751,6 +792,73 @@ function selectProvider(p) {
   inp.value = '';
   inp.type = 'password';
   document.getElementById('key-hint').innerHTML = cfg.hint;
+
+  showKeyStatus('');
+  updatePricingNote();
+}
+
+/* ─── Pricing Note ─── */
+function updatePricingNote() {
+  const sel  = document.getElementById('model-select');
+  const val  = sel.value;
+  const cfg  = PROVIDERS[provider];
+  const m    = cfg.models.find(x => x.id === val);
+  const note = document.getElementById('pricing-note');
+  if (!m) { note.innerHTML = ''; return; }
+  if (m.tier === 'free') {
+    note.innerHTML = '<span class="pricing-badge free">무료 한도 있음</span> <span class="hint" style="display:inline">일정 사용량까지 무료, 초과 시 과금</span>';
+  } else {
+    note.innerHTML = '<span class="pricing-badge paid">유료</span>';
+  }
+}
+
+/* ─── API Key Validation ─── */
+function clearKeyStatus() { showKeyStatus(''); }
+
+async function validateKey() {
+  const key = document.getElementById('api-key').value.trim();
+  if (!key) { showKeyStatus(''); return; }
+
+  showKeyStatus('checking');
+  try {
+    let ok = false;
+    if (provider === 'claude') {
+      const res = await fetch('https://api.anthropic.com/v1/models', {
+        headers: {
+          'x-api-key': key,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+      });
+      ok = res.ok;
+    } else if (provider === 'gemini') {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(key)}`
+      );
+      ok = res.ok;
+    } else {
+      const res = await fetch('https://api.openai.com/v1/models', {
+        headers: { 'Authorization': `Bearer ${key}` },
+      });
+      ok = res.ok;
+    }
+    showKeyStatus(ok ? 'valid' : 'invalid');
+  } catch (_) {
+    showKeyStatus('invalid');
+  }
+}
+
+function showKeyStatus(status) {
+  const el = document.getElementById('key-status');
+  const MAP = {
+    '':         { cls: '',         text: '' },
+    checking:   { cls: 'checking', text: '⟳ 키 확인 중…' },
+    valid:      { cls: 'valid',    text: '✓ 유효한 키입니다' },
+    invalid:    { cls: 'invalid',  text: '✗ 유효하지 않은 키입니다' },
+  };
+  const s = MAP[status] || MAP[''];
+  el.className = `key-status ${s.cls}`.trim();
+  el.textContent = s.text;
 }
 
 /* ─── Toggle Key Visibility ─── */
@@ -759,10 +867,22 @@ function toggleKey() {
   inp.type = inp.type === 'password' ? 'text' : 'password';
 }
 
-/* ─── Char Count ─── */
+/* ─── Char Count + Table Detection ─── */
 function updateCount() {
-  document.getElementById('char-n').textContent =
-    document.getElementById('letter').value.length.toLocaleString();
+  const val = document.getElementById('letter').value;
+  document.getElementById('char-n').textContent = val.length.toLocaleString();
+  document.getElementById('table-hint').classList.toggle('hidden', !val.includes('\t'));
+}
+
+/* ─── Table Preprocessor ─── */
+function preprocessLetter(text) {
+  if (!text.includes('\t')) return text;
+  return text.split('\n').map(line => {
+    if (!line.includes('\t')) return line;
+    const cells = line.split('\t').map(c => c.trim());
+    while (cells.length > 0 && cells[cells.length - 1] === '') cells.pop();
+    return '| ' + cells.join(' | ') + ' |';
+  }).join('\n');
 }
 
 /* ─── AI Call ─── */
@@ -862,7 +982,7 @@ async function diagnose() {
     return;
   }
 
-  originalLetter = letter;
+  originalLetter = preprocessLetter(letter);
   setBtnLoading('diag-btn', 'diag-btn-text', true, '진단하기');
 
   const prompt = `당신은 학교 현장 전문가입니다. 교사가 작성한 학부모 안내문을 4가지 기준으로 진단하고, 유효한 JSON만 응답하세요. 코드블록·설명 텍스트는 절대 포함하지 마세요.
