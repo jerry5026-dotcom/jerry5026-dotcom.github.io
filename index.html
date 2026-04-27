@@ -12,7 +12,7 @@
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#c8362b">
+  <meta name="theme-color" content="#fafaf7">
 
   <!-- SEO: 기본 메타 -->
   <title>교무실 옆 작업실 — 생기부·수행평가·시험 시간표 자동화 도구 | 교사 무료 업무 도구</title>
@@ -2012,7 +2012,7 @@
 
     <div class="tools-grid">
 
-      <a href="https://jerry5026-dotcom.github.io/exam-timetable/" target="_blank" rel="noopener" class="tool-card maintenance" onclick="event.preventDefault(); alert('점검 중입니다. 업데이트가 끝나면 다시 열겠습니다.'); return false;">
+      <a href="https://jerry5026-dotcom.github.io/exam-timetable/" target="_blank" rel="noopener" class="tool-card maintenance" onclick="event.preventDefault(); gtag('event','tool_click_blocked',{tool_name:'시험 시간표 자동 생성기',reason:'maintenance'}); alert('점검 중입니다. 업데이트가 끝나면 다시 열겠습니다.'); return false;">
         <div class="tool-icon">📅</div>
         <div class="tool-name">시험 시간표 자동 생성기</div>
         <div class="tool-desc">
@@ -2022,7 +2022,7 @@
         <span class="tool-tag">🔧 점검 중</span>
       </a>
 
-      <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index1.html" target="_blank" rel="noopener" class="tool-card">
+      <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index1.html" target="_blank" rel="noopener" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'생기부 작성 도우미 1'})">
         <div class="tool-icon">📝</div>
         <div class="tool-name">생기부 작성 도우미 Ⅰ</div>
         <div class="tool-desc">
@@ -2032,7 +2032,7 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
-      <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index2.html" target="_blank" rel="noopener" class="tool-card">
+      <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index2.html" target="_blank" rel="noopener" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'생기부 작성 도우미 2'})">
         <div class="tool-icon">📗</div>
         <div class="tool-name">생기부 작성 도우미 Ⅱ</div>
         <div class="tool-desc">
@@ -2042,7 +2042,7 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
-      <a href="https://saenggibu-observation.vercel.app/" target="_blank" rel="noopener" class="tool-card">
+      <a href="https://saenggibu-observation.vercel.app/" target="_blank" rel="noopener" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'수행평가 AI 도우미'})">
         <div class="tool-icon">📊</div>
         <div class="tool-name">수행평가 AI 도우미</div>
         <div class="tool-desc">
@@ -2052,7 +2052,7 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
-      <a href="https://jerry5026-dotcom.github.io/student-survey/" target="_blank" rel="noopener" class="tool-card">
+      <a href="https://jerry5026-dotcom.github.io/student-survey/" target="_blank" rel="noopener" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'학생 기초조사 상담 도우미'})">
         <div class="tool-icon">🧑‍🎓</div>
         <div class="tool-name">학생 기초조사 · 상담 도우미</div>
         <div class="tool-desc">
@@ -2697,7 +2697,7 @@
             받아가신 뒤 <strong>본인 학교 환경에 맞게 직접 수정</strong>해서 사용하시면 됩니다.
           </div>
         </div>
-        <a href="온라인 교무실 v1.0.zip" download class="dashboard-download-btn">
+        <a href="온라인 교무실 v1.0.zip" download class="dashboard-download-btn" onclick="gtag('event','download_zip',{file:'online-staff-room-v1.0'})">
           📥 다운로드
         </a>
       </div>
