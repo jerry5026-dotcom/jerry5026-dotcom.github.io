@@ -77,18 +77,18 @@
       line-height: 1.7;
     }
 
-    /* ── 2x2 Grid ── */
-    .grid-2x2 {
+    /* ── Layout ── */
+    .layout {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .row-work {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
       gap: 1rem;
       align-items: start;
     }
-    .cell-a1 { grid-column: 1; grid-row: 1; }
-    .cell-a2 { grid-column: 1; grid-row: 2; }
-    .cell-b1 { grid-column: 2; grid-row: 1; }
-    .cell-b2 { grid-column: 2; grid-row: 2; }
 
     /* ── Card ── */
     .card {
@@ -452,9 +452,12 @@
     /* ── Convert ── */
     .convert-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
       gap: 0.5rem;
       margin-bottom: 1.1rem;
+    }
+    @media (max-width: 800px) {
+      .convert-grid { grid-template-columns: 1fr 1fr; }
     }
     .ctype-btn {
       padding: 0.75rem 0.85rem;
@@ -508,11 +511,15 @@
       resize: vertical;
       cursor: default;
     }
-    .copy-btn {
+    .result-btn-row {
       position: absolute;
       top: 8px;
       right: 8px;
-      padding: 0.28rem 0.7rem;
+      display: flex;
+      gap: 5px;
+    }
+    .result-btn {
+      padding: 0.32rem 0.75rem;
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 6px;
@@ -522,8 +529,14 @@
       font-family: 'Noto Sans KR', sans-serif;
       transition: all 0.15s;
       color: var(--sub);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
-    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .result-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .result-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .result-btn.docx { color: #2b579a; border-color: rgba(43,87,154,0.3); }
+    .result-btn.docx:hover:not(:disabled) { background: rgba(43,87,154,0.06); border-color: #2b579a; color: #2b579a; }
 
     /* ── Key Status ── */
     .key-status {
@@ -643,13 +656,8 @@
 
     /* ── Responsive ── */
     @media (max-width: 900px) {
-      .grid-2x2 {
+      .row-work {
         grid-template-columns: 1fr;
-        grid-template-rows: auto;
-      }
-      .cell-a1, .cell-a2, .cell-b1, .cell-b2 {
-        grid-column: 1;
-        grid-row: auto;
       }
     }
     @media (max-width: 600px) {
@@ -688,10 +696,10 @@
     </div>
   </header>
 
-  <div class="grid-2x2">
+  <div class="layout">
 
-    <!-- ── [1행 1열] AI 모델 설정 ── -->
-    <div class="card cell-a1" id="setup-card">
+    <!-- ── [1행] AI 모델 설정 (가로 전폭) ── -->
+    <div class="card" id="setup-card">
       <div class="card-title">
         <span class="step-num">1</span>
         AI 모델 설정
@@ -720,7 +728,7 @@
         <div class="key-row">
           <div class="key-wrap">
             <input type="password" id="api-key" placeholder="sk-ant-…" autocomplete="off" spellcheck="false"
-              oninput="onKeyInput()" onblur="validateKey()">
+              oninput="onKeyInput()">
             <button class="eye-btn" onclick="toggleKey()" title="키 표시/숨기기" aria-label="API 키 보기 토글">👁</button>
           </div>
           <button class="key-action-btn save" id="save-key-btn" onclick="saveKey()" disabled>저장</button>
@@ -733,8 +741,10 @@
       </div>
     </div>
 
-    <!-- ── [2행 1열] 안내문 입력 ── -->
-    <div class="card cell-a2">
+    <!-- ── [2행] 안내문 입력 | 진단 결과 ── -->
+    <div class="row-work">
+
+    <div class="card" id="input-card">
       <div class="card-title">
         <span class="step-num">2</span>
         안내문 입력
@@ -756,8 +766,8 @@
       </div>
     </div>
 
-    <!-- ── [1행 2열] 진단 결과 ── -->
-    <div class="card cell-b1" id="result-card">
+    <!-- 진단 결과 -->
+    <div class="card" id="result-card">
       <div class="card-title">
         <span class="step-num done" id="result-badge">3</span>
         진단 결과
@@ -796,8 +806,10 @@
       </div>
     </div>
 
-    <!-- ── [2행 2열] 변환 ── -->
-    <div class="card cell-b2" id="convert-card">
+    </div><!-- /row-work -->
+
+    <!-- ── [3행] 변환 (가로 전폭) ── -->
+    <div class="card" id="convert-card">
       <div class="card-title">
         <span class="step-num muted" id="convert-badge">4</span>
         변환하기
@@ -852,12 +864,15 @@
 
         <div class="result-wrap hidden" id="conv-result-wrap">
           <textarea id="conv-out" readonly aria-label="변환 결과"></textarea>
-          <button class="copy-btn" onclick="copyResult()">복사</button>
+          <div class="result-btn-row">
+            <button class="result-btn" id="copy-btn" onclick="copyResult()">📋 복사</button>
+            <button class="result-btn docx" id="docx-btn" onclick="downloadDocx()">📄 DOCX 저장</button>
+          </div>
         </div>
       </div>
     </div>
 
-  </div><!-- /grid-2x2 -->
+  </div><!-- /layout -->
 
 </div><!-- /container -->
 
@@ -999,10 +1014,25 @@ function updatePricingNote() {
 }
 
 /* ─── API Key Input/Validation ─── */
+let validateTimer = null;
+
 function onKeyInput() {
   /* 사용자가 키를 수정하면 저장 상태 해제 */
-  showKeyStatus('');
+  if (currentKeyStatus !== '') showKeyStatus('');
   providerState[provider].key = document.getElementById('api-key').value;
+
+  /* 타이머 초기화 */
+  clearTimeout(validateTimer);
+
+  const key = document.getElementById('api-key').value.trim();
+  if (!key) { showKeyStatus(''); return; }
+
+  /* 너무 짧으면 검증하지 않음 (불필요한 API 호출 방지) */
+  if (key.length < 15) { showKeyStatus(''); return; }
+
+  /* 입력 멈춘 뒤 600ms 후 자동 검증 */
+  showKeyStatus('checking');
+  validateTimer = setTimeout(() => { validateKey(); }, 600);
 }
 
 async function validateKey() {
@@ -1425,7 +1455,13 @@ async function convert() {
   const prompts = {
     friendly:
 `아래 학교 안내문을 학부모 친화적 버전으로 다시 작성하세요.
-규칙: 행정 용어·한자어를 쉬운 말로 바꿀 것 / 5W1H 중 빠진 항목은 [확인 필요]로 표시 / 자연스럽고 친근한 문어체 유지 / 원본 단락 구조 유지 / 변환된 안내문 텍스트만 출력(설명 없이)
+규칙:
+- 행정 용어·한자어를 쉬운 말로 바꿀 것
+- 5W1H 중 빠진 항목은 [확인 필요]로 표시
+- 자연스럽고 친근한 문어체 유지
+- 원본 단락 구조 유지
+- 원본에 표(| 셀 | 셀 | 형식)가 있으면 표 형식 그대로 유지(셀 안 문구만 친화적으로 다듬기)
+- 변환된 안내문 텍스트만 출력(설명 없이)
 
 원본:
 ${originalLetter}`,
@@ -1439,7 +1475,7 @@ ${originalLetter}`,
 
     multilang:
 `아래 학교 안내문을 ${LANG_NAMES[selectedLang]}로 번역하세요.
-규칙: 학부모가 이해하기 쉬운 자연스러운 ${LANG_NAMES[selectedLang]} 사용 / 날짜·금액·학교명 등 고유 정보는 그대로 유지 / 번역된 텍스트만 출력(설명 없이)
+규칙: 학부모가 이해하기 쉬운 자연스러운 ${LANG_NAMES[selectedLang]} 사용 / 날짜·금액·학교명 등 고유 정보는 그대로 유지 / 원본에 표(| 셀 | 셀 | 형식)가 있으면 표 형식 그대로 유지(셀 안 문구만 번역) / 번역된 텍스트만 출력(설명 없이)
 
 원본:
 ${originalLetter}`,
@@ -1470,12 +1506,12 @@ ${originalLetter}`,
 /* ─── Copy ─── */
 function copyResult() {
   const text = document.getElementById('conv-out').value;
-  const btn  = document.querySelector('.copy-btn');
+  const btn  = document.getElementById('copy-btn');
 
   if (navigator.clipboard?.writeText) {
     navigator.clipboard.writeText(text).then(() => {
-      btn.textContent = '복사됨 ✓';
-      setTimeout(() => { btn.textContent = '복사'; }, 2000);
+      btn.textContent = '✓ 복사됨';
+      setTimeout(() => { btn.textContent = '📋 복사'; }, 2000);
     }).catch(() => fallbackCopy(text, btn));
   } else {
     fallbackCopy(text, btn);
@@ -1488,12 +1524,196 @@ function fallbackCopy(text, btn) {
   ta.select();
   try {
     document.execCommand('copy');
-    btn.textContent = '복사됨 ✓';
-    setTimeout(() => { btn.textContent = '복사'; }, 2000);
+    btn.textContent = '✓ 복사됨';
+    setTimeout(() => { btn.textContent = '📋 복사'; }, 2000);
   } catch (_) {
     alert('복사에 실패했습니다. 직접 선택 후 복사해 주세요.');
   }
   ta.setAttribute('readonly', '');
+}
+
+/* ─── DOCX Export ─── */
+async function downloadDocx() {
+  const text = document.getElementById('conv-out').value;
+  if (!text) return;
+
+  const btn  = document.getElementById('docx-btn');
+  const orig = btn.textContent;
+  btn.textContent = '⟳ 생성 중…';
+  btn.disabled = true;
+
+  try {
+    if (typeof window.docx === 'undefined') {
+      await loadScript('https://unpkg.com/docx@9.0.3/build/index.umd.js');
+    }
+    if (typeof window.docx === 'undefined') {
+      throw new Error('DOCX 라이브러리 로딩 실패');
+    }
+
+    const blob = await buildDocxBlob(text);
+    const filename = makeDocxFilename();
+    saveBlob(blob, filename);
+
+    btn.textContent = '✓ 저장됨';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  } catch (e) {
+    console.error('DOCX 저장 오류:', e);
+    alert('DOCX 저장 실패: ' + (e.message || '알 수 없는 오류'));
+    btn.textContent = orig;
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* 마크다운 표(| ... |) + 단락을 블록으로 분리 */
+function parseToBlocks(text) {
+  const lines = text.split('\n');
+  const blocks = [];
+  let curTable = null;
+  let curPara  = [];
+
+  function flushPara() {
+    if (curPara.length) {
+      blocks.push({ type: 'paragraph', text: curPara.join('\n') });
+      curPara = [];
+    }
+  }
+  function flushTable() {
+    if (curTable && curTable.length) {
+      blocks.push({ type: 'table', rows: curTable });
+      curTable = null;
+    }
+  }
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    const isTableRow = trimmed.startsWith('|') && trimmed.endsWith('|') && trimmed.length > 2;
+
+    if (isTableRow) {
+      /* 구분 행 (---|---|...) 건너뛰기 */
+      if (/^\|[\s:|\-]+\|$/.test(trimmed)) continue;
+      flushPara();
+      const cells = trimmed.slice(1, -1).split('|').map(c => c.trim());
+      if (!curTable) curTable = [];
+      curTable.push(cells);
+    } else {
+      flushTable();
+      if (trimmed === '') {
+        flushPara();
+      } else {
+        curPara.push(line);
+      }
+    }
+  }
+  flushPara();
+  flushTable();
+  return blocks;
+}
+
+async function buildDocxBlob(text) {
+  const D = window.docx;
+  const FONT = '맑은 고딕';
+  const blocks = parseToBlocks(text);
+
+  const titleMap = {
+    friendly:  '학부모 친화 버전',
+    short:     '단축 (알림톡·문자) 버전',
+    multilang: `다국어 (${LANG_NAMES[selectedLang] || ''})`,
+    oneline:   '한 줄 요약',
+  };
+  const title = titleMap[selectedType] || '변환 결과';
+
+  const children = [];
+
+  /* 제목 */
+  children.push(new D.Paragraph({
+    children: [new D.TextRun({ text: title, bold: true, size: 32, font: FONT })],
+    spacing: { after: 280 },
+  }));
+
+  /* 본문 */
+  for (const block of blocks) {
+    if (block.type === 'table') {
+      /* 셀 너비 균등 분배 */
+      const colCount = Math.max(...block.rows.map(r => r.length));
+      const tableRows = block.rows.map((rowCells, ri) => {
+        /* 짧은 행은 빈 셀로 채움 */
+        const cells = [...rowCells];
+        while (cells.length < colCount) cells.push('');
+        return new D.TableRow({
+          children: cells.map(cellText => new D.TableCell({
+            children: [new D.Paragraph({
+              children: [new D.TextRun({
+                text: cellText,
+                font: FONT,
+                size: 22,
+                bold: ri === 0,
+              })],
+            })],
+          })),
+        });
+      });
+      children.push(new D.Table({
+        rows: tableRows,
+        width: { size: 100, type: D.WidthType.PERCENTAGE },
+      }));
+      /* 표 뒤 여백 */
+      children.push(new D.Paragraph({
+        children: [new D.TextRun({ text: '', font: FONT })],
+        spacing: { after: 120 },
+      }));
+    } else {
+      /* 단락은 줄 단위로 별도 Paragraph로 */
+      const paragraphs = block.text.split('\n');
+      for (const p of paragraphs) {
+        children.push(new D.Paragraph({
+          children: [new D.TextRun({ text: p, font: FONT, size: 22 })],
+          spacing: { after: 120 },
+        }));
+      }
+    }
+  }
+
+  const doc = new D.Document({
+    sections: [{ properties: {}, children }],
+  });
+
+  return await D.Packer.toBlob(doc);
+}
+
+function makeDocxFilename() {
+  const m = {
+    friendly: '친화버전',
+    short: '단축버전',
+    multilang: '다국어',
+    oneline: '한줄요약',
+  };
+  const type = m[selectedType] || '변환';
+  const d = new Date();
+  const stamp = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+  return `안내문_${type}_${stamp}.docx`;
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    s.onload  = () => resolve();
+    s.onerror = () => reject(new Error('스크립트 로딩 실패: ' + src));
+    document.head.appendChild(s);
+  });
+}
+
+function saveBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 100);
 }
 
 /* ─── Reset ─── */
