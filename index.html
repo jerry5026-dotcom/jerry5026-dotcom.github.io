@@ -812,6 +812,73 @@
       line-height: 1.6;
     }
 
+    /* 코드 다운로드 박스 */
+    .dashboard-download {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 22px;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, #f5f1e8 0%, #faf6ec 100%);
+      border: 1px solid #e0d7c0;
+      border-radius: 10px;
+    }
+    .dashboard-download-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+    .dashboard-download-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .dashboard-download-title {
+      font-family: 'Gowun Batang', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .dashboard-download-desc {
+      font-size: 12px;
+      color: #6b5d3f;
+      line-height: 1.65;
+    }
+    .dashboard-download-desc strong {
+      color: #5a4528;
+      font-weight: 700;
+    }
+    .dashboard-download-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+    }
+    .dashboard-download-btn:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(200, 54, 43, 0.18);
+    }
+    @media (max-width: 600px) {
+      .dashboard-download {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 18px;
+      }
+      .dashboard-download-btn { align-self: stretch; justify-content: center; }
+    }
+
     /* Menu detail (nested accordion) */
     .menu-detail {
       margin-top: 20px;
@@ -1920,7 +1987,7 @@
     <div class="intro">
       <p class="intro-text">
         "이거 내가 직접 짜볼 수 있을까?" 하며 시작한 어설픈 시도들이<br>
-        어느새 <strong>진짜로 제 퇴근 시간을 조금씩 돌려주는 도구들</strong>이 되었습니다.<br>
+        어느새 <strong>진짜로 제 퇴근 시간을 조금씩 돌려주는 도구들</strong>이 되어가고 있습니다.<br>
         엉성한 곳도 많지만, 같은 고민 하시는 선생님들이 함께 쓰고 고쳐주시면 좋겠어요.
       </p>
     </div>
@@ -2614,10 +2681,24 @@
         </div><!-- /dash-tab-panels -->
       </div><!-- /dash-tabs -->
 
+      <div class="dashboard-download">
+        <div class="dashboard-download-icon">📦</div>
+        <div class="dashboard-download-text">
+          <div class="dashboard-download-title">온라인 교무실 v1.0 — 코드 받아가기</div>
+          <div class="dashboard-download-desc">
+            앱스스크립트 코드, 시트 템플릿 링크, 위젯 구성 순서 안내가 담겨 있어요.<br>
+            받아가신 뒤 <strong>본인 학교 환경에 맞게 직접 수정</strong>해서 사용하시면 됩니다.
+          </div>
+        </div>
+        <a href="온라인 교무실 v1.0.zip" download class="dashboard-download-btn">
+          📥 다운로드
+        </a>
+      </div>
+
       <div class="dashboard-note">
         ※ 위 화면은 전부 가짜 데이터로 다시 그린 <strong>모의 이미지</strong>예요 — 개인정보·학교정보는 한 줄도 담기지 않았습니다.
         실제 페이지는 근무 학교 교직원만 들어갈 수 있고, 외부 URL·스크린샷·진짜 데이터는 공개하지 않아요.
-        "우리 학교에도 비슷하게 만들어보고 싶은데…" 하시는 분은 편하게 이메일 주세요. (학교마다 사정이 다르니, 받아가신 뒤 본인 학교에 맞게 손봐서 쓰시면 됩니다.)
+        직접 따라 만들어보시다 막히는 부분이 있으면 편하게 이메일 주세요.
       </div>
 
       </div><!-- /dashboard-body -->
