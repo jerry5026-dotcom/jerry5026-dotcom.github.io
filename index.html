@@ -34,6 +34,23 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-VP7Y745BK0');
+
+    // PWA 앱에서 도구 클릭 시 시스템 브라우저로 열기
+    function openInBrowser(url, event) {
+      var isStandalone = window.matchMedia('(display-mode: standalone)').matches
+                      || window.navigator.standalone === true
+                      || document.referrer.indexOf('android-app://') !== -1;
+      if (!isStandalone) return true; // 일반 브라우저는 기본 동작
+      if (event) event.preventDefault();
+      var a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer external';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      return false;
+    }
   </script>
 
   <!-- Naver Analytics -->
@@ -2022,7 +2039,7 @@
         <span class="tool-tag">🔧 점검 중</span>
       </a>
 
-      <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index1.html" target="_blank" rel="noopener" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'생기부 작성 도우미 1'})">
+      <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index1.html" target="_blank" rel="noopener noreferrer external" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'생기부 작성 도우미 1'}); return openInBrowser(this.href, event);">
         <div class="tool-icon">📝</div>
         <div class="tool-name">생기부 작성 도우미 Ⅰ</div>
         <div class="tool-desc">
@@ -2032,7 +2049,7 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
-      <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index2.html" target="_blank" rel="noopener" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'생기부 작성 도우미 2'})">
+      <a href="https://jerry5026-dotcom.github.io/saenggibu-writer/index2.html" target="_blank" rel="noopener noreferrer external" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'생기부 작성 도우미 2'}); return openInBrowser(this.href, event);">
         <div class="tool-icon">📗</div>
         <div class="tool-name">생기부 작성 도우미 Ⅱ</div>
         <div class="tool-desc">
@@ -2042,7 +2059,7 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
-      <a href="https://saenggibu-observation.vercel.app/" target="_blank" rel="noopener" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'수행평가 AI 도우미'})">
+      <a href="https://saenggibu-observation.vercel.app/" target="_blank" rel="noopener noreferrer external" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'수행평가 AI 도우미'}); return openInBrowser(this.href, event);">
         <div class="tool-icon">📊</div>
         <div class="tool-name">수행평가 AI 도우미</div>
         <div class="tool-desc">
@@ -2052,7 +2069,7 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
-      <a href="https://jerry5026-dotcom.github.io/student-survey/" target="_blank" rel="noopener" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'학생 기초조사 상담 도우미'})">
+      <a href="https://jerry5026-dotcom.github.io/student-survey/" target="_blank" rel="noopener noreferrer external" class="tool-card" onclick="gtag('event','tool_click',{tool_name:'학생 기초조사 상담 도우미'}); return openInBrowser(this.href, event);">
         <div class="tool-icon">🧑‍🎓</div>
         <div class="tool-name">학생 기초조사 · 상담 도우미</div>
         <div class="tool-desc">
