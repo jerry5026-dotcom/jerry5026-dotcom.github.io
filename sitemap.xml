@@ -16,6 +16,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://jerry5026-dotcom.github.io/notes/2026-04-28-timetable-pause.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://jerry5026-dotcom.github.io/exam-timetable/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
