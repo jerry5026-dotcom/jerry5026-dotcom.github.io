@@ -316,18 +316,10 @@
       <p class="notes-subtitle">교무실 한 켠, 작업 노트</p>
     </header>
 
-    <div class="filter-tabs" id="filter-tabs">
-      <button class="filter-tab active" data-filter="all">전체</button>
-      <button class="filter-tab" data-filter="dev">🛠 개발</button>
-      <button class="filter-tab" data-filter="school">🏫 학교생활</button>
-      <button class="filter-tab" data-filter="life">📝 일상</button>
-    </div>
-
     <div class="post-list" id="post-list">
 
-      <a href="2026-04-24-opening.html" class="post-card" data-category="life">
+      <a href="2026-04-24-opening.html" class="post-card">
         <div class="post-meta">
-          <span class="post-category life">📝 일상</span>
           <span>2026.04.24.</span>
         </div>
         <h2 class="post-title">작업실을 열며</h2>
@@ -339,10 +331,6 @@
 
     </div>
 
-    <div class="empty-state" id="empty-state" style="display:none;">
-      이 카테고리에는 아직 글이 없어요. 곧 채워 넣을게요.
-    </div>
-
   </div>
 
   <footer class="footer">
@@ -351,29 +339,6 @@
   </footer>
 
   <script>
-    // 필터 탭
-    var tabs = document.querySelectorAll('.filter-tab');
-    var cards = document.querySelectorAll('.post-card');
-    var emptyState = document.getElementById('empty-state');
-
-    tabs.forEach(function(tab){
-      tab.addEventListener('click', function(){
-        tabs.forEach(function(t){ t.classList.remove('active'); });
-        tab.classList.add('active');
-        var filter = tab.dataset.filter;
-        var visibleCount = 0;
-        cards.forEach(function(card){
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.classList.remove('hidden');
-            visibleCount++;
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-      });
-    });
-
     // 마지막 업데이트 자동 날짜
     (function(){
       var d = new Date();
