@@ -126,6 +126,18 @@
       color: var(--accent);
       font-weight: 700;
     }
+    .notes-new-dot {
+      display: none;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-left: 4px;
+      vertical-align: middle;
+      transform: translateY(-5px);
+    }
+    .notes-new-dot.show { display: inline-block; }
+    .topnav-links a.active .notes-new-dot { display: none !important; }
 
     .container {
       max-width: 720px;
@@ -326,7 +338,7 @@
         <a href="../">홈</a>
         <a href="../#tools">공개 도구</a>
         <a href="../#dashboard">온무실 소개</a>
-        <a href="./" class="active">작업일지</a>
+        <a href="./" class="active">작업일지<span class="notes-new-dot" id="notesNewDot"></span></a>
         <a href="../#about">연락</a>
       </div>
     </div>
@@ -392,6 +404,20 @@
     © 2026 교무실 옆 작업실 · 자유롭게 써주시고, 출처만 살짝 남겨주세요.<br>
     <span style="opacity:0.7;font-size:11px;">발행 2026.04.28.</span>
   </footer>
+
+  <script src="/notes-latest.js"></script>
+  <script>
+    (function(){
+      var LATEST = window.NOTES_LATEST_DATE;
+      if (!LATEST) return;
+      var DAYS = 7;
+      var diff = (Date.now() - new Date(LATEST + 'T00:00:00').getTime()) / 86400000;
+      if (diff >= 0 && diff <= DAYS) {
+        var el = document.getElementById('notesNewDot');
+        if (el) el.classList.add('show');
+      }
+    })();
+  </script>
 
 </body>
 </html>
