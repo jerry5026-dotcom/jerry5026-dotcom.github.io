@@ -407,6 +407,25 @@
     }
     .tool-card.maintenance .tool-tag::after { content: ''; }
 
+    /* 공개 예정 상태 */
+    .tool-card.coming-soon {
+      cursor: default;
+    }
+    .tool-card.coming-soon::before { display: none; }
+    .tool-card.coming-soon:hover {
+      transform: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      border-color: var(--line);
+    }
+    .tool-card.coming-soon .tool-icon { opacity: 0.55; }
+    .tool-card.coming-soon .tool-name { color: #888; }
+    .tool-card.coming-soon .tool-desc { color: #a8a8a8; }
+    .tool-card.coming-soon .tool-tag {
+      color: #888;
+      background: #f0ede5;
+    }
+    .tool-card.coming-soon .tool-tag::after { content: ''; }
+
     .tool-card {
       background: var(--card-bg);
       border: 1px solid var(--line);
@@ -2090,6 +2109,20 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
+      <a href="https://chromewebstore.google.com/detail/%EC%97%85%EB%AC%B4%ED%8F%AC%ED%84%B8-%EB%A1%9C%EA%B7%B8%EC%95%84%EC%9B%83-%EB%B0%A9%EC%A7%80/plcbdjpfhbcancamlaejjfficoejmpnj"
+         target="_blank" rel="noopener"
+         class="tool-card coming-soon"
+         data-launch-date="2026-05-13"
+         data-tool-name="업무포털 로그아웃 방지"
+         onclick="if(this.classList.contains('coming-soon')){event.preventDefault();gtag('event','tool_click_blocked',{tool_name:'업무포털 로그아웃 방지',reason:'coming-soon'});alert('2026.05.13.부터 사용 가능합니다.');return false;} gtag('event','tool_click',{tool_name:'업무포털 로그아웃 방지'});">
+        <div class="tool-icon">🔒</div>
+        <div class="tool-name">업무포털 로그아웃 방지</div>
+        <div class="tool-desc">
+          1시간마다 끊기는 업무포털 로그인을 자동으로 유지 (Chrome·Edge 확장).
+        </div>
+        <span class="tool-tag">📅 공개 예정 · 2026.05.13.</span>
+      </a>
+
       <div class="tool-card placeholder">
         <div>
           <div class="ph-icon">✨</div>
@@ -2368,6 +2401,23 @@
         var el = document.getElementById('notesNewDot');
         if (el) el.classList.add('show');
       }
+    })();
+  </script>
+
+  <script>
+    // 공개 예정 도구 카드 자동 활성화
+    (function(){
+      var now = Date.now();
+      document.querySelectorAll('.tool-card.coming-soon').forEach(function(card){
+        var launch = card.getAttribute('data-launch-date');
+        if (!launch) return;
+        var launchTime = new Date(launch + 'T00:00:00').getTime();
+        if (now >= launchTime) {
+          card.classList.remove('coming-soon');
+          var tag = card.querySelector('.tool-tag');
+          if (tag) tag.textContent = '바로 사용';
+        }
+      });
     })();
   </script>
 
