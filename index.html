@@ -2612,6 +2612,10 @@
         if (modal && modal.classList.contains('show')) closeBrowserModal();
       }
     });
+    // ?preview=modal → 모달 미리 보기
+    if (location.search.indexOf('preview=modal') !== -1) {
+      window.addEventListener('load', openBrowserModal);
+    }
   </script>
 
 </body>
