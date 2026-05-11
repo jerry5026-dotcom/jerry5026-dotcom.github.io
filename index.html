@@ -2240,11 +2240,28 @@
          class="tool-card coming-soon"
          data-launch-date="2026-05-18"
          data-tool-name="업무포털 로그아웃 방지"
-         onclick="return handleLogoutPreventionClick(event, this);">
+         data-chrome-url="https://chromewebstore.google.com/detail/plcbdjpfhbcancamlaejjfficoejmpnj"
+         data-edge-url="https://microsoftedge.microsoft.com/addons/detail/0RDCKCK0HWLG"
+         onclick="return handleExtensionToolClick(event, this);">
         <div class="tool-icon">🔒</div>
         <div class="tool-name">업무포털 로그아웃 방지</div>
         <div class="tool-desc">
           1시간마다 끊기는 업무포털 로그인을 자동으로 유지 (Chrome·Edge 확장).
+        </div>
+        <span class="tool-tag">📅 공개 예정 · 2026.05.18.</span>
+      </a>
+
+      <a href="#"
+         class="tool-card coming-soon"
+         data-launch-date="2026-05-18"
+         data-tool-name="EVPN 로그아웃 방지"
+         data-chrome-url="#"
+         data-edge-url="#"
+         onclick="return handleExtensionToolClick(event, this);">
+        <div class="tool-icon">🔒</div>
+        <div class="tool-name">EVPN 로그아웃 방지</div>
+        <div class="tool-desc">
+          1시간마다 끊기는 EVPN(원격업무지원) 로그인을 자동으로 유지 (Chrome·Edge 확장).
         </div>
         <span class="tool-tag">📅 공개 예정 · 2026.05.18.</span>
       </a>
@@ -2554,11 +2571,11 @@
       <h3 id="browserModalTitle" class="browser-modal-title">사용 중인 브라우저를 선택해 주세요</h3>
       <p class="browser-modal-sub">업무포털 로그아웃 방지 프로그램</p>
 
-      <a href="https://chromewebstore.google.com/detail/plcbdjpfhbcancamlaejjfficoejmpnj"
+      <a href="#"
          target="_blank" rel="noopener"
          class="browser-modal-option"
          data-browser="chrome"
-         onclick="gtag('event','tool_install_click',{tool_name:'업무포털 로그아웃 방지',browser:'chrome'}); closeBrowserModal();">
+         onclick="return handleBrowserInstallClick(event, this, 'chrome');">
         <span class="browser-modal-icon">
           <img src="/icons/chrome.svg" alt="" loading="lazy" width="28" height="28">
         </span>
@@ -2568,11 +2585,11 @@
         </span>
       </a>
 
-      <a href="https://microsoftedge.microsoft.com/addons/detail/0RDCKCK0HWLG"
+      <a href="#"
          target="_blank" rel="noopener"
          class="browser-modal-option"
          data-browser="edge"
-         onclick="gtag('event','tool_install_click',{tool_name:'업무포털 로그아웃 방지',browser:'edge'}); closeBrowserModal();">
+         onclick="return handleBrowserInstallClick(event, this, 'edge');">
         <span class="browser-modal-icon">
           <img src="/icons/edge.svg" alt="" loading="lazy" width="28" height="28">
         </span>
@@ -2587,23 +2604,49 @@
   </div>
 
   <script>
-    // 업무포털 로그아웃 방지 카드 클릭 핸들러
-    function handleLogoutPreventionClick(e, card) {
+    // 확장 프로그램 도구 카드 클릭 핸들러 (업무포털·EVPN 공용)
+    function handleExtensionToolClick(e, card) {
       e.preventDefault();
+      var toolName = card.getAttribute('data-tool-name') || '';
       if (card.classList.contains('coming-soon')) {
-        gtag('event','tool_click_blocked',{tool_name:'업무포털 로그아웃 방지',reason:'coming-soon'});
+        gtag('event','tool_click_blocked',{tool_name: toolName, reason:'coming-soon'});
         alert('2026.05.18.부터 사용 가능합니다.');
         return false;
       }
-      gtag('event','tool_click',{tool_name:'업무포털 로그아웃 방지'});
-      openBrowserModal();
+      gtag('event','tool_click',{tool_name: toolName});
+      openBrowserModal(card);
       return false;
     }
-    function openBrowserModal() {
+    function openBrowserModal(sourceCard) {
       var modal = document.getElementById('browserModal');
       if (!modal) return;
+
+      // sourceCard에서 도구명·링크 가져와 모달에 주입
+      var toolName = '업무포털 로그아웃 방지';
+      var chromeUrl = '#';
+      var edgeUrl = '#';
+      if (sourceCard) {
+        toolName = sourceCard.getAttribute('data-tool-name') || toolName;
+        chromeUrl = sourceCard.getAttribute('data-chrome-url') || '#';
+        edgeUrl = sourceCard.getAttribute('data-edge-url') || '#';
+      }
+      var subEl = modal.querySelector('.browser-modal-sub');
+      if (subEl) subEl.textContent = toolName + ' 프로그램';
+
+      var chromeLink = modal.querySelector('.browser-modal-option[data-browser="chrome"]');
+      var edgeLink = modal.querySelector('.browser-modal-option[data-browser="edge"]');
+      if (chromeLink) {
+        chromeLink.setAttribute('href', chromeUrl);
+        chromeLink.setAttribute('data-tool-name', toolName);
+      }
+      if (edgeLink) {
+        edgeLink.setAttribute('href', edgeUrl);
+        edgeLink.setAttribute('data-tool-name', toolName);
+      }
+
       modal.classList.add('show');
       document.body.style.overflow = 'hidden';
+
       // 사용 중인 브라우저 자동 감지 → "추천" 배지
       var ua = navigator.userAgent;
       var detected = ua.indexOf('Edg/') !== -1 ? 'edge' : (ua.indexOf('Chrome') !== -1 ? 'chrome' : '');
@@ -2617,6 +2660,20 @@
       modal.classList.remove('show');
       document.body.style.overflow = '';
     }
+    // 모달 안 설치 버튼 클릭 (Chrome/Edge 공용)
+    function handleBrowserInstallClick(e, linkEl, browser) {
+      var href = linkEl.getAttribute('href');
+      var toolName = linkEl.getAttribute('data-tool-name') || '';
+      // 링크 미설정(아직 #) 시 안내만
+      if (!href || href === '#') {
+        e.preventDefault();
+        alert('곧 스토어 링크가 연결됩니다.');
+        return false;
+      }
+      gtag('event','tool_install_click',{tool_name: toolName, browser: browser});
+      closeBrowserModal();
+      return true;
+    }
     // ESC 키로 닫기
     document.addEventListener('keydown', function(e){
       if (e.key === 'Escape') {
@@ -2624,9 +2681,12 @@
         if (modal && modal.classList.contains('show')) closeBrowserModal();
       }
     });
-    // ?preview=modal → 모달 미리 보기
+    // ?preview=modal → 모달 미리 보기 (업무포털 카드 기준)
     if (location.search.indexOf('preview=modal') !== -1) {
-      window.addEventListener('load', openBrowserModal);
+      window.addEventListener('load', function(){
+        var firstCard = document.querySelector('.tool-card[data-tool-name]');
+        openBrowserModal(firstCard);
+      });
     }
   </script>
 
