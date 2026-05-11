@@ -426,6 +426,125 @@
     }
     .tool-card.coming-soon .tool-tag::after { content: ''; }
 
+    /* 브라우저 선택 모달 */
+    .browser-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .browser-modal.show { display: flex; }
+    .browser-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+    .browser-modal-box {
+      position: relative;
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 26px 22px;
+      max-width: 380px;
+      width: calc(100% - 32px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      animation: modalIn 0.18s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .browser-modal-title {
+      font-family: 'Gowun Batang', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+      text-align: center;
+      letter-spacing: -0.01em;
+    }
+    .browser-modal-sub {
+      font-size: 12.5px;
+      color: var(--sub);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .browser-modal-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--ink);
+      margin-bottom: 10px;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      position: relative;
+    }
+    .browser-modal-option:hover {
+      border-color: var(--accent);
+      background: #fdfaf6;
+    }
+    .browser-modal-option:active { transform: scale(0.98); }
+    .browser-modal-option.recommended {
+      border-color: var(--accent);
+      background: #fdfaf6;
+    }
+    .browser-modal-option.recommended::after {
+      content: '추천';
+      position: absolute;
+      top: -8px;
+      right: 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .browser-modal-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      width: 32px;
+      text-align: center;
+    }
+    .browser-modal-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .browser-modal-label strong {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .browser-modal-label span {
+      font-size: 11.5px;
+      color: var(--sub);
+    }
+    .browser-modal-close {
+      display: block;
+      margin: 12px auto 0;
+      padding: 6px 18px;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      font-size: 12.5px;
+      color: var(--sub);
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .browser-modal-close:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
     .tool-card {
       background: var(--card-bg);
       border: 1px solid var(--line);
@@ -2109,12 +2228,11 @@
         <span class="tool-tag">바로 사용</span>
       </a>
 
-      <a href="https://chromewebstore.google.com/detail/%EC%97%85%EB%AC%B4%ED%8F%AC%ED%84%B8-%EB%A1%9C%EA%B7%B8%EC%95%84%EC%9B%83-%EB%B0%A9%EC%A7%80/plcbdjpfhbcancamlaejjfficoejmpnj"
-         target="_blank" rel="noopener"
+      <a href="#"
          class="tool-card coming-soon"
          data-launch-date="2026-05-18"
          data-tool-name="업무포털 로그아웃 방지"
-         onclick="if(this.classList.contains('coming-soon')){event.preventDefault();gtag('event','tool_click_blocked',{tool_name:'업무포털 로그아웃 방지',reason:'coming-soon'});alert('2026.05.18.부터 사용 가능합니다.');return false;} gtag('event','tool_click',{tool_name:'업무포털 로그아웃 방지'});">
+         onclick="return handleLogoutPreventionClick(event, this);">
         <div class="tool-icon">🔒</div>
         <div class="tool-name">업무포털 로그아웃 방지</div>
         <div class="tool-desc">
@@ -2419,6 +2537,81 @@
         }
       });
     })();
+  </script>
+
+  <!-- 업무포털 로그아웃 방지 — 브라우저 선택 모달 -->
+  <div class="browser-modal" id="browserModal" role="dialog" aria-modal="true" aria-labelledby="browserModalTitle">
+    <div class="browser-modal-backdrop" onclick="closeBrowserModal()"></div>
+    <div class="browser-modal-box">
+      <h3 id="browserModalTitle" class="browser-modal-title">사용 중인 브라우저를 선택해 주세요</h3>
+      <p class="browser-modal-sub">업무포털 로그아웃 방지 확장 프로그램</p>
+
+      <a href="https://chromewebstore.google.com/detail/plcbdjpfhbcancamlaejjfficoejmpnj"
+         target="_blank" rel="noopener"
+         class="browser-modal-option"
+         data-browser="chrome"
+         onclick="gtag('event','tool_install_click',{tool_name:'업무포털 로그아웃 방지',browser:'chrome'}); closeBrowserModal();">
+        <span class="browser-modal-icon">🌐</span>
+        <span class="browser-modal-label">
+          <strong>Chrome 웹 스토어</strong>
+          <span>Chrome 브라우저용</span>
+        </span>
+      </a>
+
+      <a href="https://microsoftedge.microsoft.com/addons/detail/0RDCKCK0HWLG"
+         target="_blank" rel="noopener"
+         class="browser-modal-option"
+         data-browser="edge"
+         onclick="gtag('event','tool_install_click',{tool_name:'업무포털 로그아웃 방지',browser:'edge'}); closeBrowserModal();">
+        <span class="browser-modal-icon">🔷</span>
+        <span class="browser-modal-label">
+          <strong>Edge 추가 기능</strong>
+          <span>Edge 브라우저용</span>
+        </span>
+      </a>
+
+      <button type="button" class="browser-modal-close" onclick="closeBrowserModal()">닫기</button>
+    </div>
+  </div>
+
+  <script>
+    // 업무포털 로그아웃 방지 카드 클릭 핸들러
+    function handleLogoutPreventionClick(e, card) {
+      e.preventDefault();
+      if (card.classList.contains('coming-soon')) {
+        gtag('event','tool_click_blocked',{tool_name:'업무포털 로그아웃 방지',reason:'coming-soon'});
+        alert('2026.05.18.부터 사용 가능합니다.');
+        return false;
+      }
+      gtag('event','tool_click',{tool_name:'업무포털 로그아웃 방지'});
+      openBrowserModal();
+      return false;
+    }
+    function openBrowserModal() {
+      var modal = document.getElementById('browserModal');
+      if (!modal) return;
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      // 사용 중인 브라우저 자동 감지 → "추천" 배지
+      var ua = navigator.userAgent;
+      var detected = ua.indexOf('Edg/') !== -1 ? 'edge' : (ua.indexOf('Chrome') !== -1 ? 'chrome' : '');
+      modal.querySelectorAll('.browser-modal-option').forEach(function(opt){
+        opt.classList.toggle('recommended', opt.getAttribute('data-browser') === detected);
+      });
+    }
+    function closeBrowserModal() {
+      var modal = document.getElementById('browserModal');
+      if (!modal) return;
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    // ESC 키로 닫기
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') {
+        var modal = document.getElementById('browserModal');
+        if (modal && modal.classList.contains('show')) closeBrowserModal();
+      }
+    });
   </script>
 
 </body>
