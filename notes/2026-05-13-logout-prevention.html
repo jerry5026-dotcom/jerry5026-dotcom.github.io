@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.88em%22 font-size=%2282%22>☕</text><circle cx=%2282%22 cy=%2220%22 r=%2214%22 fill=%22%23c8362b%22/></svg>">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#fafaf7">
+
+  <title>내가 만든 걸, 누군가 이미 만들어놨더라고요. — 교무실 옆 작업실</title>
+  <meta name="description" content="1시간마다 끊기는 업무포털 로그인을 막아보려고 두 달을 다듬었습니다. 거의 다 됐다 싶을 때쯤, 비슷한 도구가 이미 있다는 걸 알게 됐어요.">
+  <meta name="author" content="조기원">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://jerry5026-dotcom.github.io/notes/2026-05-13-logout-prevention.html">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="교무실 옆 작업실">
+  <meta property="og:title" content="내가 만든 걸, 누군가 이미 만들어놨더라고요.">
+  <meta property="og:description" content="업무포털 로그아웃 방지 확장 프로그램을 만들다 알게 된 한 가지 이야기.">
+  <meta property="og:url" content="https://jerry5026-dotcom.github.io/notes/2026-05-13-logout-prevention.html">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="article:published_time" content="2026-05-13">
+  <meta property="article:author" content="조기원">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VP7Y745BK0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-VP7Y745BK0');
+  </script>
+
+  <!-- Naver Analytics -->
+  <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
+  <script type="text/javascript">
+    if(!wcs_add) var wcs_add = {};
+    wcs_add["wa"] = "2d29f4ffb3b484";
+    if(window.wcs) { wcs_do(); }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #fafaf7;
+      --ink: #1a1a1a;
+      --sub: #666;
+      --line: #e5e3dd;
+      --accent: #c8362b;
+      --warm: #f5f1e8;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: saturate(180%) blur(10px);
+      -webkit-backdrop-filter: saturate(180%) blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topnav-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .topnav-brand {
+      font-family: 'Gowun Batang', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+    .topnav-brand .dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .topnav-links {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .topnav-links a {
+      font-size: 12.5px;
+      color: #555;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .topnav-links a:hover {
+      background: #f5f1e8;
+      color: var(--accent);
+    }
+    .topnav-links a.active {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .notes-new-dot {
+      display: none;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-left: 4px;
+      vertical-align: middle;
+      transform: translateY(-5px);
+    }
+    .notes-new-dot.show { display: inline-block; }
+    .topnav-links a.active .notes-new-dot { display: none !important; }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 24px 60px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12.5px;
+      color: var(--sub);
+      text-decoration: none;
+      margin-bottom: 22px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .article-header {
+      margin-bottom: 32px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 14px;
+    }
+    .article-title {
+      font-family: 'Gowun Batang', serif;
+      font-size: clamp(24px, 5vw, 32px);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .article-body {
+      font-size: 15px;
+      line-height: 1.95;
+      color: #2a2a2a;
+    }
+    .article-body p {
+      margin-bottom: 20px;
+    }
+    .article-body h2 {
+      font-family: 'Gowun Batang', serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 40px 0 14px;
+      padding-top: 8px;
+    }
+    .article-body blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 18px;
+      margin: 24px 0;
+      color: #555;
+      font-family: 'Gowun Batang', serif;
+      font-size: 15.5px;
+      line-height: 1.9;
+    }
+    .article-body strong { font-weight: 700; color: var(--ink); }
+    .article-body em { font-style: italic; color: #555; }
+    .article-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .article-body hr {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 36px 0;
+    }
+
+    .post-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 12.5px;
+    }
+    .post-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      color: var(--sub);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      transition: all 0.15s;
+      max-width: 48%;
+    }
+    .post-nav a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .post-nav-label {
+      font-size: 11px;
+      color: #aaa;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .post-nav a.next { text-align: right; margin-left: auto; }
+
+    .back-to-list {
+      text-align: center;
+      margin-top: 32px;
+    }
+    .back-to-list a {
+      font-size: 12.5px;
+      color: var(--sub);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .back-to-list a:hover { color: var(--accent); }
+
+    .footer {
+      text-align: center;
+      padding: 30px 24px 16px;
+      font-size: 12px;
+      color: #999;
+      border-top: 1px solid var(--line);
+      max-width: 980px;
+      margin: 48px auto 0;
+    }
+
+    @media (max-width: 768px) {
+      .topnav-inner { padding: 10px 16px; gap: 10px; }
+      .topnav-brand { font-size: 13px; }
+      .topnav-links { gap: 1px; }
+      .topnav-links a { padding: 5px 8px; font-size: 11.5px; }
+      .container { padding: 20px 18px 40px; }
+      .article-body { font-size: 14.5px; line-height: 1.9; }
+    }
+    @media (max-width: 480px) {
+      .topnav-inner { padding: 8px 12px; gap: 6px; }
+      .topnav-brand { font-size: 12px; }
+      .topnav-links a { padding: 4px 5px; font-size: 10.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a href="../" class="topnav-brand"><span class="dot"></span>교무실 옆 작업실</a>
+      <div class="topnav-links">
+        <a href="../">홈</a>
+        <a href="../#tools">공개 도구</a>
+        <a href="../#dashboard">온무실 소개</a>
+        <a href="./" class="active">작업일지<span class="notes-new-dot" id="notesNewDot"></span></a>
+        <a href="../#about">연락</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <a href="./" class="back-link">← 작업일지 목록으로</a>
+
+    <header class="article-header">
+      <div class="article-meta">
+        <span>2026.05.13.</span>
+      </div>
+      <h1 class="article-title">내가 만든 걸, 누군가 이미 만들어놨더라고요.</h1>
+    </header>
+
+    <article class="article-body">
+
+      <p>
+        업무포털·나이스·K-에듀파인. 1시간만 자리를 비우면 강제 로그아웃되는, 그 인증서 재입력의 번거로움.<br>
+        <em>"이거 한 번에 해결할 수 있을까?"</em> 싶어서 만지작거리기 시작했습니다.
+      </p>
+
+      <p>
+        처음엔 Tampermonkey 사용자 스크립트로 짜봤어요. 25분마다 사이트에 GET 요청을 보내는 단순한 방식.<br>
+        그런데 보급이 막막했습니다. Tampermonkey 자체를 설치하라고 안내하는 일이 또 다른 허들이었으니까요.
+      </p>
+
+      <p>
+        다음엔 Python으로 .exe를 만들었습니다. 더블 클릭하면 바로 돌아가는 형태로.<br>
+        하지만 자동 업데이트도 안 되고, 보안 경고도 뜨고, 동료에게 보내드리기 부끄러웠어요.
+      </p>
+
+      <p>
+        결국 <strong>Chrome 확장 프로그램</strong>으로 정착했습니다.<br>
+        Manifest V3로 짜니 Chrome과 Edge 양쪽에 같은 코드로 올릴 수 있더라고요. 한 번 짜면 두 곳에 닿는다는 게 좋았어요.
+      </p>
+
+      <p>
+        그렇게 두 달 가까이 다듬어 v2.0.4까지 왔습니다.<br>
+        17개 시도교육청 자동 인식, 3개 시스템 동시 추적, 갱신 주기 설정, 절전 방지 모드, 4시간 유휴 시 자동 로그아웃, 즉시 퇴근 버튼.<br>
+        인증서 비밀번호는 저장하지 않고, 외부 서버로도 아무것도 보내지 않습니다.
+      </p>
+
+      <hr>
+
+      <p>
+        거의 다 됐다 싶을 때쯤, Chrome 웹 스토어에 이미 비슷한 도구가 있다는 걸 알게 됐어요.
+      </p>
+
+      <p>
+        다른 분이 먼저 올려주신 <strong>"교육청 세션 자동 연장"</strong>, <strong>"교육청 껌딱지"</strong>.<br>
+        별점 5.0점… 이미 많은 분들이 잘 쓰고 계셨더라고요.
+      </p>
+
+      <p>
+        솔직히 좀 아쉬웠습니다.<br>
+        <em>"한 발 늦었구나."</em>
+      </p>
+
+      <p>
+        며칠 마음이 가라앉은 채로 두었다가, 다시 들여다보았어요.<br>
+        Edge에는 아직 비슷한 도구가 없더라고요. 절전 방지 모드, 즉시 퇴근 버튼, 4시간 유휴 자동 로그아웃 같은 기능도 조금씩 결이 달랐고요.
+      </p>
+
+      <blockquote>
+        같은 길을 걷는 사람이 있다는 건,<br>
+        그 길이 누군가에게 필요했다는 뜻이기도 하니까.
+      </blockquote>
+
+      <p>
+        그래서 Chrome 시장에선 보조 도구로, Edge 시장에선 조용히 자리를 잡는 도구로 — 그렇게 마음을 다듬었습니다.
+      </p>
+
+      <p>
+        오늘부터 <a href="../#tools">작업실</a>에 도구 카드로 올려두려고 해요.<br>
+        혹시 필요한 선생님이 계시다면, 가볍게 한 번 써보시고 의견 주시면 좋겠습니다.
+      </p>
+
+      <p style="color:#888;font-size:13.5px;text-align:right;margin-top:30px;">
+        — 작업실 한 귀퉁이에서
+      </p>
+
+    </article>
+
+    <nav class="post-nav">
+      <a href="./" class="next">
+        <span class="post-nav-label">목록</span>
+        작업일지 전체 보기 →
+      </a>
+    </nav>
+
+    <div class="back-to-list">
+      <a href="../">홈으로 돌아가기</a>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    © 2026 교무실 옆 작업실 · 자유롭게 써주시고, 출처만 살짝 남겨주세요.<br>
+    <span style="opacity:0.7;font-size:11px;">발행 2026.05.13.</span>
+  </footer>
+
+  <script src="/notes-latest.js"></script>
+  <script>
+    (function(){
+      var LATEST = window.NOTES_LATEST_DATE;
+      if (!LATEST) return;
+      var DAYS = 7;
+      var diff = (Date.now() - new Date(LATEST + 'T00:00:00').getTime()) / 86400000;
+      if (diff >= 0 && diff <= DAYS) {
+        var el = document.getElementById('notesNewDot');
+        if (el) el.classList.add('show');
+      }
+    })();
+  </script>
+
+</body>
+</html>
