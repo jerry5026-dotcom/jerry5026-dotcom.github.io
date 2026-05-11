@@ -594,6 +594,12 @@
       font-size: 24px;
       margin-bottom: 8px;
     }
+    .tool-icon img {
+      width: 32px;
+      height: 32px;
+      display: block;
+      object-fit: contain;
+    }
 
     .tool-name {
       font-size: 15px;
@@ -2243,7 +2249,7 @@
          data-chrome-url="https://chromewebstore.google.com/detail/plcbdjpfhbcancamlaejjfficoejmpnj"
          data-edge-url="https://microsoftedge.microsoft.com/addons/detail/0RDCKCK0HWLG"
          onclick="return handleExtensionToolClick(event, this);">
-        <div class="tool-icon">🔒</div>
+        <div class="tool-icon"><img src="/icons/logout-prevention.png" alt="" loading="lazy" width="32" height="32"></div>
         <div class="tool-name">업무포털 로그아웃 방지</div>
         <div class="tool-desc">
           1시간마다 끊기는 업무포털 로그인을 자동으로 유지 (Chrome·Edge 확장).
@@ -2258,7 +2264,7 @@
          data-chrome-url="#"
          data-edge-url="#"
          onclick="return handleExtensionToolClick(event, this);">
-        <div class="tool-icon">🔒</div>
+        <div class="tool-icon"><img src="/icons/evpn-keepalive.png" alt="" loading="lazy" width="32" height="32"></div>
         <div class="tool-name">EVPN 로그인 연장</div>
         <div class="tool-desc">
           10분마다 끊기는 EVPN(원격업무지원) 로그인을 자동으로 유지 (Chrome·Edge 확장).
