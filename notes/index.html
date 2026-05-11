@@ -330,7 +330,7 @@
 
     <div class="post-list" id="post-list">
 
-      <a href="2026-05-18-logout-prevention.html" class="post-card">
+      <a href="2026-05-18-logout-prevention.html" class="post-card" data-publish-date="2026-05-18">
         <div class="post-meta">
           <span>2026.05.18.</span>
         </div>
@@ -406,6 +406,20 @@
         var el = document.getElementById('notesNewDot');
         if (el) el.classList.add('show');
       }
+    })();
+  </script>
+
+  <script>
+    // 발행일이 미래인 글은 자동 숨김 (예약 발행)
+    (function(){
+      var now = Date.now();
+      document.querySelectorAll('.post-card[data-publish-date]').forEach(function(card){
+        var d = card.getAttribute('data-publish-date');
+        if (!d) return;
+        if (new Date(d + 'T00:00:00').getTime() > now) {
+          card.style.display = 'none';
+        }
+      });
     })();
   </script>
 </body>

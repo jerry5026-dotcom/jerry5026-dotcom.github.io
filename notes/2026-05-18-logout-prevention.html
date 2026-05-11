@@ -11,6 +11,16 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#fafaf7">
 
+  <!-- 예약 발행: 2026.05.18. 전에는 홈으로 리다이렉트 (미리보기는 ?preview=1) -->
+  <script>
+    (function(){
+      var publishTime = new Date('2026-05-18T00:00:00').getTime();
+      if (Date.now() < publishTime && location.search.indexOf('preview=1') === -1) {
+        location.replace('/');
+      }
+    })();
+  </script>
+
   <title>내가 만든 걸, 누군가 이미 만들어놨더라고요. — 교무실 옆 작업실</title>
   <meta name="description" content="1시간마다 끊기는 업무포털 로그인을 막아보려고 두 달을 다듬었습니다. 거의 다 됐다 싶을 때쯤, 비슷한 도구가 이미 있다는 걸 알게 됐어요.">
   <meta name="author" content="조기원">
