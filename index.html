@@ -2681,11 +2681,23 @@
         if (modal && modal.classList.contains('show')) closeBrowserModal();
       }
     });
-    // ?preview=modal → 모달 미리 보기 (업무포털 카드 기준)
+    // ?preview=modal → 모달 미리 보기
+    //   ?preview=modal              → 첫 카드(업무포털)
+    //   ?preview=modal&tool=evpn    → 도구명에 'evpn' 포함된 카드
+    //   ?preview=modal&tool=업무포털 → 도구명에 '업무포털' 포함된 카드
     if (location.search.indexOf('preview=modal') !== -1) {
       window.addEventListener('load', function(){
-        var firstCard = document.querySelector('.tool-card[data-tool-name]');
-        openBrowserModal(firstCard);
+        var params = new URLSearchParams(location.search);
+        var toolParam = (params.get('tool') || '').toLowerCase();
+        var allCards = document.querySelectorAll('.tool-card[data-tool-name]');
+        var targetCard = allCards[0];
+        if (toolParam) {
+          allCards.forEach(function(c){
+            var name = (c.getAttribute('data-tool-name') || '').toLowerCase();
+            if (name.indexOf(toolParam) !== -1) targetCard = c;
+          });
+        }
+        openBrowserModal(targetCard);
       });
     }
   </script>
