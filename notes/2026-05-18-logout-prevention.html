@@ -11,11 +11,11 @@
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#fafaf7">
 
-  <!-- 예약 발행: 2026.05.18. 전에는 홈으로 리다이렉트 (미리보기는 ?preview=1) -->
+  <!-- 발행 보류 중: PUBLISHED=true로 바꾸면 공개됩니다. 미리보기는 ?preview=1 -->
   <script>
     (function(){
-      var publishTime = new Date('2026-05-18T00:00:00').getTime();
-      if (Date.now() < publishTime && location.search.indexOf('preview=1') === -1) {
+      var PUBLISHED = false;
+      if (!PUBLISHED && location.search.indexOf('preview=1') === -1) {
         location.replace('/');
       }
     })();
