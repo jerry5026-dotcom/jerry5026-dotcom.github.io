@@ -379,56 +379,27 @@ cd /tmp && rm -rf jerry_repo
 - **OG 이미지** — 카톡·SNS 공유 미리보기용. 1200×630px 이미지 필요. 사용자가 Canva로 제작 또는 의뢰.
 - **도구별 스크린샷** — 카드에 미리보기 추가. 개인정보 마스킹 필요해 공수 큼.
 
-### 시험 시간표 자동 생성기 — 검색 노출 차단 중 (2026.05.13. 기준)
+### 시험 시간표 자동 생성기 — 비밀번호 보호 중 (2026.05.13. 기준)
 
-실제 학교 환경 검증을 위해 점검 중. 사용자 명시 요구: **나중에 다시 검색되게, 작업실 도구 클릭 시 다시 사용 가능하게.**
+실제 학교 환경 검증을 위해 점검 중인 상태이며, 무단 접근을 막기 위해 **사이트 측에 비밀번호를 직접 걸어 두었음**.
 
-**현재 차단 적용 위치 (사이트 측)**:
-- `robots.txt` — `Disallow: /exam-timetable/`
-- `sitemap.xml` — 해당 URL 제거됨
-- `index.html` 의 시험 시간표 카드 — `maintenance` 클래스 + onclick 알림 + tool-tag `🔧 점검 중`
-- 도구 자체 페이지(`https://jerry5026-dotcom.github.io/exam-timetable/`) 는 직접 URL 접속 시 여전히 열림 (서버 차단은 안 함)
+**현재 상태**:
+- 사이트 페이지(`https://jerry5026-dotcom.github.io/exam-timetable/`) → 비밀번호 입력 필요 (사용자가 직접 적용)
+- `robots.txt` → 일반 상태 (검색엔진 차단 없음)
+- `sitemap.xml` → URL 정상 포함
+- 검색엔진 노출 → 허용 상태 (비밀번호로 보안되므로 검색에 잡혀도 문제 없다는 사용자 판단)
+- Google Search Console 임시 제거 요청 → 사용자가 직접 취소함
+- `index.html` 의 시험 시간표 카드 → 여전히 `maintenance` 클래스 + tool-tag `🔧 점검 중` (작업실 메인에서는 클릭 차단)
 
-**현재 차단 적용 위치 (구글 측, 사용자가 2026.05.13. 직접 처리)**:
-- Google Search Console → 삭제 → **임시 제거** 요청 (URL 접두어 기준)
-- URL: `https://jerry5026-dotcom.github.io/exam-timetable/`
-- 옵션: "이 접두어가 포함된 모든 URL 삭제"
-- 유효 기간: 6개월 (2026.05.13.부터 약 11월까지)
-- 상태는 "요청 처리 중" → 처리 완료 시 "삭제됨" → 6개월 후 자동 "삭제 만료됨"
+**카드를 다시 활성화할 때 (사용자가 "시험 시간표 다시 열어줘" 라고 말하면)**:
 
----
-
-**다시 공개할 때 — Claude 처리 (사이트 측)**:
-
-사용자가 "시험 시간표 다시 열어줘" 라고 말하면 다음 4가지를 한 번에 처리한다.
-
-1. `robots.txt` 에서 `Disallow: /exam-timetable/` 한 줄 삭제
-2. `sitemap.xml` 에 URL 다시 추가:
-   ```xml
-   <url>
-     <loc>https://jerry5026-dotcom.github.io/exam-timetable/</loc>
-     <changefreq>monthly</changefreq>
-     <priority>0.8</priority>
-   </url>
-   ```
-3. `index.html` 의 시험 시간표 카드에서:
+1. `index.html` 의 시험 시간표 카드에서:
    - `class="tool-card maintenance"` → `class="tool-card"` (maintenance 클래스 제거)
    - `onclick="event.preventDefault(); gtag(...'tool_click_blocked'...); alert('점검 중입니다...'); return false;"` → 일반 도구 카드 onclick (다른 도구 카드 onclick 패턴 참조)
    - `<span class="tool-tag">🔧 점검 중</span>` → `<span class="tool-tag">바로 사용</span>`
-4. 이 CLAUDE.md §13의 본 섹션을 "검색 노출 차단 중" → "정상 운영 중" 식으로 정리하거나 섹션 자체 삭제
+2. 이 CLAUDE.md §13 본 섹션을 정리 (정상 운영으로 표시하거나 섹션 자체 삭제)
 
-**다시 공개할 때 — 사용자 직접 처리 (구글 측)**:
-
-사이트 측 변경 후 Claude가 다음 안내를 같이 드릴 것:
-
-1. **Google Search Console → 삭제** 메뉴 진입
-   - 활성 임시 제거 항목(`다음으로 시작: ...exam-timetable/`)이 보임
-   - 상태가 "요청 처리 중" 또는 "삭제됨" — 점 세 개(⋮) 메뉴가 있음
-2. **점 세 개(⋮) → 요청 취소** 클릭 → 차단 즉시 해제
-3. **URL 검사** 메뉴로 가서 `https://jerry5026-dotcom.github.io/exam-timetable/` 입력 → **색인 생성 요청** 클릭
-4. (선택) 네이버 서치어드바이저에서도 같은 URL 재수집 요청
-
-이 두 단계(사이트 + 사용자)가 모두 완료되면 며칠 안에 다시 검색 결과에 잡히고, 작업실 카드 클릭으로 도구 사용 가능.
+비밀번호 보호 자체의 해제(누구나 접근 가능하게) 는 사용자가 사이트 측에서 직접 처리.
 
 ### 두 확장 프로그램 — 스토어 링크 (완료, 2026.05.13. 기준 모두 활성)
 

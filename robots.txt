@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /exam-timetable/
 
 Sitemap: https://jerry5026-dotcom.github.io/sitemap.xml
