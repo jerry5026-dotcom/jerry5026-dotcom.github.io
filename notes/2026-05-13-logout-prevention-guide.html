@@ -312,9 +312,35 @@
       margin-top: 6px;
     }
 
+    /* 한 행에 두 프로그램 — 2열 그리드 */
+    .toggle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 8px 0 24px;
+    }
+    .toggle-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .toggle-col h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+    .toggle-col .why {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    @media (max-width: 540px) {
+      .toggle-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+    }
+
     /* 사진 + 캡션 묶음 */
     .toggle-figure {
-      margin: 16px 0 8px;
+      margin: 8px 0 8px;
       text-align: center;
     }
     .toggle-figure img {
@@ -540,24 +566,30 @@
         EVPN은 외부 접속용이라 학교에선 켤 일이 없습니다.
       </p>
 
-      <h3>업무포털 로그아웃 방지</h3>
-      <div class="toggle-figure">
-        <img src="img/school-portal.png" alt="학교에서 — 업무포털 로그아웃 방지: 재택 모드 OFF">
-        <div><span class="toggle-state off">업무포털 · 재택 모드 OFF</span></div>
-      </div>
-      <div class="why">
-        <strong>왜 OFF인가요?</strong>
-        "재택 모드"는 학교 밖 환경에서만 켜는 토글이에요. 학교에선 업무포털에 직접 들어가니, 1시간마다 자동 갱신이 정상 작동하도록 꺼두시면 됩니다.
-      </div>
+      <div class="toggle-grid">
+        <div class="toggle-col">
+          <h3>업무포털 로그아웃 방지</h3>
+          <div class="toggle-figure">
+            <img src="img/school-portal.png" alt="학교에서 — 업무포털 로그아웃 방지: 재택 모드 OFF">
+            <div><span class="toggle-state off">업무포털 · 재택 모드 OFF</span></div>
+          </div>
+          <div class="why">
+            <strong>왜 OFF인가요?</strong>
+            "재택 모드"는 학교 밖 환경에서만 켜는 토글이에요. 학교에선 업무포털에 직접 들어가니, 1시간마다 자동 갱신이 정상 작동하도록 꺼두시면 됩니다.
+          </div>
+        </div>
 
-      <h3>EVPN 로그인 유지</h3>
-      <div class="toggle-figure">
-        <img src="img/school-evpn.png" alt="학교에서 — EVPN 로그인 유지: 로그인 유지 OFF">
-        <div><span class="toggle-state off">EVPN · 로그인 유지 OFF</span></div>
-      </div>
-      <div class="why">
-        <strong>왜 OFF인가요?</strong>
-        학교에선 EVPN을 켤 일이 없으니, 백그라운드 갱신을 잠시 멈춰두시면 됩니다. PC 자원도 아낄 수 있어요.
+        <div class="toggle-col">
+          <h3>EVPN 로그인 유지</h3>
+          <div class="toggle-figure">
+            <img src="img/school-evpn.png" alt="학교에서 — EVPN 로그인 유지: 로그인 유지 OFF">
+            <div><span class="toggle-state off">EVPN · 로그인 유지 OFF</span></div>
+          </div>
+          <div class="why">
+            <strong>왜 OFF인가요?</strong>
+            학교에선 EVPN을 켤 일이 없으니, 백그라운드 갱신을 잠시 멈춰두시면 됩니다. PC 자원도 아낄 수 있어요.
+          </div>
+        </div>
       </div>
 
       <h2>2. 집·외부에서 일할 때</h2>
@@ -568,24 +600,30 @@
         반대로 업무포털은 외부에선 직접 접속이 안 되니, 자동 갱신을 시도하면 오히려 오류가 납니다. 그래서 잠시 멈춰둬야 해요.
       </p>
 
-      <h3>업무포털 로그아웃 방지</h3>
-      <div class="toggle-figure">
-        <img src="img/home-portal.png" alt="집·외부에서 — 업무포털 로그아웃 방지: 재택 모드 ON">
-        <div><span class="toggle-state">업무포털 · 재택 모드 ON</span></div>
-      </div>
-      <div class="why">
-        <strong>왜 ON인가요?</strong>
-        외부에선 업무포털에 직접 접속이 안 됩니다. 이 상태에서 자동 갱신을 시도하면 오히려 오류가 누적될 수 있어요. "재택 모드"는 그 갱신 시도를 잠시 멈춰두는 스위치입니다.
-      </div>
+      <div class="toggle-grid">
+        <div class="toggle-col">
+          <h3>업무포털 로그아웃 방지</h3>
+          <div class="toggle-figure">
+            <img src="img/home-portal.png" alt="집·외부에서 — 업무포털 로그아웃 방지: 재택 모드 ON">
+            <div><span class="toggle-state">업무포털 · 재택 모드 ON</span></div>
+          </div>
+          <div class="why">
+            <strong>왜 ON인가요?</strong>
+            외부에선 업무포털에 직접 접속이 안 됩니다. 이 상태에서 자동 갱신을 시도하면 오히려 오류가 누적될 수 있어요. "재택 모드"는 그 갱신 시도를 잠시 멈춰두는 스위치입니다.
+          </div>
+        </div>
 
-      <h3>EVPN 로그인 유지</h3>
-      <div class="toggle-figure">
-        <img src="img/home-evpn.png" alt="집·외부에서 — EVPN 로그인 유지: 로그인 유지 ON">
-        <div><span class="toggle-state">EVPN · 로그인 유지 ON</span></div>
-      </div>
-      <div class="why">
-        <strong>왜 ON인가요?</strong>
-        외부 작업의 핵심이에요. 10분마다 끊기는 EVPN 세션을 백그라운드에서 자동으로 이어줍니다. 켜두지 않으면 자리를 잠깐 비운 사이 작업이 끊어질 수 있어요.
+        <div class="toggle-col">
+          <h3>EVPN 로그인 유지</h3>
+          <div class="toggle-figure">
+            <img src="img/home-evpn.png" alt="집·외부에서 — EVPN 로그인 유지: 로그인 유지 ON">
+            <div><span class="toggle-state">EVPN · 로그인 유지 ON</span></div>
+          </div>
+          <div class="why">
+            <strong>왜 ON인가요?</strong>
+            외부 작업의 핵심이에요. 10분마다 끊기는 EVPN 세션을 백그라운드에서 자동으로 이어줍니다. 켜두지 않으면 자리를 잠깐 비운 사이 작업이 끊어질 수 있어요.
+          </div>
+        </div>
       </div>
 
       <h2>3. PC별로 한 번씩만 — 그 뒤로는 자동</h2>
