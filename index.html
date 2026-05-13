@@ -555,6 +555,21 @@
       font-size: 11.5px;
       color: var(--sub);
     }
+    .browser-modal-guide {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--line);
+      text-align: center;
+    }
+    .browser-modal-guide a {
+      font-size: 12.5px;
+      color: var(--sub);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .browser-modal-guide a:hover {
+      color: var(--accent);
+    }
     .browser-modal-close {
       display: block;
       margin: 12px auto 0;
@@ -2622,6 +2637,14 @@
           <span>Edge 브라우저용</span>
         </span>
       </a>
+
+      <div class="browser-modal-guide">
+        <a href="/notes/2026-05-13-logout-prevention-guide.html"
+           target="_blank" rel="noopener"
+           onclick="gtag('event','guide_link_click',{from:'browser_modal'});">
+          이렇게 쓰시면 됩니다 → 사용법 안내
+        </a>
+      </div>
 
       <button type="button" class="browser-modal-close" onclick="closeBrowserModal()">닫기</button>
     </div>
