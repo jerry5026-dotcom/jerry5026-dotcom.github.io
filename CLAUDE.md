@@ -188,6 +188,19 @@ jerry5026-dotcom.github.io/
 - 이는 사용자가 명시적으로 요구한 운영 원칙. 변경하지 말 것.
 - "마지막 업데이트" 류의 날짜는 글에 표시하지 않는다.
 
+### 링크 전용(unlisted) 글 운영
+일반 작업일지 흐름엔 안 보이지만 URL을 알면 접근 가능한 글. 도구 사용 가이드 같은 부속 페이지에 사용한다.
+
+대표 예: `notes/2026-05-13-logout-prevention-guide.html` — 두 확장 프로그램 사용 가이드. Chrome·Edge 스토어의 "홈페이지 URL"과 작업실 메인 모달 하단 링크에서 이 글로 들어옴.
+
+링크 전용 처리 4가지:
+1. 글 자체에 `<meta name="robots" content="noindex, nofollow">` 추가
+2. `notes/index.html` 의 작업일지 목록 카드에 추가하지 않음
+3. `sitemap.xml` 에 URL 추가하지 않음
+4. `notes-latest.js` 의 발행일 갱신 안 함 (네비의 빨간 점이 트리거되지 않게)
+
+본 가이드 글은 메인 `index.html` 의 브라우저 선택 모달 하단 `.browser-modal-guide` 섹션에서 링크됨. 모달 코드를 변경할 때 이 링크 URL이 살아있는지 확인할 것.
+
 ### A. 새 HTML 파일 생성: `notes/YYYY-MM-DD-슬러그.html`
 
 기존 글(`2026-04-24-opening.html`)을 템플릿으로 복사 후 수정:
@@ -366,15 +379,29 @@ cd /tmp && rm -rf jerry_repo
 - **OG 이미지** — 카톡·SNS 공유 미리보기용. 1200×630px 이미지 필요. 사용자가 Canva로 제작 또는 의뢰.
 - **도구별 스크린샷** — 카드에 미리보기 추가. 개인정보 마스킹 필요해 공수 큼.
 
-### 시험 시간표 자동 생성기 — 검색 노출 차단 중
-실제 학교 환경 검증을 위해 점검 중인 상태. 검색엔진(구글/네이버)에서 안 잡히도록 막아 둠.
+### 시험 시간표 자동 생성기 — 검색 노출 차단 중 (2026.05.13. 기준)
 
-차단 적용 위치:
+실제 학교 환경 검증을 위해 점검 중. 사용자 명시 요구: **나중에 다시 검색되게, 작업실 도구 클릭 시 다시 사용 가능하게.**
+
+**현재 차단 적용 위치 (사이트 측)**:
 - `robots.txt` — `Disallow: /exam-timetable/`
 - `sitemap.xml` — 해당 URL 제거됨
-- 작업실 메인의 카드는 `maintenance` 상태로 클릭 시 점검 중 알림
+- `index.html` 의 시험 시간표 카드 — `maintenance` 클래스 + onclick 알림 + tool-tag `🔧 점검 중`
+- 도구 자체 페이지(`https://jerry5026-dotcom.github.io/exam-timetable/`) 는 직접 URL 접속 시 여전히 열림 (서버 차단은 안 함)
 
-**다시 공개할 때 되돌리는 절차**:
+**현재 차단 적용 위치 (구글 측, 사용자가 2026.05.13. 직접 처리)**:
+- Google Search Console → 삭제 → **임시 제거** 요청 (URL 접두어 기준)
+- URL: `https://jerry5026-dotcom.github.io/exam-timetable/`
+- 옵션: "이 접두어가 포함된 모든 URL 삭제"
+- 유효 기간: 6개월 (2026.05.13.부터 약 11월까지)
+- 상태는 "요청 처리 중" → 처리 완료 시 "삭제됨" → 6개월 후 자동 "삭제 만료됨"
+
+---
+
+**다시 공개할 때 — Claude 처리 (사이트 측)**:
+
+사용자가 "시험 시간표 다시 열어줘" 라고 말하면 다음 4가지를 한 번에 처리한다.
+
 1. `robots.txt` 에서 `Disallow: /exam-timetable/` 한 줄 삭제
 2. `sitemap.xml` 에 URL 다시 추가:
    ```xml
@@ -384,8 +411,24 @@ cd /tmp && rm -rf jerry_repo
      <priority>0.8</priority>
    </url>
    ```
-3. `index.html` 의 카드에서 `maintenance` 클래스 제거 + onclick 알림 제거 + tool-tag 라벨을 "🔧 점검 중" → "바로 사용" 으로
-4. Google Search Console "URL 검사" → 색인 생성 요청
+3. `index.html` 의 시험 시간표 카드에서:
+   - `class="tool-card maintenance"` → `class="tool-card"` (maintenance 클래스 제거)
+   - `onclick="event.preventDefault(); gtag(...'tool_click_blocked'...); alert('점검 중입니다...'); return false;"` → 일반 도구 카드 onclick (다른 도구 카드 onclick 패턴 참조)
+   - `<span class="tool-tag">🔧 점검 중</span>` → `<span class="tool-tag">바로 사용</span>`
+4. 이 CLAUDE.md §13의 본 섹션을 "검색 노출 차단 중" → "정상 운영 중" 식으로 정리하거나 섹션 자체 삭제
+
+**다시 공개할 때 — 사용자 직접 처리 (구글 측)**:
+
+사이트 측 변경 후 Claude가 다음 안내를 같이 드릴 것:
+
+1. **Google Search Console → 삭제** 메뉴 진입
+   - 활성 임시 제거 항목(`다음으로 시작: ...exam-timetable/`)이 보임
+   - 상태가 "요청 처리 중" 또는 "삭제됨" — 점 세 개(⋮) 메뉴가 있음
+2. **점 세 개(⋮) → 요청 취소** 클릭 → 차단 즉시 해제
+3. **URL 검사** 메뉴로 가서 `https://jerry5026-dotcom.github.io/exam-timetable/` 입력 → **색인 생성 요청** 클릭
+4. (선택) 네이버 서치어드바이저에서도 같은 URL 재수집 요청
+
+이 두 단계(사이트 + 사용자)가 모두 완료되면 며칠 안에 다시 검색 결과에 잡히고, 작업실 카드 클릭으로 도구 사용 가능.
 
 ### 두 확장 프로그램 — 스토어 링크 (완료, 2026.05.13. 기준 모두 활성)
 
