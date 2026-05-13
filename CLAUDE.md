@@ -379,25 +379,16 @@ cd /tmp && rm -rf jerry_repo
 - **OG 이미지** — 카톡·SNS 공유 미리보기용. 1200×630px 이미지 필요. 사용자가 Canva로 제작 또는 의뢰.
 - **도구별 스크린샷** — 카드에 미리보기 추가. 개인정보 마스킹 필요해 공수 큼.
 
-### 시험 시간표 자동 생성기 — 비밀번호 보호 중 (2026.05.13. 기준)
+### 시험 시간표 자동 생성기 — 비밀번호 보호 중 / 카드 활성 (2026.05.13. 기준)
 
-실제 학교 환경 검증을 위해 점검 중인 상태이며, 무단 접근을 막기 위해 **사이트 측에 비밀번호를 직접 걸어 두었음**.
+실제 학교 환경 검증 단계. 무단 접근 방지를 위해 **사이트 측에 비밀번호를 직접 걸어 두었음** (사용자가 직접 적용).
 
 **현재 상태**:
-- 사이트 페이지(`https://jerry5026-dotcom.github.io/exam-timetable/`) → 비밀번호 입력 필요 (사용자가 직접 적용)
-- `robots.txt` → 일반 상태 (검색엔진 차단 없음)
+- 사이트 페이지(`https://jerry5026-dotcom.github.io/exam-timetable/`) → 비밀번호 입력 화면이 먼저 뜸
+- `robots.txt` → 일반 상태 (차단 없음)
 - `sitemap.xml` → URL 정상 포함
-- 검색엔진 노출 → 허용 상태 (비밀번호로 보안되므로 검색에 잡혀도 문제 없다는 사용자 판단)
-- Google Search Console 임시 제거 요청 → 사용자가 직접 취소함
-- `index.html` 의 시험 시간표 카드 → 여전히 `maintenance` 클래스 + tool-tag `🔧 점검 중` (작업실 메인에서는 클릭 차단)
-
-**카드를 다시 활성화할 때 (사용자가 "시험 시간표 다시 열어줘" 라고 말하면)**:
-
-1. `index.html` 의 시험 시간표 카드에서:
-   - `class="tool-card maintenance"` → `class="tool-card"` (maintenance 클래스 제거)
-   - `onclick="event.preventDefault(); gtag(...'tool_click_blocked'...); alert('점검 중입니다...'); return false;"` → 일반 도구 카드 onclick (다른 도구 카드 onclick 패턴 참조)
-   - `<span class="tool-tag">🔧 점검 중</span>` → `<span class="tool-tag">바로 사용</span>`
-2. 이 CLAUDE.md §13 본 섹션을 정리 (정상 운영으로 표시하거나 섹션 자체 삭제)
+- 검색엔진 노출 → 허용 (비밀번호로 보안되므로 검색 결과에 잡혀도 무관)
+- `index.html` 의 시험 시간표 카드 → 정상 활성 상태. 다른 도구 카드와 동일한 패턴 (tool_click 이벤트 + openInBrowser)
 
 비밀번호 보호 자체의 해제(누구나 접근 가능하게) 는 사용자가 사이트 측에서 직접 처리.
 
