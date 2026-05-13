@@ -44,21 +44,36 @@
 ## 3. 파일 구조
 
 ```
-jerry5026-dotcom.github.io/
+jerry5026-dotcom.github.io/   (이 메인 저장소)
 ├── index.html              ← 메인 페이지 (단일 파일에 CSS·HTML 모두 포함)
-├── sitemap.xml             ← SEO용 sitemap (검색엔진에 페이지 알림)
+├── sitemap.xml             ← SEO용 sitemap
 ├── robots.txt              ← 크롤러 접근 정책
+├── notes-latest.js         ← 최신 글 발행일 한 줄 (네비 빨간 점 트리거)
 ├── CLAUDE.md               ← 이 문서
+├── manifest.json           ← PWA 매니페스트
+├── mock-home.png           ← 온무실 모의 홈 화면 (대시보드 섹션용)
+├── icon-192.png / icon-512.png / apple-touch-icon.png
+├── icons/
+│   ├── chrome.svg / edge.svg              ← 브라우저 선택 모달용
+│   └── logout-prevention.png / evpn-keepalive.png  ← 확장 도구 카드 아이콘
+├── letter-checker/         ← 도구 (메인 저장소 내부)
+│   └── index.html
 └── notes/
-    ├── index.html          ← 작업일지 목록 페이지 (필터·카드 리스트)
-    └── 2026-04-24-opening.html  ← 작업일지 첫 글 ("작업실을 열며")
+    ├── index.html                                   ← 작업일지 목록
+    ├── 2026-04-24-opening.html                      ← "작업실을 열며"
+    ├── 2026-04-28-timetable-pause.html              ← "시험 시간표 도구는 잠시 쉽니다"
+    ├── 2026-05-07-onmusil-assistant.html            ← "교무실에 비서 한 명을 들였습니다"
+    ├── 2026-05-13-logout-prevention.html            ← "내가 만든 걸, 누군가 이미…"
+    ├── 2026-05-13-logout-prevention-guide.html      ← 링크 전용 사용 가이드(unlisted)
+    └── img/                                         ← 글 본문 이미지
 ```
 
-### 주의: 도구는 별도 디렉토리/도메인
-- `exam-timetable/` — 시험 시간표 생성기 (이 저장소 내부)
-- `saenggibu-writer/` — 생기부 도우미 Ⅰ·Ⅱ (이 저장소 내부)
-- `student-survey/` — 학생 기초조사·상담 도우미 (이 저장소 내부)
-- `saenggibu-observation.vercel.app` — 수행평가 AI 도우미 (별도 Vercel 호스팅)
+### 별도 저장소·도메인의 도구들
+- `jerry5026-dotcom/exam-timetable` → `https://jerry5026-dotcom.github.io/exam-timetable/`
+- `jerry5026-dotcom/saenggibu-writer` → `.../saenggibu-writer/index1.html`, `index2.html`
+- `jerry5026-dotcom/student-survey` → `.../student-survey/`
+- `saenggibu-observation.vercel.app` — 수행평가 AI 도우미 (별도 Vercel)
+- Chrome 웹 스토어 + Edge 추가 기능 — "업무포털 로그아웃 방지", "EVPN 로그인 유지" 확장 프로그램
 
 ---
 
@@ -77,19 +92,26 @@ jerry5026-dotcom.github.io/
    - 인트로 박스: "이거 내가 직접 짜볼 수 있을까?…" 시작하는 글
 
 3. **섹션 2 — 공개 도구 (`#tools`)**
-   - 크림 배경
-   - PUBLIC 라벨
-   - 5개 도구 카드 + 1개 플레이스홀더 카드
+   - 크림 배경, PUBLIC 라벨
+   - **현재 도구 7개 + 플레이스홀더 1개** (2×4 그리드):
+     1. 📅 시험 시간표 자동 생성기 — 카드 라벨 *"🔧 점검 중"* (비밀번호 보호 적용, 클릭은 정상 동작)
+     2. 📝 생기부 작성 도우미 Ⅰ
+     3. 📗 생기부 작성 도우미 Ⅱ
+     4. 📊 수행평가 AI 도우미
+     5. 🎓 학생 기초조사·상담 도우미
+     6. 🔒 업무포털 로그아웃 방지 — 클릭 시 **브라우저 선택 모달** (Chrome/Edge)
+     7. 🔒 EVPN 로그인 유지 — 클릭 시 **브라우저 선택 모달**
+     8. ✨ "뭘 만들지 고민 중" 플레이스홀더
    - 업데이트 예고 문구 ("손을 더 봐야 하는 것들이 책상 위에 몇 개 놓여 있는데…")
    - 사용 전 안내 4개 항목 (notice)
 
 4. **섹션 3 — 교내 대시보드 (`#dashboard`)**
-   - 베이지 배경
-   - INTERNAL 라벨
+   - 베이지 배경, INTERNAL 라벨
    - 타이틀: "실제 운영 중인 온라인 교무실"
    - `<details>` 아코디언 (기본 접힘 상태)
-   - 펼치면: 기술 안내 박스 + 8개 기능 칩 + 4개 모의 화면 탭(홈/게시판/학사일정/연락망)
-   - 모의 화면은 **모든 데이터가 ○ 로 마스킹** — 학교 정보 노출 0%
+   - 펼치면: 기술 안내 박스 + **9개 기능 칩** (실시간 정보 바·학적 현황·주요 일정·급식 메뉴·부서별 전달/공지·한 줄 게시판·빠른 링크 모음·학사·업무 메뉴·💬 **업무 비서**) + 4개 모의 화면 탭
+   - 모의 화면(`mock-home.png` 등)은 **모든 데이터 ○ 로 마스킹** — 학교 정보 노출 0%
+   - `mock-home.png` 는 사내-ON에 업무 비서 위젯이 추가된 후 갱신된 버전
 
 5. **섹션 4 — 닫는 섹션 (`#about`)**
    - 크림 배경
@@ -181,6 +203,53 @@ jerry5026-dotcom.github.io/
 
 ---
 
+### 특수 패턴 ①: 브라우저 확장 프로그램 도구 (Chrome·Edge 모달)
+
+웹 도구가 아닌 **브라우저 확장 프로그램**(예: 업무포털 로그아웃 방지, EVPN 로그인 유지)을 추가할 때는 카드 클릭 시 *브라우저 선택 모달*이 뜨도록 처리한다. 사용자의 브라우저(Chrome/Edge)에 따라 추천 배지가 자동 표시되고, Edge 검수 중일 땐 "검수 중" 배지가 자동으로 뜬다.
+
+카드 HTML 예시 (data-chrome-url / data-edge-url 속성에 스토어 링크):
+```html
+<a href="#"
+   class="tool-card"
+   data-tool-name="도구 이름"
+   data-chrome-url="https://chromewebstore.google.com/detail/..."
+   data-edge-url="https://microsoftedge.microsoft.com/addons/detail/..."
+   onclick="return handleExtensionToolClick(event, this);">
+  <div class="tool-icon"><img src="/icons/도구로고.png" ...></div>
+  <div class="tool-name">도구 이름</div>
+  <div class="tool-desc">설명</div>
+  <span class="tool-tag">바로 사용</span>
+</a>
+```
+
+JS 핸들러는 `index.html` 의 `handleExtensionToolClick` / `openBrowserModal` / `handleBrowserInstallClick` 세 함수가 처리. 모달 자체는 `<div class="browser-modal" id="browserModal">` 로 `</body>` 직전에 위치.
+
+- Edge 링크가 아직 없으면 `data-edge-url="#"` 로 두면 자동으로 "검수 중" 배지 + "검수 중입니다" 알림 표시
+- 모달 미리보기 URL: `?preview=modal` (첫 카드 기준) / `?preview=modal&tool=evpn` (도구명 매칭)
+
+---
+
+### 특수 패턴 ②: 예약 발행(coming-soon) 도구
+
+발행일을 미리 정해두고 자동 활성화시키려면 `class="tool-card coming-soon"` + `data-launch-date="YYYY-MM-DD"` 를 함께 박는다.
+
+- 발행일 전엔 라벨이 `📅 공개 예정 · YYYY.MM.DD.` 로 표시되고, 클릭 시 알림만 뜸
+- 발행일이 지나면 JS가 자동으로 `coming-soon` 클래스를 제거하고 라벨을 `바로 사용` 으로 변환
+- 발행일을 정하지 않고 무기한 보류하려면 `data-launch-date` 속성 자체를 빼고 `coming-soon` 클래스만 둔다
+- 알림 문구는 `handleExtensionToolClick` 내부의 alert 텍스트로 일괄 관리
+
+---
+
+### 특수 패턴 ③: 시험 시간표 같은 "점검 중" 표시
+
+도구가 정상 동작하고 클릭으로 진입할 수 있으나, 시각적으로 "점검 중"을 알리고 싶을 때는 — **`maintenance` 클래스는 붙이지 말고** tool-tag 라벨만 `🔧 점검 중`으로 두는 방식이 현재 채택된 패턴 (시험 시간표 카드).
+
+- 카드 외형은 다른 활성 도구와 동일 (흐릿함·호버 무효화 없음)
+- 클릭 시 정상적으로 도구 페이지로 이동
+- 만약 클릭까지 막고 싶을 땐 `class="tool-card maintenance"` + onclick에 `event.preventDefault()` + alert
+
+---
+
 ## 7. 작업일지 글 추가 워크플로우
 
 ### 발행일 운영 원칙 (중요)
@@ -229,8 +298,25 @@ jerry5026-dotcom.github.io/
 ### C. `sitemap.xml` 에 새 글 URL 추가
 `changefreq monthly`, `priority 0.7`
 
-### D. 이전 글의 "다음 글" 링크 갱신 (있다면)
+### D. `notes-latest.js` 갱신 — 새 글 알림 빨간 점 트리거
+```js
+window.NOTES_LATEST_DATE = 'YYYY-MM-DD';
+```
+- 이 한 줄만 바꾸면 모든 페이지의 네비 *"작업일지"* 옆에 빨간 점(5px·var(--accent))이 7일간 자동 표시
+- 발행일 기준 7일이 지나면 자동으로 사라짐
+- 일반 발행이 아닌 링크 전용 글이라면 이 값 갱신하지 말 것 (점이 잘못 뜸)
+
+### E. 이전 글의 "다음 글" 링크 갱신 (있다면)
 이전 포스트 HTML의 `.post-nav` 영역에서 "다음 글" `<span class="disabled">` 을 `<a>` 로 변경하고 새 글 링크 연결.
+
+### 현재 발행된 글 목록 (2026.05.13. 기준)
+| 발행일 | 슬러그 | 제목 | 비고 |
+|---|---|---|---|
+| 2026.04.24. | `2026-04-24-opening` | 작업실을 열며 | 첫 글 |
+| 2026.04.28. | `2026-04-28-timetable-pause` | 시험 시간표 도구는 잠시 쉽니다 | (현재는 비밀번호 보호로 전환, 글은 그대로) |
+| 2026.05.07. | `2026-05-07-onmusil-assistant` | 교무실에 비서 한 명을 들였습니다 | |
+| 2026.05.13. | `2026-05-13-logout-prevention` | 내가 만든 걸, 누군가 이미 만들어놨더라고요. | |
+| 2026.05.13. | `2026-05-13-logout-prevention-guide` | 이렇게 쓰시면 됩니다 — 업무포털·EVPN 로그인 도우미 | **링크 전용(unlisted)** |
 
 ### 카테고리·이모지 매핑
 | 카테고리 | data-category | 아이콘 | 뱃지 색상 |
@@ -452,6 +538,15 @@ cd /tmp && rm -rf jerry_repo
 | 2026.04.24 | 닫는 섹션 통합 (인용구→본문→링크) | 이메일 중복 노출 제거, 서사 흐름 개선 |
 | 2026.04.24 | 작업일지 시스템 신설 | 개발 노트 + 개인 블로그 역할 |
 | 2026.04.25 | 시험 시간표 URL 정리 (디렉토리 경로) | 한글 파일명 인코딩 URL 폐기 |
+| 2026.04.28 | 시험 시간표 점검 중 처리 | 실제 학교 환경 검증 |
+| 2026.05.07 | 작업일지 새 글 알림 (빨간 점, 7일) | 발행 사실 인지율 ↑ |
+| 2026.05.07 | "교무실에 비서 한 명을 들였습니다" 발행 | 사내-ON에 NotebookLM 위젯 추가 후기 |
+| 2026.05.07 | 메인 도구 카드에 업무포털·EVPN 로그아웃 방지 예약(coming-soon) 추가 | 검수 통과 대비 |
+| 2026.05.13 | 작업일지 글 5.13 발행 + 가이드 글 unlisted 신설 | 도구 출시와 사용 안내 분리 |
+| 2026.05.13 | 두 확장 프로그램 Chrome·Edge 모두 정식 공개 | 브라우저 선택 모달 활성 |
+| 2026.05.13 | 시험 시간표 → 비밀번호 보호 적용, 검색 차단 해제 | 직접 비밀번호 적용으로 보안 처리 |
+| 2026.05.13 | 시험 시간표 카드 디자인: 라벨만 "🔧 점검 중", 클릭은 정상 | 점검 안내 + 접근 허용 동시 처리 |
+| 2026.05.14 | 사이트 전체에서 "조기원"·"사내고등학교"·"사내-ON" 마스킹 | 검색 결과 개인정보 노출 차단 (깃 이력 미수정) |
 
 ---
 
