@@ -216,8 +216,8 @@
     .setup-pair {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin: 24px 0 8px;
+      gap: 14px;
+      margin: 14px 0 8px;
     }
     .setup-pair figure {
       margin: 0;
@@ -225,7 +225,7 @@
     }
     .setup-pair figure img {
       width: 100%;
-      max-width: 320px;
+      max-width: 260px;
       height: auto;
       border-radius: 8px;
       border: 1px solid var(--line);
@@ -233,22 +233,46 @@
       background: #fff;
     }
     .setup-pair figcaption {
-      font-size: 13px;
-      color: #444;
-      margin-top: 10px;
+      font-size: 12.5px;
+      color: #555;
+      margin-top: 8px;
       line-height: 1.6;
     }
-    .setup-pair figcaption strong {
-      display: block;
+    .setup-row-caption {
+      font-size: 13.5px;
+      color: #444;
+      margin: 8px 0 22px;
+      line-height: 1.7;
+    }
+    .setup-row-caption strong { color: var(--ink); }
+    .setup-row-heading {
       font-family: 'Gowun Batang', serif;
-      font-size: 14.5px;
+      font-size: 16.5px;
+      font-weight: 700;
       color: var(--ink);
+      margin-top: 28px;
       margin-bottom: 4px;
+    }
+    .browser-tip {
+      background: var(--warm);
+      border-left: 3px solid var(--accent);
+      padding: 14px 16px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #3a3a3a;
+      margin: 18px 0 24px;
+    }
+    .browser-tip .browser-tip-sub {
+      display: block;
+      font-size: 12.5px;
+      color: #777;
+      margin-top: 6px;
     }
     @media (max-width: 540px) {
       .setup-pair {
         grid-template-columns: 1fr;
-        gap: 22px;
+        gap: 18px;
       }
     }
     .article-body hr {
@@ -435,24 +459,43 @@
         두 프로그램을 모두 설치해 두고, 어디서 일하느냐에 따라 토글만 살짝 바꿔주면 됩니다.
       </p>
 
+      <div class="browser-tip">
+        브라우저 우측 상단의 <strong>퍼즐 조각 아이콘(🧩)</strong>을 누르면 설치된 확장 프로그램 목록이 나옵니다.
+        거기서 <strong>[업무포털 로그아웃 방지]</strong>나 <strong>[EVPN 로그인 유지]</strong>를 누르면 아래와 같은 창이 떠요.
+        <span class="browser-tip-sub">자주 쓰실 분은 옆 핀 아이콘(📌)을 눌러 툴바에 고정해 두시면 한 번에 열 수 있습니다.</span>
+      </div>
+
+      <div class="setup-row-heading">학교에서 일할 때</div>
       <div class="setup-pair">
         <figure>
-          <img src="img/setting-school.png" alt="학교에서 근무할 때의 기본 세팅 — 둘 다 OFF">
-          <figcaption>
-            <strong>학교에서 일할 때</strong>
-            업무포털 로그아웃 방지: 재택 모드 OFF<br>
-            EVPN 로그인 유지: 로그인 유지 OFF
-          </figcaption>
+          <img src="img/school-portal.png" alt="학교에서 — 업무포털 로그아웃 방지: 재택 모드 OFF">
+          <figcaption>업무포털 로그아웃 방지</figcaption>
         </figure>
         <figure>
-          <img src="img/setting-home.png" alt="가정 등 외부에서 근무할 때의 기본 세팅 — 둘 다 ON">
-          <figcaption>
-            <strong>집·외부에서 일할 때</strong>
-            업무포털 로그아웃 방지: 재택 모드 ON<br>
-            EVPN 로그인 유지: 로그인 유지 ON
-          </figcaption>
+          <img src="img/school-evpn.png" alt="학교에서 — EVPN 로그인 유지: 로그인 유지 OFF">
+          <figcaption>EVPN 로그인 유지</figcaption>
         </figure>
       </div>
+      <p class="setup-row-caption">
+        업무포털 로그아웃 방지: <strong>재택 모드 OFF</strong><br>
+        EVPN 로그인 유지: <strong>로그인 유지 OFF</strong>
+      </p>
+
+      <div class="setup-row-heading">집·외부에서 일할 때</div>
+      <div class="setup-pair">
+        <figure>
+          <img src="img/home-portal.png" alt="집·외부에서 — 업무포털 로그아웃 방지: 재택 모드 ON">
+          <figcaption>업무포털 로그아웃 방지</figcaption>
+        </figure>
+        <figure>
+          <img src="img/home-evpn.png" alt="집·외부에서 — EVPN 로그인 유지: 로그인 유지 ON">
+          <figcaption>EVPN 로그인 유지</figcaption>
+        </figure>
+      </div>
+      <p class="setup-row-caption">
+        업무포털 로그아웃 방지: <strong>재택 모드 ON</strong><br>
+        EVPN 로그인 유지: <strong>로그인 유지 ON</strong>
+      </p>
 
       <p>
         오늘부터 <a href="../#tools">작업실</a>에 두 도구를 함께 올려둡니다.<br>
