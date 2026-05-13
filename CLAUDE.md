@@ -366,6 +366,27 @@ cd /tmp && rm -rf jerry_repo
 - **OG 이미지** — 카톡·SNS 공유 미리보기용. 1200×630px 이미지 필요. 사용자가 Canva로 제작 또는 의뢰.
 - **도구별 스크린샷** — 카드에 미리보기 추가. 개인정보 마스킹 필요해 공수 큼.
 
+### 시험 시간표 자동 생성기 — 검색 노출 차단 중
+실제 학교 환경 검증을 위해 점검 중인 상태. 검색엔진(구글/네이버)에서 안 잡히도록 막아 둠.
+
+차단 적용 위치:
+- `robots.txt` — `Disallow: /exam-timetable/`
+- `sitemap.xml` — 해당 URL 제거됨
+- 작업실 메인의 카드는 `maintenance` 상태로 클릭 시 점검 중 알림
+
+**다시 공개할 때 되돌리는 절차**:
+1. `robots.txt` 에서 `Disallow: /exam-timetable/` 한 줄 삭제
+2. `sitemap.xml` 에 URL 다시 추가:
+   ```xml
+   <url>
+     <loc>https://jerry5026-dotcom.github.io/exam-timetable/</loc>
+     <changefreq>monthly</changefreq>
+     <priority>0.8</priority>
+   </url>
+   ```
+3. `index.html` 의 카드에서 `maintenance` 클래스 제거 + onclick 알림 제거 + tool-tag 라벨을 "🔧 점검 중" → "바로 사용" 으로
+4. Google Search Console "URL 검사" → 색인 생성 요청
+
 ### 두 확장 프로그램 — 스토어 링크 (완료, 2026.05.13. 기준 모두 활성)
 
 | 도구 | Chrome | Edge |
