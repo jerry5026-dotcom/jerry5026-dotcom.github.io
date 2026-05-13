@@ -366,6 +366,19 @@ cd /tmp && rm -rf jerry_repo
 - **OG 이미지** — 카톡·SNS 공유 미리보기용. 1200×630px 이미지 필요. 사용자가 Canva로 제작 또는 의뢰.
 - **도구별 스크린샷** — 카드에 미리보기 추가. 개인정보 마스킹 필요해 공수 큼.
 
+### Edge 추가 기능 — 검수 통과 대기 중인 링크
+사용자에게 받은 ID. 통과 알림 받으면 `index.html` 의 해당 카드 `data-edge-url` 에 연결하고, 모달의 "검수 중" 배지가 자동으로 풀리도록 처리한다.
+
+| 도구 | Chrome (활성) | Edge ID (검수 중) | Edge 풀 URL |
+|---|---|---|---|
+| 업무포털 로그아웃 방지 | `plcbdjpfhbcancamlaejjfficoejmpnj` | `0RDCKCK0HWLG` | `https://microsoftedge.microsoft.com/addons/detail/0RDCKCK0HWLG` |
+| EVPN 로그인 유지 | `lkelcplmhpbbnknojjpihmidbfndcilb` | `0RDCKBCBMCNQ` | `https://microsoftedge.microsoft.com/addons/detail/0RDCKBCBMCNQ` |
+
+통과 시 작업 절차:
+1. `index.html` — 해당 카드의 `data-edge-url="#"` → 풀 URL 로 교체
+2. 모달 JS는 `href === '#'` 여부로 "검수 중" 배지를 자동 판정하므로 별도 손볼 곳 없음
+3. 작업일지 5.13. 글의 *"Edge 추가 기능 쪽은 아직 검수가 진행 중인데…"* 문장은 — 둘 다 통과되면 제거 / 한쪽만 통과되면 한 쪽만 풀렸다는 식으로 손보기 (사용자와 상의)
+
 ### 사용자 결정 대기
 - 네이버 블로그 운영 여부
 - 인디스쿨 자료실 글 작성 여부
