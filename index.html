@@ -506,6 +506,26 @@
       padding: 2px 8px;
       border-radius: 10px;
     }
+    .browser-modal-option.review {
+      opacity: 0.7;
+      background: #f7f6f1;
+    }
+    .browser-modal-option.review:hover {
+      border-color: var(--line);
+      background: #f7f6f1;
+    }
+    .browser-modal-option.review::after {
+      content: '검수 중';
+      position: absolute;
+      top: -8px;
+      right: 12px;
+      background: #888;
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
     .browser-modal-icon {
       flex-shrink: 0;
       width: 32px;
@@ -2243,23 +2263,23 @@
       </a>
 
       <a href="#"
-         class="tool-card coming-soon"
+         class="tool-card"
          data-tool-name="업무포털 로그아웃 방지"
          data-chrome-url="https://chromewebstore.google.com/detail/plcbdjpfhbcancamlaejjfficoejmpnj"
-         data-edge-url="https://microsoftedge.microsoft.com/addons/detail/0RDCKCK0HWLG"
+         data-edge-url="#"
          onclick="return handleExtensionToolClick(event, this);">
         <div class="tool-icon"><img src="/icons/logout-prevention.png" alt="" loading="lazy" width="32" height="32"></div>
         <div class="tool-name">업무포털 로그아웃 방지</div>
         <div class="tool-desc">
           1시간마다 끊기는 업무포털 로그인을 자동으로 유지 (Chrome·Edge 확장).
         </div>
-        <span class="tool-tag">📅 공개 예정 · 5월 중</span>
+        <span class="tool-tag">바로 사용</span>
       </a>
 
       <a href="#"
-         class="tool-card coming-soon"
+         class="tool-card"
          data-tool-name="EVPN 로그인 유지"
-         data-chrome-url="#"
+         data-chrome-url="https://chromewebstore.google.com/detail/lkelcplmhpbbnknojjpihmidbfndcilb"
          data-edge-url="#"
          onclick="return handleExtensionToolClick(event, this);">
         <div class="tool-icon"><img src="/icons/evpn-keepalive.png" alt="" loading="lazy" width="32" height="32"></div>
@@ -2267,7 +2287,7 @@
         <div class="tool-desc">
           10분마다 끊기는 EVPN(원격업무지원) 로그인을 자동으로 유지 (Chrome·Edge 확장).
         </div>
-        <span class="tool-tag">📅 공개 예정 · 5월 중</span>
+        <span class="tool-tag">바로 사용</span>
       </a>
 
       <div class="tool-card placeholder">
@@ -2651,11 +2671,14 @@
       modal.classList.add('show');
       document.body.style.overflow = 'hidden';
 
-      // 사용 중인 브라우저 자동 감지 → "추천" 배지
+      // 사용 중인 브라우저 자동 감지 → "추천" / "검수 중" 배지
       var ua = navigator.userAgent;
       var detected = ua.indexOf('Edg/') !== -1 ? 'edge' : (ua.indexOf('Chrome') !== -1 ? 'chrome' : '');
       modal.querySelectorAll('.browser-modal-option').forEach(function(opt){
-        opt.classList.toggle('recommended', opt.getAttribute('data-browser') === detected);
+        var url = opt.getAttribute('href');
+        var inReview = !url || url === '#';
+        opt.classList.toggle('review', inReview);
+        opt.classList.toggle('recommended', !inReview && opt.getAttribute('data-browser') === detected);
       });
     }
     function closeBrowserModal() {
@@ -2671,7 +2694,11 @@
       // 링크 미설정(아직 #) 시 안내만
       if (!href || href === '#') {
         e.preventDefault();
-        alert('곧 스토어 링크가 연결됩니다.');
+        if (browser === 'edge') {
+          alert('Edge 추가 기능은 현재 검수 중입니다. 통과되는 대로 연결됩니다.');
+        } else {
+          alert('곧 스토어 링크가 연결됩니다.');
+        }
         return false;
       }
       gtag('event','tool_install_click',{tool_name: toolName, browser: browser});
