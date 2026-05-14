@@ -311,6 +311,19 @@
       color: #777;
       margin-top: 6px;
     }
+    /* 강조형 — 글 초입 적용 범위 안내 */
+    .tip-box.emphasis {
+      border-left-width: 5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 16px 18px;
+    }
+    .tip-box.emphasis .tip-lead {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
 
     /* 한 행에 두 프로그램 — 2열 그리드 */
     .toggle-grid {
@@ -510,14 +523,14 @@
       </div>
       <h1 class="article-title">이렇게 쓰시면 됩니다 — 업무포털·EVPN 로그인 도우미</h1>
       <p class="article-subtitle">
-        두 도구의 자세한 사용 안내입니다. 어디서 일하느냐에 따라 토글을 어떻게 두면 좋은지, 왜 그렇게 두면 되는지 정리했어요.
+        <strong>두 도구를 함께 쓰실 때</strong>, 어디서 일하느냐에 따라 토글을 어떻게 두면 좋은지·왜 그렇게 두면 되는지 정리했어요.
       </p>
     </header>
 
     <article class="article-body">
 
-      <div class="tip-box">
-        📝 잠깐, 한 가지 안내드릴게요.<br>
+      <div class="tip-box emphasis">
+        <span class="tip-lead">📝 잠깐, 한 가지 안내드릴게요.</span>
         이 안내는 <strong>두 프로그램을 함께 쓰시는 분</strong>께 맞춰져 있어요. 학교와 학교 밖을 오가시며 두 도구를 모두 쓰신다면, 아래 내용대로 토글을 잡아주시면 됩니다.<br>
         한쪽만 쓰신다면 — 그 프로그램을 그냥 켜두시면 돼요. 토글을 굳이 만지지 않으셔도 됩니다.
       </div>
