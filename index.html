@@ -2279,28 +2279,15 @@
 
       <a href="#"
          class="tool-card"
-         data-tool-name="업무포털 로그아웃 방지"
-         data-chrome-url="https://chromewebstore.google.com/detail/plcbdjpfhbcancamlaejjfficoejmpnj"
-         data-edge-url="https://microsoftedge.microsoft.com/addons/detail/pkopjfgoffcebglllokogeilfgocdbek"
+         data-tool-name="업무포털(+EVPN) 로그인 유지 도우미"
+         data-chrome-url="https://chromewebstore.google.com/detail/fpmooapjkdhabhgjdemobloecbliafgl"
+         data-edge-url="#"
          onclick="return handleExtensionToolClick(event, this);">
         <div class="tool-icon"><img src="/icons/logout-prevention.png" alt="" loading="lazy" width="32" height="32"></div>
-        <div class="tool-name">업무포털 로그아웃 방지</div>
+        <div class="tool-name">업무포털(+EVPN) 로그인 유지 도우미</div>
         <div class="tool-desc">
-          1시간마다 끊기는 업무포털 로그인을 자동으로 유지 (Chrome·Edge 확장).
-        </div>
-        <span class="tool-tag">바로 사용</span>
-      </a>
-
-      <a href="#"
-         class="tool-card"
-         data-tool-name="EVPN 로그인 유지"
-         data-chrome-url="https://chromewebstore.google.com/detail/lkelcplmhpbbnknojjpihmidbfndcilb"
-         data-edge-url="https://microsoftedge.microsoft.com/addons/detail/kjdgdabccelpiaalbcbphdglgfpogaap"
-         onclick="return handleExtensionToolClick(event, this);">
-        <div class="tool-icon"><img src="/icons/evpn-keepalive.png" alt="" loading="lazy" width="32" height="32"></div>
-        <div class="tool-name">EVPN 로그인 유지</div>
-        <div class="tool-desc">
-          10분마다 끊기는 EVPN(원격업무지원) 로그인을 자동으로 유지 (Chrome·Edge 확장).
+          업무포털·나이스·K-에듀파인·EVPN 로그인을 자동으로 유지.
+          학교·외부 환경을 스스로 판별해 알맞게 동작합니다.
         </div>
         <span class="tool-tag">바로 사용</span>
       </a>
@@ -2608,7 +2595,7 @@
     <div class="browser-modal-backdrop" onclick="closeBrowserModal()"></div>
     <div class="browser-modal-box">
       <h3 id="browserModalTitle" class="browser-modal-title">사용 중인 브라우저를 선택해 주세요</h3>
-      <p class="browser-modal-sub">업무포털 로그아웃 방지 프로그램</p>
+      <p class="browser-modal-sub">업무포털(+EVPN) 로그인 유지 도우미</p>
 
       <a href="#"
          target="_blank" rel="noopener"
@@ -2637,14 +2624,6 @@
           <span>Edge 브라우저용</span>
         </span>
       </a>
-
-      <div class="browser-modal-guide">
-        <a href="/notes/2026-05-13-logout-prevention-guide.html"
-           target="_blank" rel="noopener"
-           onclick="gtag('event','guide_link_click',{from:'browser_modal'});">
-          이렇게 쓰시면 됩니다 → 사용법 안내
-        </a>
-      </div>
 
       <button type="button" class="browser-modal-close" onclick="closeBrowserModal()">닫기</button>
     </div>
@@ -2678,7 +2657,7 @@
         edgeUrl = sourceCard.getAttribute('data-edge-url') || '#';
       }
       var subEl = modal.querySelector('.browser-modal-sub');
-      if (subEl) subEl.textContent = toolName + ' 프로그램';
+      if (subEl) subEl.textContent = toolName;
 
       var chromeLink = modal.querySelector('.browser-modal-option[data-browser="chrome"]');
       var edgeLink = modal.querySelector('.browser-modal-option[data-browser="edge"]');
