@@ -155,9 +155,14 @@
       color: var(--accent);
       font-weight: 700;
     }
-    /* 온무실 전용 페이지 — 대시보드를 항상 펼친 정적 형태로 */
-    .dashboard > summary { cursor: default; pointer-events: none; }
-    .dashboard-toggle { display: none; }
+    /* 온무실 전용 페이지 — 대시보드 정적 헤더 (아코디언 아님) */
+    .dashboard-head {
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
     .dashboard-body { padding-top: 20px; }
     .notes-new-dot {
       display: none;
@@ -2024,7 +2029,7 @@
       .tool-card.placeholder { min-height: 100px; }
 
       /* 대시보드 카드 요약 영역 */
-      .dashboard > summary {
+      .dashboard-head {
         padding: 16px 16px;
         flex-wrap: wrap;
         gap: 10px;
@@ -2146,15 +2151,14 @@
     <h2 class="section-title">진짜 온라인 교무실</h2>
     <p class="section-sub">아침마다 열어야 할 탭이 너무 많길래 직접 묶어봤는데, 지금은 학교 선생님들이 함께 쓰는 <strong style="color:var(--ink)">실제 포털이 되었습니다</strong>.</p>
 
-    <details class="dashboard" open>
-      <summary>
+    <div class="dashboard">
+      <div class="dashboard-head">
         <div class="dashboard-summary-text">
           <div class="lead">시작 화면 하나로 끝내는 하루</div>
           <div class="hint"><strong>Google Sites</strong>로 만들었습니다.</div>
         </div>
         <span class="dashboard-badge">운영 중 · 요청 시 코드 공개</span>
-        <span class="dashboard-toggle">▾</span>
-      </summary>
+      </div>
 
       <div class="dashboard-body">
 
@@ -2275,6 +2279,10 @@
         </div><!-- /dash-tab-panels -->
       </div><!-- /dash-tabs -->
 
+      <div class="dashboard-note">
+        ※ 위 화면들은 <strong>매일 출근해서 보는 실제 화면</strong>이에요 — 주요 정보만 가려두었습니다. 실제 페이지는 학교 구글 계정으로만 열려요.
+      </div>
+
       <div class="dashboard-download">
         <div class="dashboard-download-icon">📮</div>
         <div class="dashboard-download-text">
@@ -2282,27 +2290,19 @@
           <div class="dashboard-download-desc">
             이메일(<a href="mailto:jerry5026@gmail.com" style="color:#5a4528;text-decoration:underline;">jerry5026@gmail.com</a>)로 편하게 요청해 주세요.<br>
             받아가신 뒤 <strong>선생님 학교 환경에 맞게 직접 수정</strong>해서 사용하시면 됩니다.
+            학교 환경에 맞춰보시다 막히는 부분이 있을 때도 편하게 연락 주세요.
           </div>
         </div>
       </div>
 
-      <div class="dashboard-note">
-        ※ 위 화면들은 <strong>매일 출근해서 보는 실제 화면</strong>이에요 — 주요 정보만 가려두었습니다. 실제 페이지는 학교 구글 계정으로만 열려요.<br>
-        받아가신 코드로 학교 환경에 맞춰보시다 막히는 부분이 있으면 편하게 이메일 주세요.
-      </div>
-
       </div><!-- /dashboard-body -->
-    </details>
+    </div><!-- /dashboard -->
 
     </div>
   </section>
 
   <section class="section-band cream" id="about">
     <div class="container">
-
-    <p style="text-align:center;font-size:13px;color:var(--sub);line-height:1.8;margin:8px 0 4px;">
-      이 화면이 궁금하시거나 코드가 필요하시면 — <a href="../#about" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;">작업실 연락처</a>로 편하게 문의해 주세요.
-    </p>
 
     <!-- Footer -->
     <footer class="footer">
