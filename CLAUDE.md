@@ -477,7 +477,7 @@ cd /tmp && rm -rf jerry_repo
 **현재 작업실에 노출되는 도구 카드**:
 | 도구 | Chrome | Edge |
 |---|---|---|
-| 업무포털(+EVPN) 로그인 유지 도우미 | `fpmooapjkdhabhgjdemobloecbliafgl` | 미등록 (`data-edge-url="#"` → 모달 "검수 중" 배지) |
+| 업무포털(+EVPN) 로그인 유지 도우미 | `fpmooapjkdhabhgjdemobloecbliafgl` | `cjdcdneimdkohificcfnnapkcmhgijkh` |
 
 **기존 두 확장** — 스토어엔 아직 live 상태지만 작업실 카드에서는 내림. 단종 여부는 사용자가 추후 결정.
 | 옛 도구 | Chrome | Edge |
@@ -485,7 +485,7 @@ cd /tmp && rm -rf jerry_repo
 | 업무포털 로그아웃 방지 | `plcbdjpfhbcancamlaejjfficoejmpnj` | `pkopjfgoffcebglllokogeilfgocdbek` |
 | EVPN 로그인 유지 | `lkelcplmhpbbnknojjpihmidbfndcilb` | `kjdgdabccelpiaalbcbphdglgfpogaap` |
 
-→ 통합 도구의 Edge 검수가 통과되면 카드의 `data-edge-url="#"` 를 실제 링크로 교체.
+→ 통합 도구 Edge 검수도 2026.05.14. 통과 완료. Chrome·Edge 양쪽 모두 활성.
 
 ### 사용자 결정 대기
 - 네이버 블로그 운영 여부
