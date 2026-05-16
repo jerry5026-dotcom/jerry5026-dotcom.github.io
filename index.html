@@ -2552,10 +2552,10 @@
       <div class="feedback-input-box" id="feedbackInputBox" style="display:none;">
         <button type="button" class="feedback-close" id="feedbackClose" onclick="handleFeedbackClose()" aria-label="닫기">✕</button>
         <p class="ask">한 마디 남기고 가실래요 (선택)</p>
-        <textarea id="feedbackText" maxlength="80" placeholder="감상, 제안, 그냥 인사도 좋아요"></textarea>
+        <textarea id="feedbackText" maxlength="100" placeholder="감상, 제안, 그냥 인사도 좋아요"></textarea>
         <input type="text" class="feedback-hp" id="feedbackHp" tabindex="-1" autocomplete="off">
         <div class="row">
-          <span><span id="feedbackCharCount">0</span> / 80</span>
+          <span><span id="feedbackCharCount">0</span> / 100</span>
           <button type="button" class="feedback-submit" id="feedbackSubmit" onclick="handleFeedbackSubmit()" disabled>남기기</button>
         </div>
       </div>
@@ -2701,7 +2701,7 @@
           var sb = document.getElementById('feedbackSubmit');
           if (ta) ta.addEventListener('input', function(){
             cc.textContent = ta.value.length;
-            sb.disabled = !ta.value.trim() || ta.value.length > 80;
+            sb.disabled = !ta.value.trim() || ta.value.length > 100;
           });
           if (localStorage.getItem(LS_LIKE)) setLikedUI(true);
           if (localStorage.getItem(LS_MSG)) {
