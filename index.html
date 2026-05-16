@@ -2547,7 +2547,7 @@
         </button>
         <span class="feedback-count" id="feedbackCount">·</span>
       </div>
-      <div class="feedback-hint" id="feedbackHint">누르면 한 마디 남길 수도 있어요 (선택)</div>
+      <button type="button" class="feedback-reopen" id="feedbackOpenMsg" onclick="handleFeedbackOpenMsg()">✎ 한 마디 남기기</button>
 
       <div class="feedback-input-box" id="feedbackInputBox" style="display:none;">
         <button type="button" class="feedback-close" id="feedbackClose" onclick="handleFeedbackClose()" aria-label="닫기">✕</button>
@@ -2559,8 +2559,6 @@
           <button type="button" class="feedback-submit" id="feedbackSubmit" onclick="handleFeedbackSubmit()" disabled>남기기</button>
         </div>
       </div>
-
-      <button type="button" class="feedback-reopen" id="feedbackReopen" style="display:none;" onclick="handleFeedbackReopen()">✎ 한 마디 남기기</button>
 
       <div id="feedbackToast" style="display:none;" class="feedback-toast">잘 받았습니다 :) 검토 후 게시돼요</div>
 
@@ -2609,44 +2607,58 @@
             });
         }
 
-        function showInputArea(){
-          document.getElementById('feedbackInputBox').style.display = 'block';
-          document.getElementById('feedbackReopen').style.display = 'none';
+        function bumpCount(delta){
+          var countEl = document.getElementById('feedbackCount');
+          countEl.textContent = Math.max(0, (parseInt(countEl.textContent, 10) || 0) + delta);
+          countEl.classList.add('bump');
+          setTimeout(function(){ countEl.classList.remove('bump'); }, 250);
         }
+
+        function setLikedUI(liked){
+          var btn = document.getElementById('feedbackBtn');
+          var icon = document.getElementById('feedbackIcon');
+          if (liked) {
+            btn.classList.add('liked');
+            icon.textContent = '✓';
+          } else {
+            btn.classList.remove('liked');
+            icon.textContent = '👍';
+          }
+        }
+
+        window.handleFeedbackOpenMsg = function(){
+          if (localStorage.getItem(LS_MSG)) return;
+          document.getElementById('feedbackInputBox').style.display = 'block';
+          document.getElementById('feedbackOpenMsg').style.display = 'none';
+          setTimeout(function(){
+            var ta = document.getElementById('feedbackText');
+            if (ta) ta.focus();
+          }, 100);
+        };
 
         window.handleFeedbackClose = function(){
           document.getElementById('feedbackInputBox').style.display = 'none';
           if (!localStorage.getItem(LS_MSG)) {
-            document.getElementById('feedbackReopen').style.display = 'inline-block';
+            document.getElementById('feedbackOpenMsg').style.display = 'inline-block';
           }
-        };
-
-        window.handleFeedbackReopen = function(){
-          showInputArea();
         };
 
         window.handleFeedbackLike = function(){
-          var btn = document.getElementById('feedbackBtn');
-          if (btn.classList.contains('liked')) return;
-          if (localStorage.getItem(LS_LIKE)) {
-            btn.classList.add('liked');
-            document.getElementById('feedbackIcon').textContent = '✓';
-            document.getElementById('feedbackHint').style.display = 'none';
-            if (!localStorage.getItem(LS_MSG)) showInputArea();
-            return;
-          }
-          btn.classList.add('liked');
-          document.getElementById('feedbackIcon').textContent = '✓';
-          var countEl = document.getElementById('feedbackCount');
-          countEl.textContent = (parseInt(countEl.textContent, 10) || 0) + 1;
-          countEl.classList.add('bump');
-          setTimeout(function(){ countEl.classList.remove('bump'); }, 250);
-          document.getElementById('feedbackHint').style.display = 'none';
-          showInputArea();
-          localStorage.setItem(LS_LIKE, Date.now());
-
+          var liked = !!localStorage.getItem(LS_LIKE);
           var fd = new FormData();
-          fd.append('action', 'like');
+          if (liked) {
+            // 취소
+            setLikedUI(false);
+            bumpCount(-1);
+            localStorage.removeItem(LS_LIKE);
+            fd.append('action', 'unlike');
+          } else {
+            // 좋아요
+            setLikedUI(true);
+            bumpCount(1);
+            localStorage.setItem(LS_LIKE, Date.now());
+            fd.append('action', 'like');
+          }
           fetch(ENDPOINT, { method:'POST', body: fd }).catch(function(){});
         };
 
@@ -2670,7 +2682,7 @@
             .then(function(){
               localStorage.setItem(LS_MSG, Date.now());
               document.getElementById('feedbackInputBox').style.display = 'none';
-              document.getElementById('feedbackReopen').style.display = 'none';
+              document.getElementById('feedbackOpenMsg').style.display = 'none';
               document.getElementById('feedbackToast').style.display = 'inline-block';
               setTimeout(function(){
                 document.getElementById('feedbackToast').style.display = 'none';
@@ -2691,11 +2703,9 @@
             cc.textContent = ta.value.length;
             sb.disabled = !ta.value.trim() || ta.value.length > 80;
           });
-          if (localStorage.getItem(LS_LIKE)) {
-            var btn = document.getElementById('feedbackBtn');
-            btn.classList.add('liked');
-            document.getElementById('feedbackIcon').textContent = '✓';
-            document.getElementById('feedbackHint').style.display = 'none';
+          if (localStorage.getItem(LS_LIKE)) setLikedUI(true);
+          if (localStorage.getItem(LS_MSG)) {
+            document.getElementById('feedbackOpenMsg').style.display = 'none';
           }
         });
       })();
