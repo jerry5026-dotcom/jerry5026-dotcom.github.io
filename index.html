@@ -848,26 +848,30 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 28px;
-      background: var(--card-bg);
-      border: 1px solid var(--line);
+      padding: 11px 26px;
+      background: rgba(0,0,0,0.035);
+      border: none;
       border-radius: 999px;
       font-family: inherit;
       font-size: 15px;
       color: var(--ink);
       cursor: pointer;
-      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      transition: background 0.15s, color 0.15s, transform 0.15s;
     }
     .feedback-btn:hover {
-      border-color: var(--accent);
+      background: rgba(0,0,0,0.06);
+      color: var(--accent);
       transform: translateY(-1px);
     }
     .feedback-btn .icon { font-size: 16px; }
     .feedback-btn.liked {
-      background: var(--warm);
-      border-color: var(--warm);
-      cursor: default;
+      background: rgba(200, 54, 43, 0.08);
+      color: var(--accent);
+      cursor: pointer;
       transform: none;
+    }
+    .feedback-btn.liked:hover {
+      background: rgba(200, 54, 43, 0.14);
     }
     .feedback-count {
       font-family: 'Gowun Batang', serif;
