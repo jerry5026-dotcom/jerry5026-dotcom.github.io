@@ -884,6 +884,7 @@
       margin-top: 10px;
     }
     .feedback-input-box {
+      position: relative;
       margin-top: 18px;
       padding: 18px;
       background: var(--warm);
@@ -895,6 +896,40 @@
       margin-right: auto;
       animation: feedbackFade 0.3s ease-out;
     }
+    .feedback-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 24px;
+      height: 24px;
+      background: transparent;
+      border: none;
+      color: var(--sub);
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .feedback-close:hover {
+      background: rgba(0,0,0,0.06);
+      color: var(--ink);
+    }
+    .feedback-reopen {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 4px 10px;
+      background: transparent;
+      border: none;
+      color: var(--sub);
+      font-family: inherit;
+      font-size: 12.5px;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.15s;
+      animation: feedbackFade 0.3s ease-out;
+    }
+    .feedback-reopen:hover { color: var(--accent); }
     @keyframes feedbackFade {
       from { opacity: 0; transform: translateY(-4px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -2502,6 +2537,170 @@
       <a href="onmusil/" style="color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-weight:500;">온무실 구경하기 →</a>
     </p>
 
+    <!-- 피드백 위젯 (👍 + 한 줄) -->
+    <div class="feedback-widget" id="feedbackWidget">
+      <div class="feedback-label">잠깐, 도움이 되었다면</div>
+      <div class="feedback-thanks-row">
+        <button type="button" class="feedback-btn" id="feedbackBtn" onclick="handleFeedbackLike()">
+          <span class="icon" id="feedbackIcon">👍</span>
+          <span>고마워요</span>
+        </button>
+        <span class="feedback-count" id="feedbackCount">·</span>
+      </div>
+      <div class="feedback-hint" id="feedbackHint">누르면 한 마디 남길 수도 있어요 (선택)</div>
+
+      <div class="feedback-input-box" id="feedbackInputBox" style="display:none;">
+        <button type="button" class="feedback-close" id="feedbackClose" onclick="handleFeedbackClose()" aria-label="닫기">✕</button>
+        <p class="ask">한 마디 남기고 가실래요 (선택)</p>
+        <textarea id="feedbackText" maxlength="80" placeholder="감상, 제안, 그냥 인사도 좋아요"></textarea>
+        <input type="text" class="feedback-hp" id="feedbackHp" tabindex="-1" autocomplete="off">
+        <div class="row">
+          <span><span id="feedbackCharCount">0</span> / 80</span>
+          <button type="button" class="feedback-submit" id="feedbackSubmit" onclick="handleFeedbackSubmit()" disabled>남기기</button>
+        </div>
+      </div>
+
+      <button type="button" class="feedback-reopen" id="feedbackReopen" style="display:none;" onclick="handleFeedbackReopen()">✎ 한 마디 남기기</button>
+
+      <div id="feedbackToast" style="display:none;" class="feedback-toast">잘 받았습니다 :) 검토 후 게시돼요</div>
+
+      <div class="feedback-list" id="feedbackList" style="display:none;">
+        <div class="feedback-list-title">남겨주신 한 마디</div>
+        <div id="feedbackMsgs"></div>
+      </div>
+    </div>
+
+    <script>
+      (function(){
+        var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzBviCGDTSveC2oqFv6IsgrmArinloGRJ794Lv8Htd7yOpf7U9B-TANJ5w0sWuiSYYC/exec';
+        var LS_LIKE = 'workshop_liked';
+        var LS_MSG  = 'workshop_msg_sent';
+
+        function formatDate(iso){
+          var d = new Date(iso);
+          var y = d.getFullYear();
+          var m = String(d.getMonth() + 1).padStart(2, '0');
+          var day = String(d.getDate()).padStart(2, '0');
+          return y + '.' + m + '.' + day + '.';
+        }
+
+        function renderMessages(messages){
+          var list = document.getElementById('feedbackList');
+          var box = document.getElementById('feedbackMsgs');
+          if (!messages || !messages.length) { list.style.display = 'none'; return; }
+          box.innerHTML = messages.map(function(m){
+            var safe = String(m.text).replace(/[<>&"']/g, function(c){
+              return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c];
+            });
+            return '<div class="feedback-msg"><span>"' + safe + '"</span><span class="when">' + formatDate(m.ts) + '</span></div>';
+          }).join('');
+          list.style.display = 'block';
+        }
+
+        function loadFeedback(){
+          fetch(ENDPOINT + '?action=load&_=' + Date.now())
+            .then(function(r){ return r.json(); })
+            .then(function(data){
+              document.getElementById('feedbackCount').textContent = data.count;
+              renderMessages(data.messages);
+            })
+            .catch(function(){
+              document.getElementById('feedbackCount').textContent = '·';
+            });
+        }
+
+        function showInputArea(){
+          document.getElementById('feedbackInputBox').style.display = 'block';
+          document.getElementById('feedbackReopen').style.display = 'none';
+        }
+
+        window.handleFeedbackClose = function(){
+          document.getElementById('feedbackInputBox').style.display = 'none';
+          if (!localStorage.getItem(LS_MSG)) {
+            document.getElementById('feedbackReopen').style.display = 'inline-block';
+          }
+        };
+
+        window.handleFeedbackReopen = function(){
+          showInputArea();
+        };
+
+        window.handleFeedbackLike = function(){
+          var btn = document.getElementById('feedbackBtn');
+          if (btn.classList.contains('liked')) return;
+          if (localStorage.getItem(LS_LIKE)) {
+            btn.classList.add('liked');
+            document.getElementById('feedbackIcon').textContent = '✓';
+            document.getElementById('feedbackHint').style.display = 'none';
+            if (!localStorage.getItem(LS_MSG)) showInputArea();
+            return;
+          }
+          btn.classList.add('liked');
+          document.getElementById('feedbackIcon').textContent = '✓';
+          var countEl = document.getElementById('feedbackCount');
+          countEl.textContent = (parseInt(countEl.textContent, 10) || 0) + 1;
+          countEl.classList.add('bump');
+          setTimeout(function(){ countEl.classList.remove('bump'); }, 250);
+          document.getElementById('feedbackHint').style.display = 'none';
+          showInputArea();
+          localStorage.setItem(LS_LIKE, Date.now());
+
+          var fd = new FormData();
+          fd.append('action', 'like');
+          fetch(ENDPOINT, { method:'POST', body: fd }).catch(function(){});
+        };
+
+        window.handleFeedbackSubmit = function(){
+          var ta = document.getElementById('feedbackText');
+          var hp = document.getElementById('feedbackHp');
+          var btn = document.getElementById('feedbackSubmit');
+          var text = ta.value.trim();
+          if (!text) return;
+          if (localStorage.getItem(LS_MSG)) return;
+          btn.disabled = true;
+
+          var fd = new FormData();
+          fd.append('action', 'message');
+          fd.append('text', text);
+          fd.append('website', hp.value);
+          fd.append('fp', navigator.userAgent + screen.width);
+
+          fetch(ENDPOINT, { method:'POST', body: fd })
+            .then(function(r){ return r.json(); })
+            .then(function(){
+              localStorage.setItem(LS_MSG, Date.now());
+              document.getElementById('feedbackInputBox').style.display = 'none';
+              document.getElementById('feedbackReopen').style.display = 'none';
+              document.getElementById('feedbackToast').style.display = 'inline-block';
+              setTimeout(function(){
+                document.getElementById('feedbackToast').style.display = 'none';
+              }, 4000);
+            })
+            .catch(function(){
+              btn.disabled = false;
+              alert('전송에 실패했어요. 잠시 후 다시 시도해주세요.');
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', function(){
+          loadFeedback();
+          var ta = document.getElementById('feedbackText');
+          var cc = document.getElementById('feedbackCharCount');
+          var sb = document.getElementById('feedbackSubmit');
+          if (ta) ta.addEventListener('input', function(){
+            cc.textContent = ta.value.length;
+            sb.disabled = !ta.value.trim() || ta.value.length > 80;
+          });
+          if (localStorage.getItem(LS_LIKE)) {
+            var btn = document.getElementById('feedbackBtn');
+            btn.classList.add('liked');
+            document.getElementById('feedbackIcon').textContent = '✓';
+            document.getElementById('feedbackHint').style.display = 'none';
+          }
+        });
+      })();
+    </script>
+
     </div>
   </section>
 
@@ -2524,155 +2723,6 @@
         발견한 버그, 그냥 인사 한 마디까지 — 뭐든 환영해요.<br>
         작업실 문은 언제나 열려 있습니다.
       </p>
-
-      <!-- 피드백 위젯 (👍 + 한 줄) -->
-      <div class="feedback-widget" id="feedbackWidget">
-        <div class="feedback-label">잠깐, 도움이 되었다면</div>
-        <div class="feedback-thanks-row">
-          <button type="button" class="feedback-btn" id="feedbackBtn" onclick="handleFeedbackLike()">
-            <span class="icon" id="feedbackIcon">👍</span>
-            <span>고마워요</span>
-          </button>
-          <span class="feedback-count" id="feedbackCount">·</span>
-        </div>
-        <div class="feedback-hint" id="feedbackHint">누르면 한 마디 남길 수도 있어요 (선택)</div>
-
-        <div class="feedback-input-box" id="feedbackInputBox" style="display:none;">
-          <p class="ask">한 마디 남기고 가실래요 (선택)</p>
-          <textarea id="feedbackText" maxlength="80" placeholder="감상, 제안, 그냥 인사도 좋아요"></textarea>
-          <input type="text" class="feedback-hp" id="feedbackHp" tabindex="-1" autocomplete="off">
-          <div class="row">
-            <span><span id="feedbackCharCount">0</span> / 80</span>
-            <button type="button" class="feedback-submit" id="feedbackSubmit" onclick="handleFeedbackSubmit()" disabled>남기기</button>
-          </div>
-        </div>
-
-        <div id="feedbackToast" style="display:none;" class="feedback-toast">잘 받았습니다 :) 검토 후 게시돼요</div>
-
-        <div class="feedback-list" id="feedbackList" style="display:none;">
-          <div class="feedback-list-title">남겨주신 한 마디</div>
-          <div id="feedbackMsgs"></div>
-        </div>
-      </div>
-
-      <script>
-        (function(){
-          var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzBviCGDTSveC2oqFv6IsgrmArinloGRJ794Lv8Htd7yOpf7U9B-TANJ5w0sWuiSYYC/exec';
-          var LS_LIKE = 'workshop_liked';
-          var LS_MSG  = 'workshop_msg_sent';
-
-          function timeAgo(iso){
-            var diff = (Date.now() - new Date(iso).getTime()) / 1000;
-            if (diff < 3600) return Math.max(1, Math.floor(diff/60)) + '분 전';
-            if (diff < 86400) return Math.floor(diff/3600) + '시간 전';
-            if (diff < 86400*7) return Math.floor(diff/86400) + '일 전';
-            if (diff < 86400*30) return Math.floor(diff/86400/7) + '주 전';
-            return Math.floor(diff/86400/30) + '달 전';
-          }
-
-          function renderMessages(messages){
-            var list = document.getElementById('feedbackList');
-            var box = document.getElementById('feedbackMsgs');
-            if (!messages || !messages.length) { list.style.display = 'none'; return; }
-            box.innerHTML = messages.map(function(m){
-              var safe = String(m.text).replace(/[<>&"']/g, function(c){
-                return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c];
-              });
-              return '<div class="feedback-msg"><span>"' + safe + '"</span><span class="when">' + timeAgo(m.ts) + '</span></div>';
-            }).join('');
-            list.style.display = 'block';
-          }
-
-          function loadFeedback(){
-            fetch(ENDPOINT + '?action=load&_=' + Date.now())
-              .then(function(r){ return r.json(); })
-              .then(function(data){
-                document.getElementById('feedbackCount').textContent = data.count;
-                renderMessages(data.messages);
-              })
-              .catch(function(){
-                document.getElementById('feedbackCount').textContent = '·';
-              });
-          }
-
-          window.handleFeedbackLike = function(){
-            var btn = document.getElementById('feedbackBtn');
-            if (btn.classList.contains('liked')) return;
-            if (localStorage.getItem(LS_LIKE)) {
-              // 이미 누른 사람
-              btn.classList.add('liked');
-              document.getElementById('feedbackIcon').textContent = '✓';
-              document.getElementById('feedbackHint').style.display = 'none';
-              if (!localStorage.getItem(LS_MSG)) {
-                document.getElementById('feedbackInputBox').style.display = 'block';
-              }
-              return;
-            }
-            btn.classList.add('liked');
-            document.getElementById('feedbackIcon').textContent = '✓';
-            var countEl = document.getElementById('feedbackCount');
-            countEl.textContent = (parseInt(countEl.textContent, 10) || 0) + 1;
-            countEl.classList.add('bump');
-            setTimeout(function(){ countEl.classList.remove('bump'); }, 250);
-            document.getElementById('feedbackHint').style.display = 'none';
-            document.getElementById('feedbackInputBox').style.display = 'block';
-            localStorage.setItem(LS_LIKE, Date.now());
-
-            var fd = new FormData();
-            fd.append('action', 'like');
-            fetch(ENDPOINT, { method:'POST', body: fd }).catch(function(){});
-          };
-
-          window.handleFeedbackSubmit = function(){
-            var ta = document.getElementById('feedbackText');
-            var hp = document.getElementById('feedbackHp');
-            var btn = document.getElementById('feedbackSubmit');
-            var text = ta.value.trim();
-            if (!text) return;
-            if (localStorage.getItem(LS_MSG)) return;
-            btn.disabled = true;
-
-            var fd = new FormData();
-            fd.append('action', 'message');
-            fd.append('text', text);
-            fd.append('website', hp.value);
-            fd.append('fp', navigator.userAgent + screen.width);
-
-            fetch(ENDPOINT, { method:'POST', body: fd })
-              .then(function(r){ return r.json(); })
-              .then(function(){
-                localStorage.setItem(LS_MSG, Date.now());
-                document.getElementById('feedbackInputBox').style.display = 'none';
-                document.getElementById('feedbackToast').style.display = 'inline-block';
-                setTimeout(function(){
-                  document.getElementById('feedbackToast').style.display = 'none';
-                }, 4000);
-              })
-              .catch(function(){
-                btn.disabled = false;
-                alert('전송에 실패했어요. 잠시 후 다시 시도해주세요.');
-              });
-          };
-
-          document.addEventListener('DOMContentLoaded', function(){
-            loadFeedback();
-            var ta = document.getElementById('feedbackText');
-            var cc = document.getElementById('feedbackCharCount');
-            var sb = document.getElementById('feedbackSubmit');
-            if (ta) ta.addEventListener('input', function(){
-              cc.textContent = ta.value.length;
-              sb.disabled = !ta.value.trim() || ta.value.length > 80;
-            });
-            // 이미 좋아요 누른 사람: 초기 렌더링 시 liked 상태로
-            if (localStorage.getItem(LS_LIKE)) {
-              var btn = document.getElementById('feedbackBtn');
-              btn.classList.add('liked');
-              document.getElementById('feedbackIcon').textContent = '✓';
-              document.getElementById('feedbackHint').style.display = 'none';
-            }
-          });
-        })();
-      </script>
 
       <div class="closing-secondary">
         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jerry5026@gmail.com&su=%5B%EA%B5%90%EB%AC%B4%EC%8B%A4%20%EC%98%86%20%EC%9E%91%EC%97%85%EC%8B%A4%5D%20%EC%9D%98%EA%B2%AC" target="_blank" rel="noopener">Gmail로 쓰기</a>
