@@ -578,7 +578,7 @@
 
     <!-- Internal Dashboard -->
     <span class="section-label internal">INTERNAL · 저희 학교 전용</span>
-    <h2 class="section-title">진짜 온라인 교무실</h2>
+    <h2 class="section-title">매일 여는 온라인 교무실</h2>
     <p class="section-sub">아침마다 열어야 할 탭이 너무 많길래 직접 묶어봤는데, 지금은 학교 선생님들이 함께 쓰는 <strong style="color:var(--ink)">실제 포털이 되었습니다</strong>.</p>
 
     <div class="dashboard">
@@ -587,7 +587,7 @@
           <div class="lead">시작 화면 하나로 끝내는 하루</div>
           <div class="hint"><strong>Google Sites</strong>로 만들었습니다.</div>
         </div>
-        <span class="dashboard-badge">운영 중 · 요청 시 코드 공개</span>
+        <span class="dashboard-badge">운영 중</span>
       </div>
 
       <div class="dashboard-body">
@@ -595,7 +595,6 @@
       <div class="dashboard-header">
         <div class="dashboard-title-group">
           <div class="dashboard-desc">
-            출근해서 가장 먼저 여는 화면이 되도록 설계했습니다.
             학사·업무·소통·빠른 링크를 한 곳에 배치해, 여러 탭을 오가지 않아도
             그날 필요한 정보가 한눈에 들어오도록 구성했습니다.
           </div>
@@ -649,17 +648,17 @@
         <div class="feature">
           <div class="feature-icon">🔗</div>
           <div class="feature-name">빠른 링크 모음</div>
-          <div class="feature-desc">업무포털·드라이브·공유 캘린더·주간 업무·연락망·시간표·창체 계획·감독표 바로가기</div>
+          <div class="feature-desc">자주 쓰는 사이트·문서로 한 번에 이동</div>
         </div>
 
         <div class="feature">
           <div class="feature-icon">📋</div>
           <div class="feature-name">학사·업무 메뉴</div>
-          <div class="feature-desc">학사일정, 업무 게시판, 결재선 안내, 학생 명렬표, 주요 사이트 모음</div>
+          <div class="feature-desc">결재선·명렬표 등 업무 자료를 따로 모아둔 메뉴</div>
         </div>
 
         <div class="feature">
-          <div class="feature-icon">💬</div>
+          <div class="feature-icon">🤖</div>
           <div class="feature-name">업무 비서</div>
           <div class="feature-desc">각종 규정·지침을 학습한 AI에게 묻고 답하기</div>
         </div>
@@ -685,25 +684,25 @@
         <!-- Mock 1: 홈 대시보드 (실제 화면 캡처 + 마스킹) -->
         <div class="dash-panel">
           <img src="../mock-home.png" alt="온라인 교무실 홈 화면" style="width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,0.08);border:1px solid var(--line);">
-          <div class="mock-caption">▲ 진짜 홈 화면이에요 · 주요 정보만 가렸습니다</div>
+          <div class="mock-caption">▲ 매일 아침 가장 먼저 여는 화면</div>
         </div>
 
         <!-- Mock 2: 업무 게시판 (실제 화면 캡처 + 마스킹) -->
         <div class="dash-panel">
           <img src="../업무 게시판1.png" alt="온라인 교무실 업무 게시판 화면" style="width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,0.08);border:1px solid var(--line);">
-          <div class="mock-caption">▲ 진짜 업무 게시판이에요 · 주요 정보만 가렸습니다</div>
+          <div class="mock-caption">▲ 부서별 전달 사항이 모이는 게시판</div>
         </div>
 
         <!-- Mock 3: 학사일정 (실제 화면 캡처 + 마스킹) -->
         <div class="dash-panel">
           <img src="../학사일정.png" alt="온라인 교무실 학사일정 화면" style="width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,0.08);border:1px solid var(--line);">
-          <div class="mock-caption">▲ 진짜 학사일정이에요 · 주요 정보만 가렸습니다</div>
+          <div class="mock-caption">▲ 어제·오늘·내일 일정을 한눈에</div>
         </div>
 
         <!-- Mock 4: 연락망 (실제 화면 캡처 + 마스킹) -->
         <div class="dash-panel">
           <img src="../연락망1.png" alt="온라인 교무실 연락망 화면" style="width:100%;height:auto;display:block;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,0.08);border:1px solid var(--line);">
-          <div class="mock-caption">▲ 진짜 연락망이에요 · 주요 정보만 가렸습니다</div>
+          <div class="mock-caption">▲ 학년·부서별로 정리한 교직원 연락망</div>
         </div>
 
         </div><!-- /dash-tab-panels -->
@@ -731,25 +730,19 @@
     </div>
   </section>
 
-  <section class="section-band cream" id="about">
+  <section class="section-band cream">
     <div class="container">
+
+    <!-- 가벼운 마무리 -->
+    <p style="text-align:center; font-family:'Gowun Batang', serif; font-size:14.5px; color:var(--sub); margin:0 0 24px;">
+      <a href="../" style="color:var(--accent); text-decoration:none; border-bottom:1px solid transparent; transition:border-color 0.15s;" onmouseover="this.style.borderBottomColor='var(--accent)'" onmouseout="this.style.borderBottomColor='transparent'">← 작업실 메인으로 돌아가기</a>
+    </p>
 
     <!-- Footer -->
     <footer class="footer">
       © 2026 교무실 옆 작업실 · 자유롭게 써주시고, 출처만 살짝 남겨주세요.<br>
-      <span style="opacity:0.7;font-size:11px;">마지막 업데이트 <span id="last-updated">2026.04.24.</span> · v1.0 · 계속 다듬어 나가는 중입니다</span>
+      <span style="opacity:0.7;font-size:11px;">v1.0 · 계속 다듬어 나가는 중입니다</span>
     </footer>
-
-    <script>
-      (function(){
-        var d = new Date();
-        var y = d.getFullYear();
-        var m = String(d.getMonth() + 1).padStart(2, '0');
-        var day = String(d.getDate()).padStart(2, '0');
-        var el = document.getElementById('last-updated');
-        if (el) el.textContent = y + '.' + m + '.' + day + '.';
-      })();
-    </script>
 
     </div>
   </section>
