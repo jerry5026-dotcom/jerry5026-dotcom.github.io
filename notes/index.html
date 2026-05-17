@@ -23,6 +23,12 @@
   <meta property="og:description" content="도구 개발 과정, 학교 생활, 일상 이야기를 기록합니다.">
   <meta property="og:url" content="https://jerry5026-dotcom.github.io/notes/">
   <meta property="og:locale" content="ko_KR">
+  <meta property="og:image" content="https://jerry5026-dotcom.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="교무실 옆 작업실 — 작업일지">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://jerry5026-dotcom.github.io/og-image.png">
 
   <!-- GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VP7Y745BK0"></script>
@@ -328,10 +334,18 @@
       <p class="notes-subtitle">교무실 한 켠, 작업 노트</p>
     </header>
 
+    <div class="filter-tabs" id="filterTabs">
+      <button type="button" class="filter-tab active" data-filter="all">전체</button>
+      <button type="button" class="filter-tab" data-filter="dev">🛠 개발</button>
+      <button type="button" class="filter-tab" data-filter="school">🏫 학교생활</button>
+      <button type="button" class="filter-tab" data-filter="life">📝 일상</button>
+    </div>
+
     <div class="post-list" id="post-list">
 
-      <a href="2026-05-13-logout-prevention.html" class="post-card">
+      <a href="2026-05-13-logout-prevention.html" class="post-card" data-category="dev">
         <div class="post-meta">
+          <span class="post-category dev">🛠 개발</span>
           <span>2026.05.13.</span>
         </div>
         <h2 class="post-title">내가 만든 걸, 누군가 이미 만들어놨더라고요.</h2>
@@ -341,8 +355,9 @@
         </p>
       </a>
 
-      <a href="2026-05-07-onmusil-assistant.html" class="post-card">
+      <a href="2026-05-07-onmusil-assistant.html" class="post-card" data-category="dev">
         <div class="post-meta">
+          <span class="post-category dev">🛠 개발</span>
           <span>2026.05.07.</span>
         </div>
         <h2 class="post-title">교무실에 비서 한 명을 들였습니다</h2>
@@ -352,8 +367,9 @@
         </p>
       </a>
 
-      <a href="2026-04-28-timetable-pause.html" class="post-card">
+      <a href="2026-04-28-timetable-pause.html" class="post-card" data-category="dev">
         <div class="post-meta">
+          <span class="post-category dev">🛠 개발</span>
           <span>2026.04.28.</span>
         </div>
         <h2 class="post-title">시험 시간표 도구는 잠시 쉽니다</h2>
@@ -363,8 +379,9 @@
         </p>
       </a>
 
-      <a href="2026-04-24-opening.html" class="post-card">
+      <a href="2026-04-24-opening.html" class="post-card" data-category="life">
         <div class="post-meta">
+          <span class="post-category life">📝 일상</span>
           <span>2026.04.24.</span>
         </div>
         <h2 class="post-title">작업실을 열며</h2>
@@ -376,24 +393,16 @@
 
     </div>
 
+    <div class="empty-state" id="emptyState" style="display:none;">
+      이 카테고리엔 아직 글이 없어요.
+    </div>
+
   </div>
 
   <footer class="footer">
     © 2026 교무실 옆 작업실 · 자유롭게 써주시고, 출처만 살짝 남겨주세요.<br>
-    <span style="opacity:0.7;font-size:11px;">마지막 업데이트 <span id="last-updated">2026.04.25.</span> · v1.0 · 계속 다듬어 나가는 중입니다</span>
+    <span style="opacity:0.7;font-size:11px;">마지막 업데이트 <span id="last-updated">—</span> · v<span id="site-version">—</span> · 계속 다듬어 나가는 중입니다</span>
   </footer>
-
-  <script>
-    // 마지막 업데이트 자동 날짜
-    (function(){
-      var d = new Date();
-      var y = d.getFullYear();
-      var m = String(d.getMonth() + 1).padStart(2, '0');
-      var day = String(d.getDate()).padStart(2, '0');
-      var el = document.getElementById('last-updated');
-      if (el) el.textContent = y + '.' + m + '.' + day + '.';
-    })();
-  </script>
 
   <script src="/notes-latest.js"></script>
   <script>
@@ -409,16 +418,44 @@
     })();
   </script>
 
+  <script src="/version.js"></script>
   <script>
-    // 발행일이 미래인 글은 자동 숨김 (예약 발행)
     (function(){
-      var now = Date.now();
-      document.querySelectorAll('.post-card[data-publish-date]').forEach(function(card){
-        var d = card.getAttribute('data-publish-date');
-        if (!d) return;
-        if (new Date(d + 'T00:00:00').getTime() > now) {
-          card.style.display = 'none';
-        }
+      var v = window.SITE_VERSION;
+      var u = window.SITE_LAST_UPDATE;
+      var vEl = document.getElementById('site-version');
+      var uEl = document.getElementById('last-updated');
+      if (vEl && v) vEl.textContent = v;
+      if (uEl && u) {
+        var p = u.split('-');
+        uEl.textContent = p[0] + '.' + p[1] + '.' + p[2] + '.';
+      }
+    })();
+  </script>
+
+  <script>
+    // 카테고리 필터
+    (function(){
+      var tabs = document.querySelectorAll('.filter-tab');
+      var cards = document.querySelectorAll('.post-card');
+      var empty = document.getElementById('emptyState');
+      tabs.forEach(function(tab){
+        tab.addEventListener('click', function(){
+          var filter = tab.getAttribute('data-filter');
+          tabs.forEach(function(t){ t.classList.remove('active'); });
+          tab.classList.add('active');
+          var visible = 0;
+          cards.forEach(function(card){
+            var cat = card.getAttribute('data-category');
+            if (filter === 'all' || cat === filter) {
+              card.classList.remove('hidden');
+              visible++;
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+          if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+        });
       });
     })();
   </script>
