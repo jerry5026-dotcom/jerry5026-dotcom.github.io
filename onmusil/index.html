@@ -741,7 +741,7 @@
     <!-- Footer -->
     <footer class="footer">
       © 2026 교무실 옆 작업실 · 자유롭게 써주시고, 출처만 살짝 남겨주세요.<br>
-      <span style="opacity:0.7;font-size:11px;">v1.0 · 계속 다듬어 나가는 중입니다</span>
+      <span style="opacity:0.7;font-size:11px;">마지막 업데이트 <span id="last-updated">—</span> · v<span id="site-version">—</span> · 계속 다듬어 나가는 중입니다</span>
     </footer>
 
     </div>
@@ -757,6 +757,21 @@
       if (diff >= 0 && diff <= DAYS) {
         var el = document.getElementById('notesNewDot');
         if (el) el.classList.add('show');
+      }
+    })();
+  </script>
+
+  <script src="/version.js"></script>
+  <script>
+    (function(){
+      var v = window.SITE_VERSION;
+      var u = window.SITE_LAST_UPDATE;
+      var vEl = document.getElementById('site-version');
+      var uEl = document.getElementById('last-updated');
+      if (vEl && v) vEl.textContent = v;
+      if (uEl && u) {
+        var p = u.split('-');
+        uEl.textContent = p[0] + '.' + p[1] + '.' + p[2] + '.';
       }
     })();
   </script>
