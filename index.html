@@ -2580,7 +2580,7 @@
         </div>
       </div>
 
-      <div id="feedbackToast" style="display:none;" class="feedback-toast">잘 받았습니다 :) 검토 후 게시돼요</div>
+      <div id="feedbackToast" style="display:none;" class="feedback-toast">고맙습니다 :)</div>
 
       <div class="feedback-list" id="feedbackList" style="display:none;">
         <div class="feedback-list-title">남겨주신 한마디</div>
@@ -2593,6 +2593,8 @@
         var ENDPOINT = 'https://script.google.com/macros/s/AKfycbzBviCGDTSveC2oqFv6IsgrmArinloGRJ794Lv8Htd7yOpf7U9B-TANJ5w0sWuiSYYC/exec';
         var LS_LIKE = 'workshop_liked';
         var LS_MSG  = 'workshop_msg_sent';
+        var LS_PENDING = 'workshop_pending_msg';
+        var PENDING_TTL_MS = 30 * 86400 * 1000; // 30일
 
         function formatDate(iso){
           var d = new Date(iso);
@@ -2605,7 +2607,28 @@
         function renderMessages(messages){
           var list = document.getElementById('feedbackList');
           var box = document.getElementById('feedbackMsgs');
-          if (!messages || !messages.length) { list.style.display = 'none'; return; }
+          messages = messages ? messages.slice() : [];
+
+          // 본인이 막 남긴 글(승인 대기) — 본인 브라우저에만 미리 노출
+          try {
+            var raw = localStorage.getItem(LS_PENDING);
+            if (raw) {
+              var p = JSON.parse(raw);
+              if (Date.now() - p.ts > PENDING_TTL_MS) {
+                localStorage.removeItem(LS_PENDING);
+              } else {
+                var approved = messages.some(function(m){ return m.text === p.text; });
+                if (approved) {
+                  localStorage.removeItem(LS_PENDING);
+                } else {
+                  messages = [{ ts: new Date(p.ts).toISOString(), text: p.text }].concat(messages);
+                }
+              }
+            }
+          } catch(e) {}
+
+          messages = messages.slice(0, 5);
+          if (!messages.length) { list.style.display = 'none'; return; }
           box.innerHTML = messages.map(function(m){
             var safe = String(m.text).replace(/[<>&"']/g, function(c){
               return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c];
@@ -2624,6 +2647,7 @@
             })
             .catch(function(){
               document.getElementById('feedbackCount').textContent = '·';
+              renderMessages([]);
             });
         }
 
@@ -2701,12 +2725,15 @@
             .then(function(r){ return r.json(); })
             .then(function(){
               localStorage.setItem(LS_MSG, Date.now());
+              // 본인 브라우저에만 즉시 노출(승인 대기 글)
+              localStorage.setItem(LS_PENDING, JSON.stringify({ ts: Date.now(), text: text }));
               document.getElementById('feedbackInputBox').style.display = 'none';
               document.getElementById('feedbackOpenMsg').style.display = 'none';
               document.getElementById('feedbackToast').style.display = 'inline-block';
               setTimeout(function(){
                 document.getElementById('feedbackToast').style.display = 'none';
               }, 4000);
+              loadFeedback();
             })
             .catch(function(){
               btn.disabled = false;
